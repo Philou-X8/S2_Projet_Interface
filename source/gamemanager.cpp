@@ -24,7 +24,7 @@ GameManager::GameManager(InputManager *inManager) {
 	std::cout << mapGrid;
 
 	//play de beat
-	PlaySound(TEXT("cyborg-ninja.wav"), NULL, SND_FILENAME | SND_ASYNC);
+	//PlaySound(TEXT("cyborg-ninja.wav"), NULL, SND_FILENAME | SND_ASYNC);
 
 	// initialize some console variables
 	consoleHandle = GetStdHandle(STD_OUTPUT_HANDLE);
@@ -55,7 +55,7 @@ GameManager::GameManager(int niveau, InputManager* inManager) {
 	std::cout << mapGrid;
 
 	//play de beat
-	PlaySound(TEXT("cyborg-ninja.wav"), NULL, SND_FILENAME | SND_ASYNC);
+	//PlaySound(TEXT("cyborg-ninja.wav"), NULL, SND_FILENAME | SND_ASYNC);
 
 	// initialize some console variables
 	consoleHandle = GetStdHandle(STD_OUTPUT_HANDLE);
