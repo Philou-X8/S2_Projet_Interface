@@ -45,6 +45,7 @@ public:
 
 	void updateOutputInfo(int lvl, int ply); // send to controller
 	char getInput(); // recieve from controller
+	void addKey(char key);
 
 	void startThreads();
 	bool stopThreads();

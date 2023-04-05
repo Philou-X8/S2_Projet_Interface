@@ -5,7 +5,7 @@ SerialPort* arduino; //doit etre un objet global!
 InputManager::InputManager() {
     //arduino = nullptr;
     isActiveController = false;
-    isActiveKeyboard = false;
+    isActiveKeyboard = true;
 
     newStr.clear();
     //jsonOut.lock();
@@ -88,6 +88,15 @@ char InputManager::getInput() {
     }
     threadLock.unlock();
     return returnVal;
+}
+
+void InputManager::addKey(char key) {
+
+    threadLock.lock();
+    if (pendingInput.size() < 5) {
+        pendingInput.push(key);
+    }
+    threadLock.unlock();
 }
 
 void InputManager::startThreads() {
