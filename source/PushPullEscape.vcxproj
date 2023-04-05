@@ -150,6 +150,7 @@
     <ClCompile Include="screen_select_level.cpp" />
     <ClCompile Include="screen_settings.cpp" />
     <ClCompile Include="subscreen_game_grid.cpp" />
+    <ClCompile Include="userProfile.cpp" />
     <ClCompile Include="window_main.cpp" />
   </ItemGroup>
   <ItemGroup>
@@ -272,6 +273,7 @@
     <ClInclude Include="include\json.hpp" />
     <ClInclude Include="include\serial\SerialPort.hpp" />
     <ClInclude Include="inputmanager.h" />
+    <ClInclude Include="userProfile.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets" />

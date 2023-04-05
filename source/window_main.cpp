@@ -9,10 +9,8 @@ window_main::window_main() : QMainWindow(),
 	inputManager = new InputManager;
 	setFocusPolicy(Qt::StrongFocus);
 
-	QObject::connect(this, SIGNAL(testSignal()), this, SLOT(testSlot()));
-
 	screenHome = new screen_home;
-	QObject::connect(screenHome, SIGNAL(SelectLevelSignal()), this, SLOT(testSlot()));
+	//QObject::connect(screenHome, SIGNAL(SelectLevelSignal()), screenHome, SLOT(testSlot()));
 	
 	clock = new QTimer;
 	QObject::connect(clock, SIGNAL(timeout()), this, SLOT(readInput()));
@@ -22,16 +20,13 @@ window_main::window_main() : QMainWindow(),
 	setCentralWidget(screenHome);
 
 }
-
 window_main::~window_main() 
 {
-	inputManager->stopThreads();
+	clock->stop();
+	//inputManager->stopThreads();
 	delete inputManager;
 }
 
-void window_main::testSlot() {
-	screenHome->setNewText("button pressed");
-}
 void window_main::readInput() {
 	char input = inputManager->getInput();
 	if (input != 0) {

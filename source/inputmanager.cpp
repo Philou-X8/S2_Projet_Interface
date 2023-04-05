@@ -20,6 +20,7 @@ InputManager::InputManager() {
 }
 InputManager::~InputManager() {
     stopThreads();
+    arduino->closeSerial();
 }
 
 bool InputManager::connectController() {

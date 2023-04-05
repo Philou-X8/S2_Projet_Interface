@@ -22,10 +22,8 @@ public:
 	~window_main();
 
 signals:
-	void testSignal();
 
 public slots:
-	void testSlot();
 	void readInput();
 
 protected:

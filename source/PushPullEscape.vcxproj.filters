@@ -57,6 +57,9 @@
     <ClCompile Include="include\serial\SerialPort.cpp">
       <Filter>Additional Files</Filter>
     </ClCompile>
+    <ClCompile Include="userProfile.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <CustomBuild Include="screen_game.h">
@@ -131,6 +134,9 @@
     </ClInclude>
     <ClInclude Include="include\serial\SerialPort.hpp">
       <Filter>Additional Files</Filter>
+    </ClInclude>
+    <ClInclude Include="userProfile.h">
+      <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
