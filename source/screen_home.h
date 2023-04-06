@@ -45,7 +45,7 @@ private:
 	UserProfile* profile;
 
 	QGridLayout* homeLayout;
-	QLabel* homeTestText; // temp 
+	//QLabel* homeTestText; // temp 
 	QLabel* homeTitle;
 	CustomButton* levelSelect;
 	CustomButton* continueGame;

@@ -39,7 +39,7 @@ void CustomButton::onRelease() {
 //-------------------------------------------------------
 screen_home::screen_home(UserProfile* p) : QWidget(),
 	homeLayout(nullptr),
-	homeTestText(nullptr),
+	//homeTestText(nullptr),
 	levelSelect(nullptr),
 	continueGame(nullptr),
 	settings(nullptr),
@@ -49,24 +49,24 @@ screen_home::screen_home(UserProfile* p) : QWidget(),
 	profile = p;
 	
 	// create label
-	homeTestText = new QLabel(this);
-	homeTestText->setText("test text");
+	//homeTestText = new QLabel(this);
+	//homeTestText->setText("test text");
 
 	homeTitle = new QLabel(this);
 	homeTitle->setPixmap(profile->getTex("home_title"));
 
-	levelSelect = new CustomButton(profile->getTex("home_button_level"), profile->getTex("home_button_hi"));
 	continueGame = new CustomButton(profile->getTex("home_button_continue"), profile->getTex("home_button_hi"));
+	levelSelect = new CustomButton(profile->getTex("home_button_level"), profile->getTex("home_button_hi"));
 	settings = new CustomButton(profile->getTex("home_button_settings"), profile->getTex("home_button_hi"));
 	quit = new CustomButton(profile->getTex("home_button_quit"), profile->getTex("home_button_hi"));
 
 	// create layout
 	homeLayout = new QGridLayout(this);
 	// fill layout
-	homeLayout->addWidget(homeTestText, 0, 0, 1, 1);
+	//homeLayout->addWidget(homeTestText, 0, 0, 1, 1);
 	homeLayout->addWidget(homeTitle, 0, 0, 1, 1);
-	homeLayout->addLayout(levelSelect, 1, 0);
-	homeLayout->addLayout(continueGame, 2, 0);
+	homeLayout->addLayout(continueGame, 1, 0);
+	homeLayout->addLayout(levelSelect, 2, 0);
 	homeLayout->addLayout(settings, 3, 0);
 	homeLayout->addLayout(quit, 4, 0);
 
@@ -74,8 +74,8 @@ screen_home::screen_home(UserProfile* p) : QWidget(),
 	setWindowTitle("test title");
 
 	buttonList = new QList<CustomButton*>();
-	buttonList->append(levelSelect);
 	buttonList->append(continueGame);
+	buttonList->append(levelSelect);
 	buttonList->append(settings);
 	buttonList->append(quit);
 	activeButton = 0;
@@ -87,7 +87,7 @@ screen_home::~screen_home() {
 }
 
 void screen_home::onKeyEvent(char key) {
-	homeTestText->setText(QString(key));
+	//homeTestText->setText(QString(key));
 
 	switch (key)
 	{
@@ -133,7 +133,7 @@ void screen_home::buttonSelect(int selection) {
 	}
 }
 void screen_home::setNewText(QString text) {
-	homeTestText->setText(text);
+	//homeTestText->setText(text);
 }
 
 
