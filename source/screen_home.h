@@ -6,40 +6,14 @@
 #include <QLabel>
 #include <QPushButton>
 #include <QList>
+#include "userProfile.h"
 
-class screen_home : public QWidget
+
+class CustomButton : public QGridLayout
 {
 	Q_OBJECT
 public:
-	screen_home();
-	~screen_home();
-
-	void setNewText(QString text);
-	void onKeyEvent(char key);
-
-signals:
-	void SelectLevelSignal();
-	void SelectContinueSignal();
-
-private:
-	QGridLayout* homeLayout;
-	QLabel* homeTestText;
-
-	QPushButton* levelSelect;
-	QPushButton* continueGame;
-	QPushButton* settings;
-	QPushButton* quit;
-	QList<QPushButton*> *buttonList;
-
-	int activeButton;
-	void buttonSelect(int selection);
-
-};
-
-class CustomButton : public QLayout
-{
-	Q_OBJECT
-public:
+	//CustomButton();
 	CustomButton(QPixmap base, QPixmap hi);
 	~CustomButton();
 
@@ -51,3 +25,35 @@ private:
 
 };
 
+
+
+class screen_home : public QWidget
+{
+	Q_OBJECT
+public:
+	screen_home(UserProfile* p);
+	~screen_home();
+
+	void setNewText(QString text);
+	void onKeyEvent(char key);
+
+signals:
+	void SelectLevelSignal();
+	void SelectContinueSignal();
+
+private:
+	UserProfile* profile;
+
+	QGridLayout* homeLayout;
+	QLabel* homeTestText; // temp 
+	QLabel* homeTitle;
+	CustomButton* levelSelect;
+	CustomButton* continueGame;
+	CustomButton* settings;
+	CustomButton* quit;
+	QList<CustomButton*> *buttonList;
+
+	int activeButton;
+	void buttonSelect(int selection);
+
+};

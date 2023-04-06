@@ -25,11 +25,15 @@ signals:
 
 public slots:
 	void readInput();
+	void setScreenLevels();
+	void setScreenGame();
+
 
 protected:
 	void keyPressEvent(QKeyEvent* event) override;
 
 private:
+	UserProfile* profile;
 	screen_home* screenHome;
 	screen_select_level* screenLevels;
 	screen_game* screenGame;

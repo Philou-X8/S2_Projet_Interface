@@ -2,14 +2,18 @@
 #include <QApplication>
 
 window_main::window_main() : QMainWindow(),
-	screenHome(nullptr) ,
-	screenLevels(nullptr) ,
+	profile(nullptr),
+	screenHome(nullptr),
+	screenLevels(nullptr),
 	screenGame(nullptr)
 {
+	profile = new UserProfile("default");
 	inputManager = new InputManager;
 	setFocusPolicy(Qt::StrongFocus);
 
-	screenHome = new screen_home;
+	screenHome = new screen_home(profile);
+	QObject::connect(screenHome, SIGNAL(SelectLevelSignal()), this, SLOT(setScreenLevels()));
+	QObject::connect(screenHome, SIGNAL(SelectContinueSignal()), this, SLOT(setScreenGame()));
 	//QObject::connect(screenHome, SIGNAL(SelectLevelSignal()), screenHome, SLOT(testSlot()));
 	
 	clock = new QTimer;
@@ -34,23 +38,45 @@ void window_main::readInput() {
 		// do stuff when a key is pressed
 
 		if (screenHome != nullptr) screenHome->onKeyEvent(input);
+
+		//if (screenLevels != nullptr) screenLevels->onKeyEvent(input);
+
+		//if (screenGame != nullptr) screenGame->onKeyEvent(input);
 	}
 }
 
 void window_main::keyPressEvent(QKeyEvent* event) {
 
-	QChar qchar(event->key());
-	//qchar = char(event->key());
-	//qchar = qchar.toLower();
+	QChar qchar((char)event->key()); // without casting to char, the program crash
+	//if (qchar.unicode() >= 'A' && qchar.unicode() <= 'Z') qchar = qchar.toLower();
 	inputManager->addKey(qchar.toLower().unicode());
 
-	/*
-	QString str;
-	//str.append('c');
-	str.append((char)event->key());
-	str.toLower();
-	inputManager->addKey(str.at(0).toLower().unicode());
-	screenHome->setNewText(QString(inputManager->getInput()));
-	//if (event->key() == Qt::Key_F) 
-	*/
+}
+
+void window_main::setScreenLevels() {
+	if (screenHome != nullptr) {
+		delete screenHome;
+		screenHome = nullptr;
+	}
+	if (screenLevels != nullptr) {
+		screenLevels = new screen_select_level(profile);
+		// connect
+	}
+	setCentralWidget(screenLevels);
+}
+
+void window_main::setScreenGame() {
+	if (screenHome != nullptr) {
+		delete screenHome;
+		screenHome = nullptr;
+	}
+	if (screenLevels != nullptr) {
+		delete screenLevels;
+		screenLevels = nullptr;
+	}
+	if (screenGame == nullptr) {
+		screenGame = new screen_game(profile);
+		// connect
+	}
+	setCentralWidget(screenGame);
 }
