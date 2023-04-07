@@ -149,4 +149,9 @@
       <Filter>Generated Files</Filter>
     </ClCompile>
   </ItemGroup>
+  <ItemGroup>
+    <Text Include="..\configs\save_state.txt">
+      <Filter>Additionnal Include</Filter>
+    </Text>
+  </ItemGroup>
 </Project>

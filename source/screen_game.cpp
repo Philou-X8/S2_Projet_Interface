@@ -32,17 +32,8 @@ screen_game::screen_game(UserProfile* p) : QWidget(),
 	
 	gameLayout->addWidget(testLabel, 0, 0, 3, 3);
 	gameLayout->addWidget(mapGrid, 1, 1);
-
-	gameLayout->setColumnStretch(0, 1);
-	gameLayout->setColumnStretch(1, 0);
-	gameLayout->setColumnStretch(2, 1);
-	gameLayout->setRowStretch(0, 1);
-	gameLayout->setRowStretch(1, 0);
-	gameLayout->setRowStretch(2, 1);
+	
 	setLayout(gameLayout);
-	//setSizePolicy(QSizePolicy::Minimum, QSizePolicy::Minimum);
-	//setFixedSize(0, 0);
-	//adjustSize();
 }
 screen_game::~screen_game() {
 

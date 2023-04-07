@@ -42,7 +42,12 @@ void UserProfile::readSaveState() {
 
 QPixmap UserProfile::getTex(QString tex) {
 	QString path = "../texture/" + skin + "/" + tex + ".png";
-	return QPixmap(path);
+	QPixmap texture = QPixmap(path);
+	if (texture.isNull()) { // failsafe to default texture
+		path = "../texture/default/" + tex + ".png";
+		return QPixmap(path);
+	}
+	return texture;
 }
 int UserProfile::getUnlocked() {
 	return unlockedLvlNb;

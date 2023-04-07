@@ -1,5 +1,5 @@
-minecraft
-default minecraft
+paper
+default minecraft scifi beach paper
 1
 1
 1

@@ -75,8 +75,10 @@ void subscreen_game_grid::newGrid(int(*arr)[20][20], Coords newMapSize) {
 	gridLayout->addWidget(p1Tex, 19 - p1->y, p1->x);
 	gridLayout->addWidget(p2Tex, 19 - p2->y, p2->x);
 	//setLayout(gridLayout);
-	//this.size
-	//adjustSize();
+	
+	setFixedSize((mapSize->x+1) * 32, (mapSize->y+1) * 32); 
+	gridLayout->setContentsMargins(0, 0, 0, 0);
+	setContentsMargins(0, 0, 0, 0);
 	
 	//setFixedSize(0, 0);
 	//playerGrid->addWidget(spacer, 0, 0, mapSize->y, mapSize->x);
