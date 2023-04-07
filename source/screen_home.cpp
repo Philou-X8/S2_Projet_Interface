@@ -18,7 +18,7 @@ CustomButton::CustomButton(QPixmap base, QPixmap hi) : QGridLayout(),
 
 	addWidget(buttonHi, 0, 0);
 	addWidget(buttonBase, 0, 0);
-	setAlignment(Qt::AlignCenter);
+	//setAlignment(Qt::AlignCenter);
 }
 CustomButton::~CustomButton()
 {
@@ -51,6 +51,7 @@ screen_home::screen_home(UserProfile* p) : QWidget(),
 	
 	homeTitle = new QLabel(this);
 	homeTitle->setPixmap(profile->getTex("home_title"));
+	homeTitle->setAlignment(Qt::AlignCenter);
 
 	continueGame = new CustomButton(profile->getTex("home_button_continue"), profile->getTex("home_button_hi"));
 	levelSelect = new CustomButton(profile->getTex("home_button_level"), profile->getTex("home_button_hi"));
@@ -75,6 +76,7 @@ screen_home::screen_home(UserProfile* p) : QWidget(),
 	homeLayout->addLayout(quit, 4, 0);
 
 
+	//homeLayout->setAlignment(Qt::AlignCenter);
 
 	setLayout(homeLayout);
 	setWindowTitle("test title");
@@ -85,8 +87,6 @@ screen_home::~screen_home() {
 }
 
 void screen_home::onKeyEvent(char key) {
-	//homeTestText->setText(QString(key));
-
 	switch (key)
 	{
 	case 'w':
@@ -131,8 +131,4 @@ void screen_home::buttonSelect(int selection) {
 		break;
 	}
 }
-void screen_home::setNewText(QString text) {
-	//homeTestText->setText(text);
-}
-
 

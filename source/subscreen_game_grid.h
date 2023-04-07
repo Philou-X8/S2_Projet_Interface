@@ -23,6 +23,7 @@ public:
 	void movePlayers();
 	void rotatePlayer(Coords* dir);
 
+	//QGridLayout* playerGrid;
 private:
 	UserProfile* profile;
 	int grid[20][20];
@@ -36,5 +37,7 @@ private:
 	QLabel* visualGrid[20][20];
 	QGridLayout* gridLayout;
 	QPixmap getTileTex(int type);
+
+	//QLabel* spacer;
 };
 

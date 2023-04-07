@@ -21,25 +21,24 @@ screen_game::screen_game(UserProfile* p) : QWidget(),
 	mapSize = new Coords(19, 19);
 	mapLoader = new MapLoader;
 
+
 	mapGrid = new subscreen_game_grid(profile, p1, p2);
 	loadLevel(currentLevel);
 
 	// -------------------- UI elements --------------------
-	//QLabel* testLabel = new QLabel(this);
+	QLabel* testLabel = new QLabel(this);
 	gameLayout = new QGridLayout(this);
 	//gameLayout->setSizeConstraint(QLayout::SetMinimumSize);
 	
-	// ---------- addWidget
-	// gameLayout->addWidget( );
-	//gameLayout->addWidget(testLabel, 0, 0, 3, 3);
+	gameLayout->addWidget(testLabel, 0, 0, 3, 3);
 	gameLayout->addWidget(mapGrid, 1, 1);
-	// ---------- 
-	gameLayout->setColumnStretch(0, 1);
-	gameLayout->setColumnStretch(1, 0);
-	gameLayout->setColumnStretch(2, 1);
-	gameLayout->setRowStretch(0, 1);
-	gameLayout->setRowStretch(1, 0);
-	gameLayout->setRowStretch(2, 1);
+
+	gameLayout->setColumnStretch(0, 10);
+	gameLayout->setColumnStretch(1, 1);
+	gameLayout->setColumnStretch(2, 10);
+	gameLayout->setRowStretch(0, 10);
+	gameLayout->setRowStretch(1, 1);
+	gameLayout->setRowStretch(2, 10);
 	setLayout(gameLayout);
 	//setSizePolicy(QSizePolicy::Minimum, QSizePolicy::Minimum);
 	//setFixedSize(0, 0);
@@ -50,7 +49,7 @@ screen_game::~screen_game() {
 }
 void screen_game::onKeyEvent(char key) {
 
-	adjustSize(); // test -----------------
+	//adjustSize(); // test -----------------
 
 	int moveResult = inputPlayerAction(key);
 	mapGrid->movePlayers();
@@ -65,6 +64,7 @@ void screen_game::onKeyEvent(char key) {
 		bool gameOver = !loadLevel(currentLevel);
 		//adjustSize(); // test -----------------
 		if (gameOver) {
+			currentLevel = 1;
 			// there are no more level
 		}
 	}

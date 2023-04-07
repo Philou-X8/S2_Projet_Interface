@@ -18,13 +18,12 @@ window_main::window_main(QWidget* parent) : QMainWindow(parent),
 	
 	clock = new QTimer;
 	QObject::connect(clock, SIGNAL(timeout()), this, SLOT(readInput()));
-	clock->start(50);
-
+	clock->start(10);
 
 	setCentralWidget(screenHome);
 	setMinimumSize(960, 540);
 	//setMaximumSize(1920, 1080);
-	//setFixedSize(0, 0);
+	//setFixedSize(960, 540);
 	//this->setSizePolicy(QSizePolicy::Minimum, QSizePolicy::Minimum);
 	//this->adjustSize();
 }
@@ -38,7 +37,6 @@ window_main::~window_main()
 void window_main::readInput() {
 	char input = inputManager->getInput();
 	if (input != 0) {
-		centralWidget()->adjustSize();
 		// do stuff when a key is pressed
 
 		if (screenHome != nullptr) screenHome->onKeyEvent(input);

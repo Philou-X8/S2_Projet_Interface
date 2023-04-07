@@ -34,7 +34,6 @@ public:
 	screen_home(UserProfile* p);
 	~screen_home();
 
-	void setNewText(QString text);
 	void onKeyEvent(char key);
 
 signals:

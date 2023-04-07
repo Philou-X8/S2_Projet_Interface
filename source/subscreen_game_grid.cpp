@@ -20,7 +20,6 @@ subscreen_game_grid::subscreen_game_grid(UserProfile* p, Coords* p1pos, Coords* 
 	gridLayout = new QGridLayout(this);
 	gridLayout->setSpacing(0);
 	//gridLayout->setSizeConstraint(QLayout::SetMinimumSize);
-	//this->sizePolicy = QSizePolicy::Minimum;
 	for (int i(0); i < 20; i++) {
 		for (int j(0); j < 20; j++) {
 			grid[i][j] = 0;
@@ -40,6 +39,8 @@ subscreen_game_grid::subscreen_game_grid(UserProfile* p, Coords* p1pos, Coords* 
 
 	//this->setSizePolicy(QSizePolicy::Minimum, QSizePolicy::Minimum);
 	//adjustSize();
+	//playerGrid = new QGridLayout(this);
+	//spacer = new QLabel(this);
 }
 subscreen_game_grid::~subscreen_game_grid() {
 
@@ -69,13 +70,16 @@ void subscreen_game_grid::newGrid(int(*arr)[20][20], Coords newMapSize) {
 			
 		}
 	}
+	gridLayout->removeWidget(p1Tex);
+	gridLayout->removeWidget(p2Tex);
 	gridLayout->addWidget(p1Tex, 19 - p1->y, p1->x);
 	gridLayout->addWidget(p2Tex, 19 - p2->y, p2->x);
 	//setLayout(gridLayout);
 	//this.size
 	//adjustSize();
-
+	
 	//setFixedSize(0, 0);
+	//playerGrid->addWidget(spacer, 0, 0, mapSize->y, mapSize->x);
 }
 
 bool subscreen_game_grid::mapSolved() {
@@ -178,9 +182,11 @@ int subscreen_game_grid::actionBlue() {
 void subscreen_game_grid::movePlayers() {
 
 	rotatePlayer(p1Dir);
+	gridLayout->removeWidget(p1Tex);
 	gridLayout->addWidget(p1Tex, 19 - p1->y, p1->x);
 
 	rotatePlayer(p2Dir);
+	gridLayout->removeWidget(p2Tex);
 	gridLayout->addWidget(p2Tex, 19 - p2->y, p2->x);
 }
 void subscreen_game_grid::rotatePlayer(Coords* dir) {
