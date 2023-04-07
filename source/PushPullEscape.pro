@@ -7,7 +7,11 @@ HEADERS     += \
 	screen_select_level.h \
 	screen_settings.h \
 	subscreen_game_grid.h \
-	window_main.h
+	window_main.h \
+	inputmanager.h \
+	maploader.h \
+	position.h \
+	userProfile.h
 SOURCES     += \
 	screen_game.cpp \
 	screen_home.cpp \
@@ -15,5 +19,9 @@ SOURCES     += \
 	screen_settings.cpp \
 	subscreen_game_grid.cpp \
 	window_main.cpp \
+	inputmanager.cpp \
+	maploader.cpp \
+	position.cpp \
+	userProfile.cpp \
 	main.cpp
 QT          += widgets

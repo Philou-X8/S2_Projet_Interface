@@ -38,8 +38,10 @@ public:
 	void onKeyEvent(char key);
 
 signals:
-	void SelectLevelSignal();
 	void SelectContinueSignal();
+	void SelectLevelSignal();
+	void SelectSettingsSignal();
+	void SelectQuitSignal();
 
 private:
 	UserProfile* profile;

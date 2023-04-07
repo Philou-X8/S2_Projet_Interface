@@ -5,18 +5,36 @@
 #include <QGridLayout>
 #include <QLabel>
 #include "userProfile.h"
+#include "maploader.h"
+#include "subscreen_game_grid.h"
 
 class screen_game : public QWidget
 {
 	Q_OBJECT
 public:
 	screen_game(UserProfile* p);
-	screen_game(UserProfile* p, int startPoint);
 	~screen_game();
+
+	void onKeyEvent(char key);
+
+	bool levelState(); // check if level is finished
+	bool loadLevel(int lvl);
+
+	void getOutputInfo(int& count);
 
 private:
 	UserProfile* profile;
 	QGridLayout* gameLayout;
-	QLabel* gameTestText;
-};
 
+	Coords* p1; // player 1 coords
+	Coords* p2; // player 2 coords
+	Coords* mapSize;
+	subscreen_game_grid* mapGrid;
+	MapLoader* mapLoader;
+	int currentLevel;
+	int moveCount;
+	int activePlayer;
+
+	int inputPlayerAction(char input);
+
+};

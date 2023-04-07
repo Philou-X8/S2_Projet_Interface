@@ -1,15 +1,15 @@
 #include "window_main.h"
 #include <QApplication>
 
-window_main::window_main() : QMainWindow(),
+window_main::window_main(QWidget* parent) : QMainWindow(parent),
 	profile(nullptr),
 	screenHome(nullptr),
 	screenLevels(nullptr),
 	screenGame(nullptr)
 {
-	profile = new UserProfile("default");
+	profile = new UserProfile;
 	inputManager = new InputManager;
-	setFocusPolicy(Qt::StrongFocus);
+	setFocusPolicy(Qt::StrongFocus); // needed for proper keyboard reading
 
 	screenHome = new screen_home(profile);
 	QObject::connect(screenHome, SIGNAL(SelectLevelSignal()), this, SLOT(setScreenLevels()));
@@ -22,7 +22,9 @@ window_main::window_main() : QMainWindow(),
 
 
 	setCentralWidget(screenHome);
-
+	setFixedSize(0, 0);
+	//this->setSizePolicy(QSizePolicy::Minimum, QSizePolicy::Minimum);
+	//this->adjustSize();
 }
 window_main::~window_main() 
 {
@@ -41,7 +43,7 @@ void window_main::readInput() {
 
 		//if (screenLevels != nullptr) screenLevels->onKeyEvent(input);
 
-		//if (screenGame != nullptr) screenGame->onKeyEvent(input);
+		if (screenGame != nullptr) screenGame->onKeyEvent(input);
 	}
 }
 
@@ -53,19 +55,44 @@ void window_main::keyPressEvent(QKeyEvent* event) {
 
 }
 
-void window_main::setScreenLevels() {
-	if (screenHome != nullptr) {
-		delete screenHome;
-		screenHome = nullptr;
+void window_main::setScreenHome() {
+	clearCentralWidget();
+	if (screenHome == nullptr) {
+		screenHome = new screen_home(profile);
+		// ---------- connect
+		//QObject::connect(screenHome, SIGNAL(SelectLevelSignal()), this, SLOT(setScreenLevels()));
+		//QObject::connect(screenHome, SIGNAL(SelectContinueSignal()), this, SLOT(setScreenGame()));
+		// ----------
 	}
-	if (screenLevels != nullptr) {
+	setCentralWidget(screenHome);
+	setWindowTitle("Home screen");
+}
+void window_main::setScreenLevels() {
+	clearCentralWidget();
+	if (screenLevels == nullptr) {
 		screenLevels = new screen_select_level(profile);
-		// connect
+		// ---------- connect
+		
+		// ----------
 	}
 	setCentralWidget(screenLevels);
+	setWindowTitle("Level selection");
 }
 
 void window_main::setScreenGame() {
+	clearCentralWidget();
+	if (screenGame == nullptr) {
+		screenGame = new screen_game(profile);
+		// ---------- connect
+
+		// ----------
+	}
+	setCentralWidget(screenGame);
+	setWindowTitle("Game screen");
+}
+
+
+void window_main::clearCentralWidget() {
 	if (screenHome != nullptr) {
 		delete screenHome;
 		screenHome = nullptr;
@@ -74,9 +101,8 @@ void window_main::setScreenGame() {
 		delete screenLevels;
 		screenLevels = nullptr;
 	}
-	if (screenGame == nullptr) {
-		screenGame = new screen_game(profile);
-		// connect
+	if (screenGame != nullptr) {
+		delete screenGame;
+		screenGame = nullptr;
 	}
-	setCentralWidget(screenGame);
 }

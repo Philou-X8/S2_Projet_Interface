@@ -25,12 +25,21 @@
       <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
       <Extensions>cpp;c;cxx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
     </Filter>
-    <Filter Include="Additional Files">
-      <UniqueIdentifier>{6a404e74-f3cc-4d75-b884-f938807ad95b}</UniqueIdentifier>
+    <Filter Include="Additionnal Include">
+      <UniqueIdentifier>{049fb405-3714-4b8e-95dd-ba3b4c6ddca8}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="inputmanager.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
     <ClCompile Include="main.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="maploader.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="position.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="screen_game.cpp">
@@ -48,20 +57,26 @@
     <ClCompile Include="subscreen_game_grid.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="window_main.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="inputmanager.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="include\serial\SerialPort.cpp">
-      <Filter>Additional Files</Filter>
-    </ClCompile>
     <ClCompile Include="userProfile.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="window_main.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="include\serial\SerialPort.cpp">
+      <Filter>Additionnal Include</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="inputmanager.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="maploader.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="position.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
     <CustomBuild Include="screen_game.h">
       <Filter>Header Files</Filter>
     </CustomBuild>
@@ -77,9 +92,18 @@
     <CustomBuild Include="subscreen_game_grid.h">
       <Filter>Header Files</Filter>
     </CustomBuild>
+    <ClInclude Include="userProfile.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
     <CustomBuild Include="window_main.h">
       <Filter>Header Files</Filter>
     </CustomBuild>
+    <ClInclude Include="include\json.hpp">
+      <Filter>Additionnal Include</Filter>
+    </ClInclude>
+    <ClInclude Include="include\serial\SerialPort.hpp">
+      <Filter>Additionnal Include</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <CustomBuild Include="debug\moc_predefs.h.cbt">
@@ -124,19 +148,5 @@
     <ClCompile Include="release\moc_window_main.cpp">
       <Filter>Generated Files</Filter>
     </ClCompile>
-  </ItemGroup>
-  <ItemGroup>
-    <ClInclude Include="inputmanager.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="include\json.hpp">
-      <Filter>Additional Files</Filter>
-    </ClInclude>
-    <ClInclude Include="include\serial\SerialPort.hpp">
-      <Filter>Additional Files</Filter>
-    </ClInclude>
-    <ClInclude Include="userProfile.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
   </ItemGroup>
 </Project>

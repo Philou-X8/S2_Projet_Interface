@@ -14,6 +14,8 @@ public:
 	screen_select_level(UserProfile* p);
 	~screen_select_level();
 
+	void onKeyEvent(char key);
+
 private:
 	const int levelCount = 12; // number of existing levels
 	UserProfile* profile;

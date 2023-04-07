@@ -38,6 +38,7 @@ void CustomButton::onRelease() {
 //	home screen
 //-------------------------------------------------------
 screen_home::screen_home(UserProfile* p) : QWidget(),
+	profile(p),
 	homeLayout(nullptr),
 	//homeTestText(nullptr),
 	levelSelect(nullptr),
@@ -46,12 +47,8 @@ screen_home::screen_home(UserProfile* p) : QWidget(),
 	quit(nullptr),
 	buttonList(nullptr)
 {
-	profile = p;
+	//profile = p;
 	
-	// create label
-	//homeTestText = new QLabel(this);
-	//homeTestText->setText("test text");
-
 	homeTitle = new QLabel(this);
 	homeTitle->setPixmap(profile->getTex("home_title"));
 
@@ -60,26 +57,27 @@ screen_home::screen_home(UserProfile* p) : QWidget(),
 	settings = new CustomButton(profile->getTex("home_button_settings"), profile->getTex("home_button_hi"));
 	quit = new CustomButton(profile->getTex("home_button_quit"), profile->getTex("home_button_hi"));
 
+	activeButton = 0;
+	buttonList = new QList<CustomButton*>();
+	buttonList->append(continueGame);
+	buttonList->append(levelSelect);
+	buttonList->append(settings);
+	buttonList->append(quit);
+	buttonList->at(activeButton)->onSelect();
+
 	// create layout
 	homeLayout = new QGridLayout(this);
 	// fill layout
-	//homeLayout->addWidget(homeTestText, 0, 0, 1, 1);
 	homeLayout->addWidget(homeTitle, 0, 0, 1, 1);
 	homeLayout->addLayout(continueGame, 1, 0);
 	homeLayout->addLayout(levelSelect, 2, 0);
 	homeLayout->addLayout(settings, 3, 0);
 	homeLayout->addLayout(quit, 4, 0);
 
+
+
 	setLayout(homeLayout);
 	setWindowTitle("test title");
-
-	buttonList = new QList<CustomButton*>();
-	buttonList->append(continueGame);
-	buttonList->append(levelSelect);
-	buttonList->append(settings);
-	buttonList->append(quit);
-	activeButton = 0;
-	buttonList->at(activeButton)->onSelect();
 }
 
 screen_home::~screen_home() {
@@ -95,7 +93,6 @@ void screen_home::onKeyEvent(char key) {
 	case 'i':
 		if (activeButton > 0) {
 			buttonList->at(activeButton)->onRelease();
-			//buttonList[activeButton]->onRelease();
 			activeButton--;
 			buttonList->at(activeButton)->onSelect();
 		}
@@ -119,14 +116,16 @@ void screen_home::buttonSelect(int selection) {
 	switch (selection)
 	{
 	case 0:
-		emit SelectLevelSignal();
-		break;
-	case 1:
 		emit SelectContinueSignal();
 		break;
+	case 1:
+		emit SelectLevelSignal();
+		break;
 	case 2:
+		emit SelectSettingsSignal();
 		break;
 	case 3:
+		emit SelectQuitSignal();
 		break;
 	default:
 		break;

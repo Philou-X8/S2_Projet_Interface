@@ -31,18 +31,18 @@ bool InputManager::connectController() {
         }
     }
     
-    string comPort = "COM1";
+    std::string comPort = "COM1";
     for (int i = '1'; i <= '9'; i++) {
         comPort[3] = i;
-        cout << "attemping port " << comPort << endl;
+        std::cout << "attemping port " << comPort << std::endl;
         arduino = new SerialPort(comPort.c_str(), BAUD);
         if (arduino->isConnected()) {
             controllerConnected = true;
-            std::cout << "controller connnected on port " << comPort << endl;
+            std::cout << "controller connnected on port " << comPort << std::endl;
             return controllerConnected;
         }
         else {
-            std::cout << "failed to connect to " << comPort << endl;
+            std::cout << "failed to connect to " << comPort << std::endl;
             delete arduino;
         }
     }
@@ -50,12 +50,12 @@ bool InputManager::connectController() {
     return controllerConnected;
 }
 
-void InputManager::updateOutputInfo(int lvl, int ply) {
+void InputManager::updateOutputInfo(int nbDisplay, int ledMode) {
     //jsonOut.lock();
     comsOut.clear(); 
-    int oddLvl = lvl % 2;
-    comsOut["nb"] = lvl;
-    switch (ply)
+    int oddLvl = nbDisplay % 2;
+    comsOut["nb"] = nbDisplay;
+    switch (ledMode)
     {
     case 1:
         comsOut["r"] = 255;
@@ -103,13 +103,13 @@ void InputManager::addKey(char key) {
 void InputManager::startThreads() {
     if (!isActiveKeyboard) {
         isActiveKeyboard = true;
-        keyboardComs = thread(&InputManager::readKeyboard, this);
+        keyboardComs = std::thread(&InputManager::readKeyboard, this);
     }
     if (!isActiveController) {
         isActiveController = true;
-        controllerComs = thread(&InputManager::readController, this);
+        controllerComs = std::thread(&InputManager::readController, this);
     }
-    cout << "\nThreads ready\n";
+    std::cout << "\nThreads ready\n";
 }
 
 bool InputManager::stopThreads() {
@@ -268,7 +268,7 @@ char InputManager::buttonPress(int recivedState, bool& buttonState, char map) {
 
 
 bool InputManager::recieveComs() {
-    string str_buffer;
+    std::string str_buffer;
     char char_buffer[MSG_MAX_SIZE];
     //Sleep(10);
     int buffer_size = arduino->readSerialPort(char_buffer, MSG_MAX_SIZE);
@@ -281,7 +281,7 @@ bool InputManager::recieveComs() {
 
     size_t startChar = str_buffer.find_first_of('{');
     size_t endChar = str_buffer.find_first_of('}');
-    if ((endChar != string::npos) && (newStr.size() > 40)) { // json completed
+    if ((endChar != std::string::npos) && (newStr.size() > 40)) { // json completed
         newStr.append(str_buffer, 0, endChar);
         newStr += '}';
         comsIn.clear();
@@ -292,10 +292,10 @@ bool InputManager::recieveComs() {
         returnVal = true;
         
     }
-    if (startChar != string::npos) { // start new json
-        newStr.assign(str_buffer, startChar, string::npos);
+    if (startChar != std::string::npos) { // start new json
+        newStr.assign(str_buffer, startChar, std::string::npos);
     }
-    else if (endChar == string::npos) { // json ongoing
+    else if (endChar == std::string::npos) { // json ongoing
         newStr.append(str_buffer);
     }
 
@@ -306,6 +306,8 @@ bool InputManager::sendComs() {
     //Sleep(50);
     //jsonOut.lock();
     //cout << "trying to send: " << comsOut.dump() << "----\n";
+    if (!controllerConnected) return false;
+
     bool success = arduino->writeSerialPort(
         comsOut.dump().c_str(),
         comsOut.dump().length()

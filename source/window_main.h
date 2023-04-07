@@ -18,13 +18,14 @@ class window_main : public QMainWindow
 {
 	Q_OBJECT
 public:
-	window_main();
+	window_main(QWidget* parent = nullptr);
 	~window_main();
 
 signals:
 
 public slots:
 	void readInput();
+	void setScreenHome();
 	void setScreenLevels();
 	void setScreenGame();
 
@@ -40,6 +41,8 @@ private:
 
 	QTimer* clock;
 	InputManager* inputManager;
+
+	void clearCentralWidget();
 };
 
 #endif

@@ -15,7 +15,6 @@ using json = nlohmann::json;
 #define BAUD 9600           // Frequence de transmission serielle
 #define MSG_MAX_SIZE 1024   // Longueur maximale d'un message
 
-using namespace std;
 
 #define ACTIVE 1
 #define ARMED 0
@@ -43,7 +42,7 @@ public:
 
 	bool connectController();
 
-	void updateOutputInfo(int lvl, int ply); // send to controller
+	void updateOutputInfo(int nbDisplay, int ledMode); // send to controller
 	char getInput(); // recieve from controller
 	void addKey(char key);
 
@@ -51,15 +50,15 @@ public:
 	bool stopThreads();
 
 private:
-	mutex jsonOut;
+	std::mutex jsonOut;
 	json comsIn;
 	json comsOut;
 
 	/********** Thread management **********/
-	mutex threadLock; // to lock pendingInput
-	queue<char, std::list<char>> pendingInput;
-	thread keyboardComs; // reading from the keyboard
-	thread controllerComs; // reading from the controller
+	std::mutex threadLock; // to lock pendingInput
+	std::queue<char, std::list<char>> pendingInput;
+	std::thread keyboardComs; // reading from the keyboard
+	std::thread controllerComs; // reading from the controller
 	void readKeyboard(); // looping thread
 	void readController(); // looping thread
 	bool isActiveKeyboard; // should keep the threads running
@@ -71,7 +70,7 @@ private:
 	buttonstates controllerState;
 
 	/********** Used by readController() **********/
-	string newStr;
+	std::string newStr;
 	std::list<char> decodeController();
 	char buttonPress(int recivedState, bool& buttonState, char map);
 

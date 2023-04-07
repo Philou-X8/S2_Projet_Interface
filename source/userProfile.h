@@ -3,14 +3,21 @@
 class UserProfile
 {
 public:
-	//UserProfile();
+	UserProfile();
 	UserProfile(QString set_skin);
 	~UserProfile();
+
 	QPixmap getTex(QString tex);
-	int getProgress();
+	int getUnlocked();
+	void setUnlocked(int progess);
+	int getStart();
+	void setStart(int start);
+	bool autoAction();
+	void setActionMode(bool mode);
 private:
 	QString skin;
 	int unlockedLvlNb;
-	int chosenLvl;
+	int startingLvl;
+	bool actionMode; // push/pull box when running into them
 };
 

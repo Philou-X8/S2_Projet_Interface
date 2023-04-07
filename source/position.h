@@ -7,11 +7,15 @@
 #define SPAWN1 5 // red spawn
 #define SPAWN2 6 // blue spawn
 
-
 const char UP = 'u';
 const char DOWN = 'd';
 const char RIGHT = 'r';
 const char LEFT = 'l';
+
+const int BLOCKED_MOVE = 0;
+const int VALID_MOVE = 1;
+const int ACTION_MOVE = 2;
+
 
 class Coords
 {
