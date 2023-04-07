@@ -98,7 +98,7 @@ int subscreen_game_grid::moveP1(Coords dir) {
 		if (newPos != *p2) *p1 += dir;
 		return VALID_MOVE;
 	case BOX:
-		if (profile->autoAction()) {
+		if (profile->autoPush()) {
 			return actionRed();
 		}
 		else {
@@ -124,8 +124,8 @@ int subscreen_game_grid::moveP2(Coords dir) {
 		if (newPos != *p1) *p2 += dir;
 		return VALID_MOVE;
 	case BOX:
-		if (profile->autoAction()) {
-			return actionRed();
+		if (profile->autoPull()) {
+			return actionBlue();
 		}
 		else {
 			return BLOCKED_MOVE;

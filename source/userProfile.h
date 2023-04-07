@@ -1,10 +1,11 @@
 #pragma once
 #include <QWidget>
+#include <QList>
+#include <QFile>
 class UserProfile
 {
 public:
 	UserProfile();
-	UserProfile(QString set_skin);
 	~UserProfile();
 
 	QPixmap getTex(QString tex);
@@ -12,12 +13,20 @@ public:
 	void setUnlocked(int progess);
 	int getStart();
 	void setStart(int start);
-	bool autoAction();
-	void setActionMode(bool mode);
+	bool autoPush();
+	void setPushMode(bool mode);
+	bool autoPull();
+	void setPullMode(bool mode);
 private:
 	QString skin;
 	int unlockedLvlNb;
 	int startingLvl;
-	bool actionMode; // push/pull box when running into them
+	bool pushMode;
+	bool pullMode;
+
+	QStringList unlockedSkins;
+
+	void readSaveState();
+
 };
 

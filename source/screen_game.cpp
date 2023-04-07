@@ -11,8 +11,8 @@ screen_game::screen_game(UserProfile* p) : QWidget(),
 {
 	// -------------------- Logic elements --------------------
 
-	//currentLevel = profile->getStart();
-	currentLevel = 1;
+	currentLevel = profile->getStart();
+	//currentLevel = 1;
 	moveCount = 0;
 	activePlayer = 1;
 
@@ -33,12 +33,12 @@ screen_game::screen_game(UserProfile* p) : QWidget(),
 	gameLayout->addWidget(testLabel, 0, 0, 3, 3);
 	gameLayout->addWidget(mapGrid, 1, 1);
 
-	gameLayout->setColumnStretch(0, 10);
-	gameLayout->setColumnStretch(1, 1);
-	gameLayout->setColumnStretch(2, 10);
-	gameLayout->setRowStretch(0, 10);
-	gameLayout->setRowStretch(1, 1);
-	gameLayout->setRowStretch(2, 10);
+	gameLayout->setColumnStretch(0, 1);
+	gameLayout->setColumnStretch(1, 0);
+	gameLayout->setColumnStretch(2, 1);
+	gameLayout->setRowStretch(0, 1);
+	gameLayout->setRowStretch(1, 0);
+	gameLayout->setRowStretch(2, 1);
 	setLayout(gameLayout);
 	//setSizePolicy(QSizePolicy::Minimum, QSizePolicy::Minimum);
 	//setFixedSize(0, 0);
@@ -48,8 +48,6 @@ screen_game::~screen_game() {
 
 }
 void screen_game::onKeyEvent(char key) {
-
-	//adjustSize(); // test -----------------
 
 	int moveResult = inputPlayerAction(key);
 	mapGrid->movePlayers();
@@ -62,7 +60,6 @@ void screen_game::onKeyEvent(char key) {
 		// do some stuff like a pop up of smt
 		currentLevel++;
 		bool gameOver = !loadLevel(currentLevel);
-		//adjustSize(); // test -----------------
 		if (gameOver) {
 			currentLevel = 1;
 			// there are no more level

@@ -1,0 +1,12 @@
+default
+default
+8
+1
+1
+
+# template:
+active skin
+unlocked skin list
+unlocked level
+push mode
+pull mode
