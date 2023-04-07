@@ -26,6 +26,8 @@ private:
 	UserProfile* profile;
 	QGridLayout* gameLayout;
 
+
+
 	Coords* p1; // player 1 coords
 	Coords* p2; // player 2 coords
 	Coords* mapSize;

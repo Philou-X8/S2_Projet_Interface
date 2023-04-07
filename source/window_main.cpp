@@ -22,7 +22,9 @@ window_main::window_main(QWidget* parent) : QMainWindow(parent),
 
 
 	setCentralWidget(screenHome);
-	setFixedSize(0, 0);
+	setMinimumSize(960, 540);
+	//setMaximumSize(1920, 1080);
+	//setFixedSize(0, 0);
 	//this->setSizePolicy(QSizePolicy::Minimum, QSizePolicy::Minimum);
 	//this->adjustSize();
 }
@@ -36,7 +38,7 @@ window_main::~window_main()
 void window_main::readInput() {
 	char input = inputManager->getInput();
 	if (input != 0) {
-
+		centralWidget()->adjustSize();
 		// do stuff when a key is pressed
 
 		if (screenHome != nullptr) screenHome->onKeyEvent(input);
