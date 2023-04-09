@@ -7,23 +7,8 @@
 #include <QPushButton>
 #include <QList>
 #include "userProfile.h"
+#include "custom_button.h"
 
-
-class CustomButton : public QGridLayout
-{
-	Q_OBJECT
-public:
-	//CustomButton();
-	CustomButton(QPixmap base, QPixmap hi);
-	~CustomButton();
-
-	void onSelect();
-	void onRelease();
-private:
-	QLabel* buttonBase;
-	QLabel* buttonHi;
-
-};
 
 
 

@@ -26,10 +26,16 @@
       <Extensions>cpp;c;cxx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
     </Filter>
     <Filter Include="Additionnal Include">
-      <UniqueIdentifier>{049fb405-3714-4b8e-95dd-ba3b4c6ddca8}</UniqueIdentifier>
+      <UniqueIdentifier>{5b854c2f-cc4d-456c-8aab-980d6859bc9b}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="custom_button.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="custom_menu.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
     <ClCompile Include="inputmanager.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
@@ -68,6 +74,12 @@
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
+    <CustomBuild Include="custom_button.h">
+      <Filter>Header Files</Filter>
+    </CustomBuild>
+    <CustomBuild Include="custom_menu.h">
+      <Filter>Header Files</Filter>
+    </CustomBuild>
     <ClInclude Include="inputmanager.h">
       <Filter>Header Files</Filter>
     </ClInclude>
@@ -98,14 +110,20 @@
     <CustomBuild Include="window_main.h">
       <Filter>Header Files</Filter>
     </CustomBuild>
-    <ClInclude Include="include\json.hpp">
-      <Filter>Additionnal Include</Filter>
-    </ClInclude>
-    <ClInclude Include="include\serial\SerialPort.hpp">
-      <Filter>Additionnal Include</Filter>
-    </ClInclude>
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="debug\moc_custom_button.cpp">
+      <Filter>Generated Files</Filter>
+    </ClCompile>
+    <ClCompile Include="release\moc_custom_button.cpp">
+      <Filter>Generated Files</Filter>
+    </ClCompile>
+    <ClCompile Include="debug\moc_custom_menu.cpp">
+      <Filter>Generated Files</Filter>
+    </ClCompile>
+    <ClCompile Include="release\moc_custom_menu.cpp">
+      <Filter>Generated Files</Filter>
+    </ClCompile>
     <CustomBuild Include="debug\moc_predefs.h.cbt">
       <Filter>Generated Files</Filter>
     </CustomBuild>
@@ -150,8 +168,11 @@
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <Text Include="..\configs\save_state.txt">
+    <ClInclude Include="include\json.hpp">
       <Filter>Additionnal Include</Filter>
-    </Text>
+    </ClInclude>
+    <ClInclude Include="include\serial\SerialPort.hpp">
+      <Filter>Additionnal Include</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>

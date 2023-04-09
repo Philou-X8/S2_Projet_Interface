@@ -1,4 +1,4 @@
-paper
+synthwave
 default minecraft scifi beach paper
 1
 1
@@ -10,3 +10,6 @@ unlocked skin list
 unlocked level
 push mode
 pull mode
+
+to add:
+btd5, forklift, minesweeper, vaporwave, github_look, window_xp

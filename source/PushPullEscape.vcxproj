@@ -142,6 +142,8 @@
     </ResourceCompile>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="custom_button.cpp" />
+    <ClCompile Include="custom_menu.cpp" />
     <ClCompile Include="include\serial\SerialPort.cpp" />
     <ClCompile Include="inputmanager.cpp" />
     <ClCompile Include="main.cpp" />
@@ -156,6 +158,26 @@
     <ClCompile Include="window_main.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <CustomBuild Include="custom_button.h">
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">custom_button.h;debug\moc_predefs.h;F:\Programming\QT_6-4\6.4.3\msvc2019_64\bin\moc.exe;%(AdditionalInputs)</AdditionalInputs>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">F:\Programming\QT_6-4\6.4.3\msvc2019_64\bin\moc.exe  -DUNICODE -D_UNICODE -DWIN32 -D_ENABLE_EXTENDED_ALIGNED_STORAGE -DWIN64 -DQT_WIDGETS_LIB -DQT_GUI_LIB -DQT_CORE_LIB --compiler-flavor=msvc --include F:/Programming/Programs/S2_Projet_Interface/source/debug/moc_predefs.h -IF:/Programming/QT_6-4/6.4.3/msvc2019_64/mkspecs/win32-msvc -IF:/Programming/Programs/S2_Projet_Interface/source -IF:/Programming/QT_6-4/6.4.3/msvc2019_64/include -IF:/Programming/QT_6-4/6.4.3/msvc2019_64/include/QtWidgets -IF:/Programming/QT_6-4/6.4.3/msvc2019_64/include/QtGui -IF:/Programming/QT_6-4/6.4.3/msvc2019_64/include/QtCore -I"F:\Programming\Visual Studio\IDE\VC\Tools\MSVC\14.28.29910\ATLMFC\include" -I"F:\Programming\Visual Studio\IDE\VC\Tools\MSVC\14.28.29910\include" -I"C:\Program Files (x86)\Windows Kits\NETFXSDK\4.8\include\um" -I"F:\Windows Kits\10\include\10.0.19041.0\ucrt" -I"F:\Windows Kits\10\include\10.0.19041.0\shared" -I"F:\Windows Kits\10\include\10.0.19041.0\um" -I"F:\Windows Kits\10\include\10.0.19041.0\winrt" -I"F:\Windows Kits\10\include\10.0.19041.0\cppwinrt" custom_button.h -o debug\moc_custom_button.cpp</Command>
+      <Message Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">MOC custom_button.h</Message>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">debug\moc_custom_button.cpp;%(Outputs)</Outputs>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Release|x64'">custom_button.h;release\moc_predefs.h;F:\Programming\QT_6-4\6.4.3\msvc2019_64\bin\moc.exe;%(AdditionalInputs)</AdditionalInputs>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Release|x64'">F:\Programming\QT_6-4\6.4.3\msvc2019_64\bin\moc.exe  -DUNICODE -D_UNICODE -DWIN32 -D_ENABLE_EXTENDED_ALIGNED_STORAGE -DWIN64 -DNDEBUG -DQT_NO_DEBUG -DQT_WIDGETS_LIB -DQT_GUI_LIB -DQT_CORE_LIB --compiler-flavor=msvc --include F:/Programming/Programs/S2_Projet_Interface/source/release/moc_predefs.h -IF:/Programming/QT_6-4/6.4.3/msvc2019_64/mkspecs/win32-msvc -IF:/Programming/Programs/S2_Projet_Interface/source -IF:/Programming/QT_6-4/6.4.3/msvc2019_64/include -IF:/Programming/QT_6-4/6.4.3/msvc2019_64/include/QtWidgets -IF:/Programming/QT_6-4/6.4.3/msvc2019_64/include/QtGui -IF:/Programming/QT_6-4/6.4.3/msvc2019_64/include/QtCore -I"F:\Programming\Visual Studio\IDE\VC\Tools\MSVC\14.28.29910\ATLMFC\include" -I"F:\Programming\Visual Studio\IDE\VC\Tools\MSVC\14.28.29910\include" -I"C:\Program Files (x86)\Windows Kits\NETFXSDK\4.8\include\um" -I"F:\Windows Kits\10\include\10.0.19041.0\ucrt" -I"F:\Windows Kits\10\include\10.0.19041.0\shared" -I"F:\Windows Kits\10\include\10.0.19041.0\um" -I"F:\Windows Kits\10\include\10.0.19041.0\winrt" -I"F:\Windows Kits\10\include\10.0.19041.0\cppwinrt" custom_button.h -o release\moc_custom_button.cpp</Command>
+      <Message Condition="'$(Configuration)|$(Platform)'=='Release|x64'">MOC custom_button.h</Message>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Release|x64'">release\moc_custom_button.cpp;%(Outputs)</Outputs>
+    </CustomBuild>
+    <CustomBuild Include="custom_menu.h">
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">custom_menu.h;debug\moc_predefs.h;F:\Programming\QT_6-4\6.4.3\msvc2019_64\bin\moc.exe;%(AdditionalInputs)</AdditionalInputs>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">F:\Programming\QT_6-4\6.4.3\msvc2019_64\bin\moc.exe  -DUNICODE -D_UNICODE -DWIN32 -D_ENABLE_EXTENDED_ALIGNED_STORAGE -DWIN64 -DQT_WIDGETS_LIB -DQT_GUI_LIB -DQT_CORE_LIB --compiler-flavor=msvc --include F:/Programming/Programs/S2_Projet_Interface/source/debug/moc_predefs.h -IF:/Programming/QT_6-4/6.4.3/msvc2019_64/mkspecs/win32-msvc -IF:/Programming/Programs/S2_Projet_Interface/source -IF:/Programming/QT_6-4/6.4.3/msvc2019_64/include -IF:/Programming/QT_6-4/6.4.3/msvc2019_64/include/QtWidgets -IF:/Programming/QT_6-4/6.4.3/msvc2019_64/include/QtGui -IF:/Programming/QT_6-4/6.4.3/msvc2019_64/include/QtCore -I"F:\Programming\Visual Studio\IDE\VC\Tools\MSVC\14.28.29910\ATLMFC\include" -I"F:\Programming\Visual Studio\IDE\VC\Tools\MSVC\14.28.29910\include" -I"C:\Program Files (x86)\Windows Kits\NETFXSDK\4.8\include\um" -I"F:\Windows Kits\10\include\10.0.19041.0\ucrt" -I"F:\Windows Kits\10\include\10.0.19041.0\shared" -I"F:\Windows Kits\10\include\10.0.19041.0\um" -I"F:\Windows Kits\10\include\10.0.19041.0\winrt" -I"F:\Windows Kits\10\include\10.0.19041.0\cppwinrt" custom_menu.h -o debug\moc_custom_menu.cpp</Command>
+      <Message Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">MOC custom_menu.h</Message>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">debug\moc_custom_menu.cpp;%(Outputs)</Outputs>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Release|x64'">custom_menu.h;release\moc_predefs.h;F:\Programming\QT_6-4\6.4.3\msvc2019_64\bin\moc.exe;%(AdditionalInputs)</AdditionalInputs>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Release|x64'">F:\Programming\QT_6-4\6.4.3\msvc2019_64\bin\moc.exe  -DUNICODE -D_UNICODE -DWIN32 -D_ENABLE_EXTENDED_ALIGNED_STORAGE -DWIN64 -DNDEBUG -DQT_NO_DEBUG -DQT_WIDGETS_LIB -DQT_GUI_LIB -DQT_CORE_LIB --compiler-flavor=msvc --include F:/Programming/Programs/S2_Projet_Interface/source/release/moc_predefs.h -IF:/Programming/QT_6-4/6.4.3/msvc2019_64/mkspecs/win32-msvc -IF:/Programming/Programs/S2_Projet_Interface/source -IF:/Programming/QT_6-4/6.4.3/msvc2019_64/include -IF:/Programming/QT_6-4/6.4.3/msvc2019_64/include/QtWidgets -IF:/Programming/QT_6-4/6.4.3/msvc2019_64/include/QtGui -IF:/Programming/QT_6-4/6.4.3/msvc2019_64/include/QtCore -I"F:\Programming\Visual Studio\IDE\VC\Tools\MSVC\14.28.29910\ATLMFC\include" -I"F:\Programming\Visual Studio\IDE\VC\Tools\MSVC\14.28.29910\include" -I"C:\Program Files (x86)\Windows Kits\NETFXSDK\4.8\include\um" -I"F:\Windows Kits\10\include\10.0.19041.0\ucrt" -I"F:\Windows Kits\10\include\10.0.19041.0\shared" -I"F:\Windows Kits\10\include\10.0.19041.0\um" -I"F:\Windows Kits\10\include\10.0.19041.0\winrt" -I"F:\Windows Kits\10\include\10.0.19041.0\cppwinrt" custom_menu.h -o release\moc_custom_menu.cpp</Command>
+      <Message Condition="'$(Configuration)|$(Platform)'=='Release|x64'">MOC custom_menu.h</Message>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Release|x64'">release\moc_custom_menu.cpp;%(Outputs)</Outputs>
+    </CustomBuild>
     <ClInclude Include="include\json.hpp" />
     <ClInclude Include="include\serial\SerialPort.hpp" />
     <ClInclude Include="inputmanager.h" />
@@ -224,6 +246,18 @@
     </CustomBuild>
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="debug\moc_custom_button.cpp">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</ExcludedFromBuild>
+    </ClCompile>
+    <ClCompile Include="release\moc_custom_button.cpp">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
+    </ClCompile>
+    <ClCompile Include="debug\moc_custom_menu.cpp">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</ExcludedFromBuild>
+    </ClCompile>
+    <ClCompile Include="release\moc_custom_menu.cpp">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
+    </ClCompile>
     <CustomBuild Include="debug\moc_predefs.h.cbt">
       <FileType>Document</FileType>
       <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">..\..\..\QT_6-4\6.4.3\msvc2019_64\mkspecs\features\data\dummy.cpp;%(AdditionalInputs)</AdditionalInputs>
@@ -276,9 +310,6 @@
     <ClCompile Include="release\moc_window_main.cpp">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
     </ClCompile>
-  </ItemGroup>
-  <ItemGroup>
-    <Text Include="..\configs\save_state.txt" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets" />
