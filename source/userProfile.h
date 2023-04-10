@@ -15,6 +15,8 @@ public:
 	UserProfile();
 	~UserProfile();
 
+	void writeSaveState();
+
 	QPixmap getTex(QString tex);
 	int getUnlocked();
 	void setUnlocked(int progess);

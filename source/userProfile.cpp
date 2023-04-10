@@ -12,9 +12,24 @@ UserProfile::UserProfile() :
 UserProfile::~UserProfile() {
 
 }
+void UserProfile::writeSaveState() {
+	QFile file("../configs/save_state2.txt");
+	if (!file.open(QIODevice::WriteOnly | QIODevice::Text)) {
+		return;
+	}
+	QTextStream out(&file);
+	out << skin << "\n";
+	out << unlockedSkins.join(' ') << "\n";
+	out << unlockedLvlNb << "\n";
+	out << pushMode << "\n";
+	out << pullMode << "\n";
+	//file.writeli
+
+	file.close();
+}
 
 void UserProfile::readSaveState() {
-	QFile file("../configs/save_state.txt");
+	QFile file("../configs/save_state2.txt");
 	if (!file.open(QIODevice::ReadOnly | QIODevice::Text)) {
 		return;
 	}

@@ -48,6 +48,7 @@ void window_main::readInput() {
 			else {
 				screenSettings->hide();
 			}
+			profile->writeSaveState();
 		}
 
 		if (!screenSettings->isHidden()) { // if setting is shown

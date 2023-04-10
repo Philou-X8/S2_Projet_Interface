@@ -54,6 +54,8 @@ void screen_game::onKeyEvent(char key) {
 		// map solved
 		// do some stuff like a pop up of smt
 		currentLevel++;
+		if (profile->getUnlocked() < currentLevel) profile->setUnlocked(currentLevel);
+
 		bool gameOver = !loadLevel(currentLevel);
 		if (gameOver) {
 			currentLevel = 1;
