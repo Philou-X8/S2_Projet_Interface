@@ -1,4 +1,4 @@
-synthwave
+default 
 default beach minecraft paper scifi synthwave
 1
 1

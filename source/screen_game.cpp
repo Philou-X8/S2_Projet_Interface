@@ -31,7 +31,7 @@ screen_game::screen_game(UserProfile* p) : QWidget(),
 	//gameLayout->setSizeConstraint(QLayout::SetMinimumSize);
 	
 	gameLayout->addWidget(testLabel, 0, 0, 3, 3);
-	gameLayout->addWidget(mapGrid, 1, 1);
+	gameLayout->addWidget(mapGrid, 0, 1);
 	
 	setLayout(gameLayout);
 }
@@ -54,6 +54,7 @@ void screen_game::onKeyEvent(char key) {
 		if (gameOver) {
 			currentLevel = 1;
 			// there are no more level
+			loadLevel(currentLevel);
 		}
 	}
 }

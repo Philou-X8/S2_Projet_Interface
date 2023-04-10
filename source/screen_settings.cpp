@@ -14,7 +14,8 @@ screen_settings::screen_settings(UserProfile* p, InputManager* inManager) : QWid
 	settingsTitle->setAlignment(Qt::AlignCenter);
 
 	skinActive = new QLabel(this);
-
+	skinActive->setText(profile->changeSkin(0));
+	skinActive->setAlignment(Qt::AlignCenter);
 
 
 	settingsButtonList = new CustomMenu(profile);
@@ -41,7 +42,6 @@ screen_settings::screen_settings(UserProfile* p, InputManager* inManager) : QWid
 screen_settings::~screen_settings() {
 
 }
-
 
 void screen_settings::onKeyEvent(char key) {
 	switch (key) {
@@ -93,13 +93,10 @@ void screen_settings::skinChange(int dir) {
 }
 
 void screen_settings::keyPressEvent(QKeyEvent* event) {
-
-
 	QChar qchar((char)event->key()); // without casting to char, the program crash
 	if (event->key() == Qt::Key_Escape) {
 		inputManager->addKey('p');
 		return;
 	}
 	inputManager->addKey(qchar.toLower().unicode());
-
 }

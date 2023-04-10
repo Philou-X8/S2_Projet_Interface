@@ -7,6 +7,7 @@
 screen_home::screen_home(UserProfile* p) : QWidget(),
 	profile(p),
 	homeLayout(nullptr),
+	homeTitle(nullptr),
 	homeButtonList(nullptr)
 {
 	//profile = p;
@@ -41,6 +42,7 @@ void screen_home::onKeyEvent(char key) {
 	homeButtonList->onKeyEvent(key);
 }
 void screen_home::menuClicked(int selection) {
+	if(selection == 0) profile->setStart(1);
 	emit SelectScreenSignal(selection+1);
 	/*
 	switch (selection)

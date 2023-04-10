@@ -29,7 +29,7 @@ void UserProfile::readSaveState() {
 	unlockedSkins = line.split(' ');
 	// -------------------- number of unlocked levels
 	line = in.readLine();
-	startingLvl = line.toInt();
+	unlockedLvlNb = line.toInt();
 	// -------------------- push mode
 	line = in.readLine();
 	pushMode = (bool)line.toInt();
@@ -75,8 +75,9 @@ void UserProfile::setPullMode(bool mode) {
 }
 
 QString UserProfile::changeSkin(int dir) {
+	if (dir == 0) return skin;
 	int skinIndex = unlockedSkins.indexOf(skin);
-	skinIndex = (skinIndex + dir) % (unlockedSkins.length() - 1);
+	skinIndex = (skinIndex + dir) % unlockedSkins.length();
 	if (skinIndex < 0) skinIndex = unlockedSkins.length() - 1;
 	skin = unlockedSkins[skinIndex];
 	return skin;

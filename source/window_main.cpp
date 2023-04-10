@@ -71,9 +71,9 @@ void window_main::readInput() {
 
 		if (screenHome != nullptr) screenHome->onKeyEvent(input);
 
-		//if (screenLevels != nullptr) screenLevels->onKeyEvent(input);
+		else if (screenLevels != nullptr) screenLevels->onKeyEvent(input);
 
-		if (screenGame != nullptr) screenGame->onKeyEvent(input);
+		else if (screenGame != nullptr) screenGame->onKeyEvent(input);
 
 	}
 }
@@ -128,7 +128,7 @@ void window_main::setScreenLevels() {
 	if (screenLevels == nullptr) {
 		screenLevels = new screen_select_level(profile);
 		// ---------- connect
-		
+		QObject::connect(screenLevels, SIGNAL(SelectScreenSignal(int)), this, SLOT(setScreen(int)));
 		// ----------
 	}
 	setCentralWidget(screenLevels);

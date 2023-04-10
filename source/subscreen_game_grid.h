@@ -15,12 +15,12 @@ public:
 	~subscreen_game_grid();
 
 	void newGrid(int(*arr)[20][20], Coords newMapSize);
+	void movePlayers();
 	bool mapSolved();
 	int moveP1(Coords dir);
 	int moveP2(Coords dir);
 	int actionRed();
 	int actionBlue();
-	void movePlayers();
 	void rotatePlayer(Coords* dir);
 
 	void updateSkin();
