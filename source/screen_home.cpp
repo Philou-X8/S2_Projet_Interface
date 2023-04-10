@@ -4,7 +4,7 @@
 //-------------------------------------------------------
 //	home screen
 //-------------------------------------------------------
-screen_home::screen_home(UserProfile* p) : QWidget(),
+screen_home::screen_home(UserProfile* p, QWidget* parent) : QWidget(parent),
 	profile(p),
 	homeLayout(nullptr),
 	homeTitle(nullptr),
@@ -16,7 +16,7 @@ screen_home::screen_home(UserProfile* p) : QWidget(),
 	homeTitle->setPixmap(profile->getTex("home_title"));
 	homeTitle->setAlignment(Qt::AlignCenter);
 
-	homeButtonList = new CustomMenu(profile);
+	homeButtonList = new CustomMenu(profile, this);
 	QObject::connect(homeButtonList, SIGNAL(clickedButton(int)), this, SLOT(menuClicked(int)));
 	homeButtonList->addButton("home_button_continue", "home_button_hi");
 	homeButtonList->addButton("home_button_level", "home_button_hi");
@@ -35,7 +35,7 @@ screen_home::screen_home(UserProfile* p) : QWidget(),
 	setWindowTitle("test title");
 }
 screen_home::~screen_home() {
-
+	delete homeButtonList;
 }
 
 void screen_home::onKeyEvent(char key) {

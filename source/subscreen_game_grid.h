@@ -11,7 +11,7 @@ class subscreen_game_grid : public QWidget
 {
 	Q_OBJECT
 public:
-	subscreen_game_grid(UserProfile* p, Coords* p1pos, Coords* p2pos);
+	subscreen_game_grid(UserProfile* p, Coords* p1pos, Coords* p2pos, QWidget* parent);
 	~subscreen_game_grid();
 
 	void newGrid(int(*arr)[20][20], Coords newMapSize);

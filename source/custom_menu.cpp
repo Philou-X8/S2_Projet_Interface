@@ -1,7 +1,7 @@
 #include "custom_menu.h"
 
 
-CustomMenu::CustomMenu(UserProfile* p) : QWidget(),
+CustomMenu::CustomMenu(UserProfile* p, QWidget* parent) : QWidget(parent),
 	profile(p),
 	menuLayout(nullptr),
 	activeButton(0),
@@ -15,18 +15,28 @@ CustomMenu::CustomMenu(UserProfile* p) : QWidget(),
 	setLayout(menuLayout);
 }
 CustomMenu::~CustomMenu() {
-
+	while (!buttonList->isEmpty()) {
+		delete buttonList->takeFirst();
+	}
+	delete buttonList;
 }
 void CustomMenu::addButton(QString baseTex, QString hiTex) {
 	CustomButton* newButton;
 	newButton = new CustomButton(profile->getTex(baseTex), profile->getTex(hiTex));
 	buttonList->append(newButton);
 	menuLayout->addLayout(newButton, buttonCount, 0);
-	
 	buttonCount++;
-
 	buttonList->at(activeButton)->onSelect(); // show active button
 }
+void CustomMenu::addButton(QString text, QString baseTex, QString hiTex) {
+	CustomButton* newButton;
+	newButton = new CustomButton(text, profile->getTex(baseTex), profile->getTex(hiTex));
+	buttonList->append(newButton);
+	menuLayout->addLayout(newButton, buttonCount, 0);
+	buttonCount++;
+	buttonList->at(activeButton)->onSelect(); // show active button
+}
+
 int CustomMenu::getActiveIndex() {
 	return activeButton;
 }

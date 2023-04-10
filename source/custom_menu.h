@@ -11,12 +11,13 @@ class CustomMenu : public QWidget
 {
 	Q_OBJECT
 public:
-	CustomMenu(UserProfile* p);
+	CustomMenu(UserProfile* p, QWidget* parent);
 	~CustomMenu();
 
 	void onKeyEvent(char key);
 
 	void addButton(QString baseTex, QString hiTex);
+	void addButton(QString text, QString baseTex, QString hiTex);
 	int getActiveIndex();
 
 signals:

@@ -1,6 +1,6 @@
 #include "screen_game.h"
 
-screen_game::screen_game(UserProfile* p) : QWidget(),
+screen_game::screen_game(UserProfile* p, QWidget* parent) : QWidget(parent),
 	profile(p),
 	gameLayout(nullptr),
 	p1(nullptr),
@@ -22,7 +22,7 @@ screen_game::screen_game(UserProfile* p) : QWidget(),
 	mapLoader = new MapLoader;
 
 
-	mapGrid = new subscreen_game_grid(profile, p1, p2);
+	mapGrid = new subscreen_game_grid(profile, p1, p2, this);
 	loadLevel(currentLevel);
 
 	// -------------------- UI elements --------------------
@@ -36,7 +36,11 @@ screen_game::screen_game(UserProfile* p) : QWidget(),
 	setLayout(gameLayout);
 }
 screen_game::~screen_game() {
-
+	delete mapGrid;
+	delete mapLoader;
+	delete mapSize;
+	delete p1;
+	delete p2;
 }
 void screen_game::onKeyEvent(char key) {
 

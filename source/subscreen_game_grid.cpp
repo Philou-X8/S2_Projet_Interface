@@ -1,6 +1,6 @@
 #include "subscreen_game_grid.h"
 
-subscreen_game_grid::subscreen_game_grid(UserProfile* p, Coords* p1pos, Coords* p2pos) : QWidget(),
+subscreen_game_grid::subscreen_game_grid(UserProfile* p, Coords* p1pos, Coords* p2pos, QWidget* parent) : QWidget(parent),
 	profile(p),
 	p1(p1pos),
 	p2(p2pos),
@@ -13,8 +13,7 @@ subscreen_game_grid::subscreen_game_grid(UserProfile* p, Coords* p1pos, Coords* 
 {
 	p1Dir = new Coords;
 	p2Dir = new Coords;
-
-
+	
 	mapSize = new Coords(19, 19);
 
 	gridLayout = new QGridLayout(this);
@@ -43,16 +42,13 @@ subscreen_game_grid::subscreen_game_grid(UserProfile* p, Coords* p1pos, Coords* 
 	//spacer = new QLabel(this);
 }
 subscreen_game_grid::~subscreen_game_grid() {
-
+	delete p1Dir;
+	delete p2Dir;
+	delete mapSize;
+	// somehow delete visualGrid ???
 }
 void subscreen_game_grid::newGrid(int(*arr)[20][20], Coords newMapSize) {
-	/*
-	if (gridLayout != nullptr) {
-		delete gridLayout; // we dont want to delete its content, only the grid
-		gridLayout = nullptr;
-	} 
-	gridLayout = new QGridLayout;
-	*/
+	
 
 	*mapSize = newMapSize;
 	for (int i = 0; i <20; i++) {

@@ -15,15 +15,6 @@ window_main::window_main(QWidget* parent) : QMainWindow(parent),
 	screenSettings = new screen_settings(profile, inputManager); 
 	QObject::connect(screenSettings, SIGNAL(SelectScreenSignal(int)), this, SLOT(setScreen(int)));
 
-	//screenSettings->show();
-
-	/*
-	screenHome = new screen_home(profile);
-	QObject::connect(screenHome, SIGNAL(SelectLevelSignal()), this, SLOT(setScreenLevels()));
-	QObject::connect(screenHome, SIGNAL(SelectContinueSignal()), this, SLOT(setScreenGame()));
-	//QObject::connect(screenHome, SIGNAL(SelectSettingsSignal()), screenSettings, SLOT(show()));
-	//QObject::connect(screenHome, SIGNAL(SelectLevelSignal()), screenHome, SLOT(testSlot()));
-	*/
 	setScreenHome();
 
 	clock = new QTimer;
@@ -115,7 +106,7 @@ void window_main::setScreen(int id) {
 void window_main::setScreenHome() {
 	clearCentralWidget();
 	if (screenHome == nullptr) {
-		screenHome = new screen_home(profile);
+		screenHome = new screen_home(profile, this);
 		// ---------- connect
 		QObject::connect(screenHome, SIGNAL(SelectScreenSignal(int)), this, SLOT(setScreen(int)));
 		// ----------
@@ -126,7 +117,7 @@ void window_main::setScreenHome() {
 void window_main::setScreenLevels() {
 	clearCentralWidget();
 	if (screenLevels == nullptr) {
-		screenLevels = new screen_select_level(profile);
+		screenLevels = new screen_select_level(profile, this);
 		// ---------- connect
 		QObject::connect(screenLevels, SIGNAL(SelectScreenSignal(int)), this, SLOT(setScreen(int)));
 		// ----------
@@ -138,7 +129,7 @@ void window_main::setScreenLevels() {
 void window_main::setScreenGame() {
 	clearCentralWidget();
 	if (screenGame == nullptr) {
-		screenGame = new screen_game(profile);
+		screenGame = new screen_game(profile, this);
 		// ---------- connect
 
 		// ----------

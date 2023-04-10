@@ -12,7 +12,7 @@ class screen_game : public QWidget
 {
 	Q_OBJECT
 public:
-	screen_game(UserProfile* p);
+	screen_game(UserProfile* p, QWidget* parent);
 	~screen_game();
 
 	void onKeyEvent(char key);
@@ -27,8 +27,6 @@ public:
 private:
 	UserProfile* profile;
 	QGridLayout* gameLayout;
-
-
 
 	Coords* p1; // player 1 coords
 	Coords* p2; // player 2 coords

@@ -11,7 +11,7 @@ class screen_select_level : public QWidget
 {
 	Q_OBJECT
 public:
-	screen_select_level(UserProfile* p);
+	screen_select_level(UserProfile* p, QWidget* parent);
 	~screen_select_level();
 
 	void onKeyEvent(char key);

@@ -1,6 +1,6 @@
 #include "screen_select_level.h"
 
-screen_select_level::screen_select_level(UserProfile* p) : QWidget(),
+screen_select_level::screen_select_level(UserProfile* p, QWidget* parent) : QWidget(parent),
 	profile(p),
 	levelsLayout(nullptr),
 	levelsTitle(nullptr),
@@ -16,7 +16,7 @@ screen_select_level::screen_select_level(UserProfile* p) : QWidget(),
 	QString levelText("bruh Level: " + QString::number(lvlSelection));
 	levelsSelection->setText(levelText);
 
-	levelsButtonList = new CustomMenu(profile);
+	levelsButtonList = new CustomMenu(profile, this);
 	QObject::connect(levelsButtonList, SIGNAL(clickedButton(int)), this, SLOT(menuClicked(int)));
 	levelsButtonList->addButton("setting_button_resume", "home_button_hi");
 	levelsButtonList->addButton("setting_button_quit", "home_button_hi");
@@ -32,7 +32,7 @@ screen_select_level::screen_select_level(UserProfile* p) : QWidget(),
 }
 
 screen_select_level::~screen_select_level() {
-
+	delete levelsButtonList;
 }
 
 void screen_select_level::onKeyEvent(char key) {

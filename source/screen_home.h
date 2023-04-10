@@ -17,7 +17,7 @@ class screen_home : public QWidget
 {
 	Q_OBJECT
 public:
-	screen_home(UserProfile* p);
+	screen_home(UserProfile* p, QWidget* parent);
 	~screen_home();
 
 	void onKeyEvent(char key);

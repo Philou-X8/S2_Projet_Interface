@@ -18,7 +18,7 @@ screen_settings::screen_settings(UserProfile* p, InputManager* inManager) : QWid
 	skinActive->setAlignment(Qt::AlignCenter);
 
 
-	settingsButtonList = new CustomMenu(profile);
+	settingsButtonList = new CustomMenu(profile, this);
 	//QObject::connect(settingsButtonList, SIGNAL(clickedButton(int)), this, SLOT(menuClicked(int)));
 	settingsButtonList->addButton("setting_button_resume", "home_button_hi");
 	settingsButtonList->addButton("setting_button_skin", "home_button_hi");
@@ -40,7 +40,7 @@ screen_settings::screen_settings(UserProfile* p, InputManager* inManager) : QWid
 	setWindowTitle("settings");
 }
 screen_settings::~screen_settings() {
-
+	delete settingsButtonList;
 }
 
 void screen_settings::onKeyEvent(char key) {

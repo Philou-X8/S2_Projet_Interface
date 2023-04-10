@@ -2,7 +2,8 @@
 
 CustomButton::CustomButton(QPixmap base, QPixmap hi) : QGridLayout(),
 buttonBase(nullptr),
-buttonHi(nullptr)
+buttonHi(nullptr),
+buttonText(nullptr)
 {
 	buttonBase = new QLabel;
 	buttonBase->setAlignment(Qt::AlignCenter);
@@ -17,10 +18,16 @@ buttonHi(nullptr)
 	addWidget(buttonBase, 0, 0);
 	//setAlignment(Qt::AlignCenter);
 }
+CustomButton::CustomButton(QString text, QPixmap base, QPixmap hi) : CustomButton(base, hi) {
+	buttonText = new QLabel(text);
+	buttonText->setAlignment(Qt::AlignCenter);
+	addWidget(buttonText, 0, 0);
+}
 CustomButton::~CustomButton()
 {
 	delete buttonBase;
 	delete buttonHi;
+	if (buttonText != nullptr) delete buttonText;
 }
 void CustomButton::onSelect() {
 	buttonHi->show();

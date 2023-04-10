@@ -12,6 +12,7 @@ class CustomButton : public QGridLayout
 public:
 	//CustomButton();
 	CustomButton(QPixmap base, QPixmap hi);
+	CustomButton(QString text, QPixmap base, QPixmap hi);
 	~CustomButton();
 
 	void onSelect();
@@ -19,6 +20,7 @@ public:
 private:
 	QLabel* buttonBase;
 	QLabel* buttonHi;
+	QLabel* buttonText;
 
 };
 
