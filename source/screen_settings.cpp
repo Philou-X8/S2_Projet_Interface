@@ -10,12 +10,14 @@ screen_settings::screen_settings(UserProfile* p, InputManager* inManager) : QWid
 {
 
 	settingsTitle = new QLabel(this);
-	settingsTitle->setPixmap(profile->getTex("home_title"));
 	settingsTitle->setAlignment(Qt::AlignCenter);
+	//settingsTitle->setPixmap(profile->getTex("home_title"));
+	settingsTitle->setFont(QFont("Impact", 48));
+	settingsTitle->setText("SETTINGS");
 
 	skinActive = new QLabel(this);
-	skinActive->setText(profile->changeSkin(0));
 	skinActive->setAlignment(Qt::AlignCenter);
+	skinActive->setText(profile->changeSkin(0));
 
 
 	settingsButtonList = new CustomMenu(profile, this);

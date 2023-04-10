@@ -9,12 +9,18 @@ screen_select_level::screen_select_level(UserProfile* p, QWidget* parent) : QWid
 	lvlSelection = profile->getUnlocked();
 
 	levelsTitle = new QLabel(this);
-	levelsTitle->setPixmap(profile->getTex("home_title"));
 	levelsTitle->setAlignment(Qt::AlignCenter);
+	levelsTitle->setFont(QFont("Impact", 48));
+	levelsTitle->setText("LEVEL SELECTION");
 
-	levelsSelection = new QLabel(this);
-	QString levelText("bruh Level: " + QString::number(lvlSelection));
-	levelsSelection->setText(levelText);
+	levelsSelectionTexture = new QLabel(this);
+	levelsSelectionTexture->setAlignment(Qt::AlignCenter);
+	levelsSelectionTexture->setPixmap(profile->getTex("button_base"));
+
+	levelsSelectionText = new QLabel(this);
+	levelsSelectionText->setAlignment(Qt::AlignCenter);
+	levelsSelectionText->setFont(QFont("Impact", 20));
+	levelsSelectionText->setText("LEVEL: " + QString::number(lvlSelection));
 
 	levelsButtonList = new CustomMenu(profile, this);
 	QObject::connect(levelsButtonList, SIGNAL(clickedButton(int)), this, SLOT(menuClicked(int)));
@@ -24,8 +30,9 @@ screen_select_level::screen_select_level(UserProfile* p, QWidget* parent) : QWid
 	levelsLayout = new QGridLayout(this);
 	// fill layout
 	levelsLayout->addWidget(levelsTitle, 0, 0, 1, 3);
-	levelsLayout->addWidget(levelsSelection, 1, 1, 1, 1);
-	levelsLayout->addWidget(levelsButtonList, 2, 1, 3, 1);
+	levelsLayout->addWidget(levelsSelectionTexture, 1, 1);
+	levelsLayout->addWidget(levelsSelectionText, 1, 1);
+	levelsLayout->addWidget(levelsButtonList, 2, 1);
 	//homeLayout->setAlignment(Qt::AlignCenter);
 
 	setLayout(levelsLayout);
@@ -55,8 +62,8 @@ void screen_select_level::onKeyEvent(char key) {
 		levelsButtonList->onKeyEvent(key);
 		return; // return
 	}
-	QString levelText("bruh Level: " + QString::number(lvlSelection));
-	levelsSelection->setText(levelText);
+	//QString levelText("bruh Level: " + QString::number(lvlSelection));
+	levelsSelectionText->setText("LEVEL: " + QString::number(lvlSelection));
 
 }
 

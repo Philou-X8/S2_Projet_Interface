@@ -13,15 +13,17 @@ screen_home::screen_home(UserProfile* p, QWidget* parent) : QWidget(parent),
 	//profile = p;
 	
 	homeTitle = new QLabel(this);
-	homeTitle->setPixmap(profile->getTex("home_title"));
 	homeTitle->setAlignment(Qt::AlignCenter);
+	//homeTitle->setPixmap(profile->getTex("home_title"));
+	homeTitle->setFont(QFont("Impact", 64));
+	homeTitle->setText("PUSH PULL ESCAPE");
 
 	homeButtonList = new CustomMenu(profile, this);
 	QObject::connect(homeButtonList, SIGNAL(clickedButton(int)), this, SLOT(menuClicked(int)));
-	homeButtonList->addButton("NEW GAME", "home_button", "home_button_hi");
-	homeButtonList->addButton("SELECT LEVEL", "home_button", "home_button_hi");
-	homeButtonList->addButton("SETTINGS", "home_button", "home_button_hi");
-	homeButtonList->addButton("QUIT", "home_button", "home_button_hi");
+	homeButtonList->addButton("NEW GAME", false);
+	homeButtonList->addButton("SELECT LEVEL", false);
+	homeButtonList->addButton("SETTINGS", false);
+	homeButtonList->addButton("QUIT", false);
 
 
 	// create layout

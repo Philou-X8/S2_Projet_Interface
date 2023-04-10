@@ -25,10 +25,11 @@ private:
 	const int levelCount = 12; // number of existing levels
 	UserProfile* profile;
 
-
 	QGridLayout* levelsLayout;
+
 	QLabel* levelsTitle;
-	QLabel* levelsSelection;
+	QLabel* levelsSelectionTexture;
+	QLabel* levelsSelectionText;
 	CustomMenu* levelsButtonList;
 
 	int lvlSelection;
