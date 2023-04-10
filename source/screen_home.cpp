@@ -7,12 +7,7 @@
 screen_home::screen_home(UserProfile* p) : QWidget(),
 	profile(p),
 	homeLayout(nullptr),
-	//homeTestText(nullptr),
-	levelSelect(nullptr),
-	continueGame(nullptr),
-	settings(nullptr),
-	quit(nullptr),
-	buttonList(nullptr)
+	homeButtonList(nullptr)
 {
 	//profile = p;
 	
@@ -20,70 +15,38 @@ screen_home::screen_home(UserProfile* p) : QWidget(),
 	homeTitle->setPixmap(profile->getTex("home_title"));
 	homeTitle->setAlignment(Qt::AlignCenter);
 
-	continueGame = new CustomButton(profile->getTex("home_button_continue"), profile->getTex("home_button_hi"));
-	levelSelect = new CustomButton(profile->getTex("home_button_level"), profile->getTex("home_button_hi"));
-	settings = new CustomButton(profile->getTex("home_button_settings"), profile->getTex("home_button_hi"));
-	quit = new CustomButton(profile->getTex("home_button_quit"), profile->getTex("home_button_hi"));
+	homeButtonList = new CustomMenu(profile);
+	QObject::connect(homeButtonList, SIGNAL(clickedButton(int)), this, SLOT(menuClicked(int)));
+	homeButtonList->addButton("home_button_continue", "home_button_hi");
+	homeButtonList->addButton("home_button_level", "home_button_hi");
+	homeButtonList->addButton("home_button_settings", "home_button_hi");
+	homeButtonList->addButton("home_button_quit", "home_button_hi");
 
-	activeButton = 0;
-	buttonList = new QList<CustomButton*>();
-	buttonList->append(continueGame);
-	buttonList->append(levelSelect);
-	buttonList->append(settings);
-	buttonList->append(quit);
-	buttonList->at(activeButton)->onSelect();
 
 	// create layout
 	homeLayout = new QGridLayout(this);
 	// fill layout
 	homeLayout->addWidget(homeTitle, 0, 0, 1, 1);
-	homeLayout->addLayout(continueGame, 1, 0);
-	homeLayout->addLayout(levelSelect, 2, 0);
-	homeLayout->addLayout(settings, 3, 0);
-	homeLayout->addLayout(quit, 4, 0);
-
-
+	homeLayout->addWidget(homeButtonList, 1, 0);
 	//homeLayout->setAlignment(Qt::AlignCenter);
 
 	setLayout(homeLayout);
 	setWindowTitle("test title");
 }
-
 screen_home::~screen_home() {
 
 }
 
 void screen_home::onKeyEvent(char key) {
-	switch (key)
-	{
-	case 'w':
-	case 'i':
-		if (activeButton > 0) {
-			buttonList->at(activeButton)->onRelease();
-			activeButton--;
-			buttonList->at(activeButton)->onSelect();
-		}
-		break;
-	case 's':
-	case 'k':
-		if (activeButton < 3) {
-			buttonList->at(activeButton)->onRelease();
-			activeButton++;
-			buttonList->at(activeButton)->onSelect();
-		}
-		break;
-	case ' ':
-		buttonSelect(activeButton);
-		break;
-	default:
-		break;
-	}
+	homeButtonList->onKeyEvent(key);
 }
-void screen_home::buttonSelect(int selection) {
+void screen_home::menuClicked(int selection) {
+	emit SelectScreenSignal(selection+1);
+	/*
 	switch (selection)
 	{
 	case 0:
-		emit SelectContinueSignal();
+		emit SelectScreenSignal(int(1));
 		break;
 	case 1:
 		emit SelectLevelSignal();
@@ -97,5 +60,6 @@ void screen_home::buttonSelect(int selection) {
 	default:
 		break;
 	}
+	*/
 }
 

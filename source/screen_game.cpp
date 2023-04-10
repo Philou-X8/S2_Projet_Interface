@@ -62,12 +62,19 @@ bool screen_game::levelState() {
 }
 
 bool screen_game::loadLevel(int lvl) {
+	int lvlToLoad = lvl;
+	if (lvlToLoad < 0) lvlToLoad = currentLevel;
 	moveCount = 0;
 	int map[20][20] = { 0 };
-	bool ret = mapLoader->loadMap(&map, p1, p2, mapSize, lvl);
+	bool ret = mapLoader->loadMap(&map, p1, p2, mapSize, lvlToLoad);
 	mapGrid->newGrid(&map, *mapSize);
 	return ret;
 }
+
+void screen_game::updateSkin() {
+	mapGrid->updateSkin();
+}
+
 void screen_game::getOutputInfo(int& count) {
 	count = moveCount;
 }

@@ -1,5 +1,5 @@
 synthwave
-default minecraft scifi beach paper
+default beach minecraft paper scifi synthwave
 1
 1
 1

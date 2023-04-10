@@ -19,13 +19,16 @@ CustomMenu::~CustomMenu() {
 }
 void CustomMenu::addButton(QString baseTex, QString hiTex) {
 	CustomButton* newButton;
-	newButton = new CustomButton(profile->getTex("home_button_continue"), profile->getTex("home_button_hi"));
+	newButton = new CustomButton(profile->getTex(baseTex), profile->getTex(hiTex));
 	buttonList->append(newButton);
 	menuLayout->addLayout(newButton, buttonCount, 0);
 	
 	buttonCount++;
 
 	buttonList->at(activeButton)->onSelect(); // show active button
+}
+int CustomMenu::getActiveIndex() {
+	return activeButton;
 }
 
 void CustomMenu::onKeyEvent(char key) {
@@ -41,7 +44,7 @@ void CustomMenu::onKeyEvent(char key) {
 		break;
 	case 's':
 	case 'k':
-		if (activeButton < buttonCount) {
+		if (activeButton < (buttonCount - 1)) {
 			buttonList->at(activeButton)->onRelease();
 			activeButton++;
 			buttonList->at(activeButton)->onSelect();

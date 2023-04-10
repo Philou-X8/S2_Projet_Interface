@@ -8,6 +8,7 @@
 #include <QList>
 #include "userProfile.h"
 #include "custom_button.h"
+#include "custom_menu.h"
 
 
 
@@ -22,24 +23,21 @@ public:
 	void onKeyEvent(char key);
 
 signals:
+	void SelectScreenSignal(int);
 	void SelectContinueSignal();
 	void SelectLevelSignal();
 	void SelectSettingsSignal();
 	void SelectQuitSignal();
 
+protected slots:
+	void menuClicked(int selection);
+
 private:
 	UserProfile* profile;
 
 	QGridLayout* homeLayout;
-	//QLabel* homeTestText; // temp 
 	QLabel* homeTitle;
-	CustomButton* levelSelect;
-	CustomButton* continueGame;
-	CustomButton* settings;
-	CustomButton* quit;
-	QList<CustomButton*> *buttonList;
+	CustomMenu* homeButtonList;
 
-	int activeButton;
-	void buttonSelect(int selection);
 
 };

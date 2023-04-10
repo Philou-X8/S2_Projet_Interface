@@ -192,7 +192,7 @@ void subscreen_game_grid::movePlayers() {
 	gridLayout->addWidget(p2Tex, 19 - p2->y, p2->x);
 }
 void subscreen_game_grid::rotatePlayer(Coords* dir) {
-	if (dir == p1Dir) {
+	if (dir == p1Dir) { // compare pointer, not value
 		if (*dir == Coords(1, 0)) {
 			p1Tex->setPixmap(profile->getTex("player1_r"));
 		}
@@ -238,5 +238,15 @@ QPixmap subscreen_game_grid::getTileTex(int type) {
 		return profile->getTex("board_tile_spawn2");
 	default:
 		return profile->getTex("board_tile_blank");
+	}
+}
+
+void subscreen_game_grid::updateSkin() {
+	rotatePlayer(p1Dir);
+	rotatePlayer(p2Dir);
+	for (int i = 0; i < 20; i++) {
+		for (int j = 0; j < 20; j++) {
+			visualGrid[i][j]->setPixmap(getTileTex(grid[i][j]));
+		}
 	}
 }

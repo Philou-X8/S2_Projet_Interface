@@ -23,6 +23,8 @@ public:
 	void movePlayers();
 	void rotatePlayer(Coords* dir);
 
+	void updateSkin();
+
 	//QGridLayout* playerGrid;
 private:
 	UserProfile* profile;

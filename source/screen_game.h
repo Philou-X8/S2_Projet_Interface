@@ -19,8 +19,10 @@ public:
 
 	bool levelState(); // check if level is finished
 	bool loadLevel(int lvl);
+	void updateSkin();
 
 	void getOutputInfo(int& count);
+
 
 private:
 	UserProfile* profile;

@@ -12,6 +12,7 @@
 #include "screen_home.h"
 #include "screen_select_level.h"
 #include "screen_game.h"
+#include "screen_settings.h"
 #include "inputmanager.h"
 
 class window_main : public QMainWindow
@@ -25,10 +26,10 @@ signals:
 
 public slots:
 	void readInput();
+	void setScreen(int);
 	void setScreenHome();
 	void setScreenLevels();
 	void setScreenGame();
-
 
 protected:
 	void keyPressEvent(QKeyEvent* event) override;
@@ -38,6 +39,7 @@ private:
 	screen_home* screenHome;
 	screen_select_level* screenLevels;
 	screen_game* screenGame;
+	screen_settings* screenSettings;
 
 	QTimer* clock;
 	InputManager* inputManager;

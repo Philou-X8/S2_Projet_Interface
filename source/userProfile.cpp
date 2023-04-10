@@ -73,3 +73,12 @@ bool UserProfile::autoPull() {
 void UserProfile::setPullMode(bool mode) {
 	pullMode = mode;
 }
+
+QString UserProfile::changeSkin(int dir) {
+	int skinIndex = unlockedSkins.indexOf(skin);
+	skinIndex = (skinIndex + dir) % (unlockedSkins.length() - 1);
+	if (skinIndex < 0) skinIndex = unlockedSkins.length() - 1;
+	skin = unlockedSkins[skinIndex];
+	return skin;
+}
+

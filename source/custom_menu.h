@@ -17,8 +17,7 @@ public:
 	void onKeyEvent(char key);
 
 	void addButton(QString baseTex, QString hiTex);
-	//CustomButton* getButton(int index);
-	//CustomButton* getLastButton();
+	int getActiveIndex();
 
 signals:
 	void clickedButton(int i);
