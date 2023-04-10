@@ -4,6 +4,7 @@
 #include <QWidget>
 #include <QGridLayout>
 #include <QLabel>
+#include "userProfile.h"
 
 
 class CustomButton : public QGridLayout
@@ -13,14 +14,18 @@ public:
 	//CustomButton();
 	CustomButton(QPixmap base, QPixmap hi);
 	CustomButton(QString text, QPixmap base, QPixmap hi);
+	CustomButton(UserProfile* p, QString text, bool hasArrow);
 	~CustomButton();
 
 	void onSelect();
 	void onRelease();
 private:
+	UserProfile* profile;
+	QLabel* buttonText;
 	QLabel* buttonBase;
 	QLabel* buttonHi;
-	QLabel* buttonText;
+	QLabel* arrowR;
+	QLabel* arrowL;
 
 };
 

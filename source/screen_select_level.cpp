@@ -18,8 +18,8 @@ screen_select_level::screen_select_level(UserProfile* p, QWidget* parent) : QWid
 
 	levelsButtonList = new CustomMenu(profile, this);
 	QObject::connect(levelsButtonList, SIGNAL(clickedButton(int)), this, SLOT(menuClicked(int)));
-	levelsButtonList->addButton("setting_button_resume", "home_button_hi");
-	levelsButtonList->addButton("setting_button_quit", "home_button_hi");
+	levelsButtonList->addButton("SELECT LEVEL", true);
+	levelsButtonList->addButton("CANCEL", false);
 
 	levelsLayout = new QGridLayout(this);
 	// fill layout

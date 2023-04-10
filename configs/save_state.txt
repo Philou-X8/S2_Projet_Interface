@@ -12,4 +12,4 @@ push mode
 pull mode
 
 to add:
-btd5, forklift, minesweeper, vaporwave, github_look, window_xp
+btd5, forklift, minesweeper, vaporwave, github_look, window_xp, PCB

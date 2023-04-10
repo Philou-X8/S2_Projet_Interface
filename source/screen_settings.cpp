@@ -20,12 +20,20 @@ screen_settings::screen_settings(UserProfile* p, InputManager* inManager) : QWid
 
 	settingsButtonList = new CustomMenu(profile, this);
 	//QObject::connect(settingsButtonList, SIGNAL(clickedButton(int)), this, SLOT(menuClicked(int)));
-	settingsButtonList->addButton("setting_button_resume", "home_button_hi");
-	settingsButtonList->addButton("setting_button_skin", "home_button_hi");
-	settingsButtonList->addButton("setting_button_volume", "home_button_hi");
-	settingsButtonList->addButton("setting_button_reconnect", "home_button_hi");
-	settingsButtonList->addButton("setting_button_home", "home_button_hi");
-	settingsButtonList->addButton("setting_button_quit", "home_button_hi");
+	/*
+	settingsButtonList->addButton("RESUME", "button_base", "button_hi");
+	settingsButtonList->addButton("CHANGE SKIN", "button_base", "button_hi");
+	settingsButtonList->addButton("VOLUME", "button_base", "button_hi");
+	settingsButtonList->addButton("RECONNECT CNT", "button_base", "button_hi");
+	settingsButtonList->addButton("RETURN TO HOME", "button_base", "button_hi");
+	settingsButtonList->addButton("QUIT", "button_base", "button_hi");
+	*/
+	settingsButtonList->addButton("RESUME", false);
+	settingsButtonList->addButton("CHANGE SKIN", true);
+	settingsButtonList->addButton("VOLUME", true);
+	settingsButtonList->addButton("RECONNECT CNT", false);
+	settingsButtonList->addButton("RETURN TO HOME", false);
+	settingsButtonList->addButton("QUIT", false);
 
 
 	// create layout

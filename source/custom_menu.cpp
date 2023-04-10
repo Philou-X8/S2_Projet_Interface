@@ -36,6 +36,14 @@ void CustomMenu::addButton(QString text, QString baseTex, QString hiTex) {
 	buttonCount++;
 	buttonList->at(activeButton)->onSelect(); // show active button
 }
+void CustomMenu::addButton(QString text, bool hasArrow) {
+	CustomButton* newButton;
+	newButton = new CustomButton(profile, text, hasArrow);
+	buttonList->append(newButton);
+	menuLayout->addLayout(newButton, buttonCount, 0);
+	buttonCount++;
+	buttonList->at(activeButton)->onSelect(); // show active button
+}
 
 int CustomMenu::getActiveIndex() {
 	return activeButton;

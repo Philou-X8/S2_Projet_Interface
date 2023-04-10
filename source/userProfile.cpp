@@ -23,7 +23,6 @@ void UserProfile::writeSaveState() {
 	out << unlockedLvlNb << "\n";
 	out << pushMode << "\n";
 	out << pullMode << "\n";
-	//file.writeli
 
 	file.close();
 }

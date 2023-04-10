@@ -18,6 +18,7 @@ public:
 
 	void addButton(QString baseTex, QString hiTex);
 	void addButton(QString text, QString baseTex, QString hiTex);
+	void addButton(QString text, bool hasArrow);
 	int getActiveIndex();
 
 signals:

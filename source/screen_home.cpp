@@ -18,10 +18,10 @@ screen_home::screen_home(UserProfile* p, QWidget* parent) : QWidget(parent),
 
 	homeButtonList = new CustomMenu(profile, this);
 	QObject::connect(homeButtonList, SIGNAL(clickedButton(int)), this, SLOT(menuClicked(int)));
-	homeButtonList->addButton("home_button_continue", "home_button_hi");
-	homeButtonList->addButton("home_button_level", "home_button_hi");
-	homeButtonList->addButton("home_button_settings", "home_button_hi");
-	homeButtonList->addButton("home_button_quit", "home_button_hi");
+	homeButtonList->addButton("NEW GAME", "home_button", "home_button_hi");
+	homeButtonList->addButton("SELECT LEVEL", "home_button", "home_button_hi");
+	homeButtonList->addButton("SETTINGS", "home_button", "home_button_hi");
+	homeButtonList->addButton("QUIT", "home_button", "home_button_hi");
 
 
 	// create layout
