@@ -29,6 +29,7 @@ private:
 	UserProfile* profile;
 	InputManager* inputManager;
 	QGridLayout* settingsLayout;
+	QLabel* settingsBgTex;
 	QLabel* settingsTitle;
 	CustomMenu* settingsButtonList;
 

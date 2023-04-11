@@ -1,5 +1,5 @@
-default
-default
+minesweeper
+default synthwave paper beach scifi minecraft minesweeper
 10
 1
 1

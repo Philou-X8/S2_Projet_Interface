@@ -111,12 +111,17 @@ screen_game::screen_game(UserProfile* p, QWidget* parent) : QWidget(parent),
 	gameLayout(nullptr),
 	gameInfoL(nullptr),
 	gameInfoR(nullptr),
+	gameBgTex(nullptr),
 	p1(nullptr),
 	p2(nullptr),
 	mapSize(nullptr),
 	mapGrid(nullptr),
 	mapLoader(nullptr)
 {
+	gameBgTex = new QLabel(this);
+	gameBgTex->setAlignment(Qt::AlignCenter);
+	gameBgTex->setPixmap(profile->getTex("background"));
+	gameBgTex->setSizePolicy(QSizePolicy::Ignored, QSizePolicy::Ignored);
 	// -------------------- Game State --------------------
 	currentLevel = profile->getStart();
 	moveCount = 0;
@@ -132,12 +137,15 @@ screen_game::screen_game(UserProfile* p, QWidget* parent) : QWidget(parent),
 	// -------------------- Info Labels --------------------
 	gameInfoL = new GameInfoLeft(currentLevel, moveCount, activePlayer, profile, this);
 	gameInfoR = new GameInfoRight("", profile, this);
+
 	// -------------------- Layout Filling --------------------
 	gameLayout = new QGridLayout(this);
+	gameLayout->setContentsMargins(0, 0, 0, 0);
 	
-	gameLayout->addWidget(mapGrid, 0, 1);
-	gameLayout->addWidget(gameInfoL, 0, 0);
-	gameLayout->addWidget(gameInfoR, 0, 2);
+	gameLayout->addWidget(gameBgTex, 0, 0, 3, 3);
+	gameLayout->addWidget(mapGrid, 1, 1);
+	gameLayout->addWidget(gameInfoL, 1, 0);
+	gameLayout->addWidget(gameInfoR, 1, 2);
 	
 	setLayout(gameLayout);
 
@@ -207,6 +215,7 @@ bool screen_game::loadLevel(int lvl) {
 }
 
 void screen_game::updateSkin() {
+	gameBgTex->setPixmap(profile->getTex("background"));
 	mapGrid->updateSkin();
 }
 

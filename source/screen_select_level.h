@@ -27,7 +27,7 @@ private:
 	UserProfile* profile;
 
 	QGridLayout* levelsLayout;
-
+	QLabel* levelsBgTex;
 	QLabel* levelsTitle;
 	QLabel* levelsSelectionTexture;
 	QLabel* levelsSelectionText;

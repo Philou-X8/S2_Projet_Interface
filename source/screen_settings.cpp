@@ -4,9 +4,15 @@ screen_settings::screen_settings(UserProfile* p, InputManager* inManager) : QWid
 	profile(p),
 	inputManager(inManager),
 	settingsLayout(nullptr),
+	settingsBgTex(nullptr),
 	settingsTitle(nullptr),
 	settingsButtonList(nullptr)
 {
+
+	settingsBgTex = new QLabel(this);
+	settingsBgTex->setAlignment(Qt::AlignCenter);
+	settingsBgTex->setPixmap(profile->getTex("background"));
+	settingsBgTex->setSizePolicy(QSizePolicy::Ignored, QSizePolicy::Ignored);
 
 	settingsTitle = new QLabel(this);
 	settingsTitle->setAlignment(Qt::AlignCenter);
@@ -28,9 +34,11 @@ screen_settings::screen_settings(UserProfile* p, InputManager* inManager) : QWid
 
 	// create layout
 	settingsLayout = new QGridLayout(this);
+	settingsLayout->setContentsMargins(0, 0, 0, 0);
 	// fill layout
-	settingsLayout->addWidget(settingsTitle, 0, 0, 1, 3);
-	settingsLayout->addWidget(settingsButtonList, 1, 1, 6, 1);
+	settingsLayout->addWidget(settingsBgTex, 0, 0, 2, 1);
+	settingsLayout->addWidget(settingsTitle, 0, 0);
+	settingsLayout->addWidget(settingsButtonList, 1, 0);
 	//homeLayout->setAlignment(Qt::AlignCenter);
 
 	setLayout(settingsLayout);
@@ -109,5 +117,6 @@ void screen_settings::keyPressEvent(QKeyEvent* event) {
 }
 
 void screen_settings::updateUI() {
+	settingsBgTex->setPixmap(profile->getTex("background"));
 	settingsButtonList->updateUI();
 }

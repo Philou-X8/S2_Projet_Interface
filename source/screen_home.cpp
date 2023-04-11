@@ -16,7 +16,6 @@ screen_home::screen_home(UserProfile* p, QWidget* parent) : QWidget(parent),
 	homeBgTex = new QLabel(this);
 	homeBgTex->setAlignment(Qt::AlignCenter);
 	homeBgTex->setPixmap(profile->getTex("background"));
-	//homeBgTex->setScaledContents(true);
 	homeBgTex->setSizePolicy(QSizePolicy::Ignored, QSizePolicy::Ignored);
 
 	homeTitle = new QLabel(this);
@@ -78,6 +77,7 @@ void screen_home::menuClicked(int selection) {
 }
 
 void screen_home::updateUI() {
+	homeBgTex->setPixmap(profile->getTex("background"));
 	homeButtonList->updateUI();
 }
 

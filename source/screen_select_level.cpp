@@ -3,7 +3,10 @@
 screen_select_level::screen_select_level(UserProfile* p, QWidget* parent) : QWidget(parent),
 	profile(p),
 	levelsLayout(nullptr),
+	levelsBgTex(nullptr),
 	levelsTitle(nullptr),
+	levelsSelectionTexture(nullptr),
+	levelsSelectionText(nullptr),
 	levelsButtonList(nullptr)
 {
 	levelCount = 10; // max number of level
@@ -12,6 +15,11 @@ screen_select_level::screen_select_level(UserProfile* p, QWidget* parent) : QWid
 	if (lvlSelection <= levelCount) {
 		levelCount = lvlSelection;
 	}
+
+	levelsBgTex = new QLabel(this);
+	levelsBgTex->setAlignment(Qt::AlignCenter);
+	levelsBgTex->setPixmap(profile->getTex("background"));
+	levelsBgTex->setSizePolicy(QSizePolicy::Ignored, QSizePolicy::Ignored);
 
 	levelsTitle = new QLabel(this);
 	levelsTitle->setAlignment(Qt::AlignCenter);
@@ -33,7 +41,9 @@ screen_select_level::screen_select_level(UserProfile* p, QWidget* parent) : QWid
 	levelsButtonList->addButton("CANCEL", false);
 
 	levelsLayout = new QGridLayout(this);
+	levelsLayout->setContentsMargins(0, 0, 0, 0);
 	// fill layout
+	levelsLayout->addWidget(levelsBgTex, 0, 0, 3, 3);
 	levelsLayout->addWidget(levelsTitle, 0, 0, 1, 3);
 	levelsLayout->addWidget(levelsSelectionTexture, 1, 1);
 	levelsLayout->addWidget(levelsSelectionText, 1, 1);
@@ -87,6 +97,7 @@ void screen_select_level::menuClicked(int index) {
 }
 
 void screen_select_level::updateUI() {
+	levelsBgTex->setPixmap(profile->getTex("background"));
 	levelsSelectionTexture->setPixmap(profile->getTex("button_base"));
 	levelsButtonList->updateUI();
 }
