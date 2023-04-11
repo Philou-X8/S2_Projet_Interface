@@ -97,7 +97,6 @@ void window_main::keyPressEvent(QKeyEvent* event) {
 
 }
 void window_main::setScreen(int id) {
-	std::cout << "set screen, selection: " << id << std::endl;
 	switch (id) {
 	case ID_HOME:
 		setScreenHome();

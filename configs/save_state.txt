@@ -1,15 +1,5 @@
-default 
-default beach minecraft paper scifi synthwave minesweeper
+paper
+default paper
 1
 1
 1
-
-# template:
-active skin
-unlocked skin list
-unlocked level
-push mode
-pull mode
-
-to add:
-btd5, forklift, minesweeper, vaporwave, github_look, window_xp

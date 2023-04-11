@@ -6,7 +6,12 @@ screen_select_level::screen_select_level(UserProfile* p, QWidget* parent) : QWid
 	levelsTitle(nullptr),
 	levelsButtonList(nullptr)
 {
+	levelCount = 12; // max number of level
+
 	lvlSelection = profile->getUnlocked();
+	if (lvlSelection <= levelCount) {
+		levelCount = lvlSelection;
+	}
 
 	levelsTitle = new QLabel(this);
 	levelsTitle->setAlignment(Qt::AlignCenter);

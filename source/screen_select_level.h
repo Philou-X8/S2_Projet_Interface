@@ -23,7 +23,7 @@ protected slots:
 	void menuClicked(int index);
 
 private:
-	const int levelCount = 12; // number of existing levels
+	int levelCount = 12; // number of existing levels
 	UserProfile* profile;
 
 	QGridLayout* levelsLayout;

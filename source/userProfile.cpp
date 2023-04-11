@@ -13,7 +13,7 @@ UserProfile::~UserProfile() {
 
 }
 void UserProfile::writeSaveState() {
-	QFile file("../configs/save_state2.txt");
+	QFile file("../configs/save_state.txt");
 	if (!file.open(QIODevice::WriteOnly | QIODevice::Text)) {
 		return;
 	}
@@ -28,7 +28,7 @@ void UserProfile::writeSaveState() {
 }
 
 void UserProfile::readSaveState() {
-	QFile file("../configs/save_state2.txt");
+	QFile file("../configs/save_state.txt");
 	if (!file.open(QIODevice::ReadOnly | QIODevice::Text)) {
 		return;
 	}
