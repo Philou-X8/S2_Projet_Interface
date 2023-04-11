@@ -21,6 +21,9 @@ public:
 	void addButton(QString text, bool hasArrow);
 	int getActiveIndex();
 
+	void updateText(int index, QString text);
+	void updateUI();
+
 signals:
 	void clickedButton(int i);
 

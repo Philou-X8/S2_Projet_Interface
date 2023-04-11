@@ -4,3 +4,9 @@ minecraft
 paper
 scifi
 synthwave
+minesweeper
+
+forklift
+pcb
+btd5
+github_look

@@ -54,6 +54,17 @@ void UserProfile::readSaveState() {
 	file.close();
 }
 
+void UserProfile::loadSkinList(QStringList& returnList) {
+	QFile file("../configs/skin_list.txt");
+	if (!file.open(QIODevice::ReadOnly | QIODevice::Text)) {
+		return;
+	}
+	QTextStream in(&file);
+	
+
+	file.close();
+}
+
 QPixmap UserProfile::getTex(QString tex) {
 	QString path = "../texture/" + skin + "/" + tex + ".png";
 	QPixmap texture = QPixmap(path);

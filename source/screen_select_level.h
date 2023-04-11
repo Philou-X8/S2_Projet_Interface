@@ -15,6 +15,7 @@ public:
 	~screen_select_level();
 
 	void onKeyEvent(char key);
+	void updateUI();
 
 signals:
 	void SelectScreenSignal(int);

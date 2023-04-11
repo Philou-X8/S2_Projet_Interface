@@ -36,7 +36,7 @@ CustomButton::CustomButton(UserProfile* p, QString text, bool hasArrow) : QGridL
 {
 	buttonText = new QLabel(text);
 	buttonText->setAlignment(Qt::AlignCenter);
-	buttonText->setFont(QFont("Impact", 20));
+	buttonText->setFont(QFont("Impact", 16));
 
 	buttonBase = new QLabel;
 	buttonBase->setAlignment(Qt::AlignCenter);
@@ -76,4 +76,17 @@ void CustomButton::onSelect() {
 }
 void CustomButton::onRelease() {
 	buttonHi->hide();
+}
+
+void CustomButton::updateText(QString text) {
+	if (buttonText != nullptr) {
+		buttonText->setText(text);
+	}
+}
+void CustomButton::updateUI() {
+	buttonBase->setPixmap(profile->getTex("button_base"));
+	buttonHi->setPixmap(profile->getTex("button_hi"));
+
+	if (arrowR != nullptr) arrowR->setPixmap(profile->getTex("button_base_arrow_r"));
+	if (arrowL != nullptr) arrowL->setPixmap(profile->getTex("button_base_arrow_l"));
 }

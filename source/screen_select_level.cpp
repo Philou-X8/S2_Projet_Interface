@@ -10,7 +10,7 @@ screen_select_level::screen_select_level(UserProfile* p, QWidget* parent) : QWid
 
 	levelsTitle = new QLabel(this);
 	levelsTitle->setAlignment(Qt::AlignCenter);
-	levelsTitle->setFont(QFont("Impact", 48));
+	levelsTitle->setFont(QFont("Impact", 36));
 	levelsTitle->setText("LEVEL SELECTION");
 
 	levelsSelectionTexture = new QLabel(this);
@@ -79,4 +79,9 @@ void screen_select_level::menuClicked(int index) {
 	default:
 		break;
 	}
+}
+
+void screen_select_level::updateUI() {
+	levelsSelectionTexture->setPixmap(profile->getTex("button_base"));
+	levelsButtonList->updateUI();
 }

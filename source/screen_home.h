@@ -11,8 +11,6 @@
 #include "custom_menu.h"
 
 
-
-
 class screen_home : public QWidget
 {
 	Q_OBJECT
@@ -21,6 +19,7 @@ public:
 	~screen_home();
 
 	void onKeyEvent(char key);
+	void updateUI();
 
 signals:
 	void SelectScreenSignal(int);

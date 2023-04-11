@@ -53,8 +53,10 @@ void window_main::readInput() {
 
 		if (!screenSettings->isHidden()) { // if setting is shown
 			if (input == 'r') {
+				screenSettings->updateUI();
 				if (screenGame != nullptr) screenGame->updateSkin();
-				return;
+				if (screenHome != nullptr) screenHome->updateUI();
+				if (screenLevels != nullptr) screenLevels->updateUI();
 			}
 			screenSettings->onKeyEvent(input);
 

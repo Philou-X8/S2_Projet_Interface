@@ -75,3 +75,12 @@ void CustomMenu::onKeyEvent(char key) {
 		break;
 	}
 }
+
+void CustomMenu::updateText(int index, QString text) {
+	buttonList->at(index)->updateText(text);
+}
+void CustomMenu::updateUI() {
+	for (CustomButton* button : *buttonList) {
+		button->updateUI();
+	}
+}

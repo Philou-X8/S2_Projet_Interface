@@ -19,6 +19,8 @@ public:
 
 	void onSelect();
 	void onRelease();
+	void updateText(QString text);
+	void updateUI();
 private:
 	UserProfile* profile;
 	QLabel* buttonText;

@@ -5,34 +5,22 @@ screen_settings::screen_settings(UserProfile* p, InputManager* inManager) : QWid
 	inputManager(inManager),
 	settingsLayout(nullptr),
 	settingsTitle(nullptr),
-	skinActive(nullptr),
 	settingsButtonList(nullptr)
 {
 
 	settingsTitle = new QLabel(this);
 	settingsTitle->setAlignment(Qt::AlignCenter);
 	//settingsTitle->setPixmap(profile->getTex("home_title"));
-	settingsTitle->setFont(QFont("Impact", 48));
+	settingsTitle->setFont(QFont("Impact", 36));
 	settingsTitle->setText("SETTINGS");
 
-	skinActive = new QLabel(this);
-	skinActive->setAlignment(Qt::AlignCenter);
-	skinActive->setText(profile->changeSkin(0));
-
-
 	settingsButtonList = new CustomMenu(profile, this);
-	//QObject::connect(settingsButtonList, SIGNAL(clickedButton(int)), this, SLOT(menuClicked(int)));
-	/*
-	settingsButtonList->addButton("RESUME", "button_base", "button_hi");
-	settingsButtonList->addButton("CHANGE SKIN", "button_base", "button_hi");
-	settingsButtonList->addButton("VOLUME", "button_base", "button_hi");
-	settingsButtonList->addButton("RECONNECT CNT", "button_base", "button_hi");
-	settingsButtonList->addButton("RETURN TO HOME", "button_base", "button_hi");
-	settingsButtonList->addButton("QUIT", "button_base", "button_hi");
-	*/
+	
 	settingsButtonList->addButton("RESUME", false);
-	settingsButtonList->addButton("CHANGE SKIN", true);
-	settingsButtonList->addButton("VOLUME", true);
+	settingsButtonList->addButton("SKIN: " + profile->changeSkin(0), true);
+	settingsButtonList->addButton("AUTO PUSH: " + QString::number(profile->autoPush()), true);
+	settingsButtonList->addButton("AUTO PULL: " + QString::number(profile->autoPull()), true);
+	settingsButtonList->addButton("VOLUME: ", true);
 	settingsButtonList->addButton("RECONNECT CNT", false);
 	settingsButtonList->addButton("RETURN TO HOME", false);
 	settingsButtonList->addButton("QUIT", false);
@@ -42,7 +30,6 @@ screen_settings::screen_settings(UserProfile* p, InputManager* inManager) : QWid
 	settingsLayout = new QGridLayout(this);
 	// fill layout
 	settingsLayout->addWidget(settingsTitle, 0, 0, 1, 3);
-	settingsLayout->addWidget(skinActive, 1, 2, 1, 1);
 	settingsLayout->addWidget(settingsButtonList, 1, 1, 6, 1);
 	//homeLayout->setAlignment(Qt::AlignCenter);
 
@@ -77,30 +64,40 @@ void screen_settings::sideToggle(int dir) {
 		if (dir == 0) this->hide();
 		break;
 	case 1: // skin
-		skinChange(dir);
+		settingsButtonList->updateText(1, "SKIN: " + profile->changeSkin(dir));
+		inputManager->addKey('r'); // updates de map's UI
 		break;
-	case 2: // volume
+	case 2: // push
+		profile->setPushMode(!profile->autoPush());
+		settingsButtonList->updateText(2, "AUTO PUSH: " + QString::number(profile->autoPush()));
+		break;
+	case 3: // pull
+		profile->setPullMode(!profile->autoPull());
+		settingsButtonList->updateText(3, "AUTO PULL: " + QString::number(profile->autoPull()));
+		break;
+	case 4: // volume
 
 		break;
-	case 3: // connect controller
+	case 5: // connect controller
 		inputManager->connectController();
 		break;
-	case 4: // return home
+	case 6: // return home
 		emit SelectScreenSignal(ID_HOME);
 		this->hide();
 		break;
-	case 5: // quit
+	case 7: // quit
 		emit SelectScreenSignal(ID_QUIT);
 		break;
 	default:
 		break;
 	}
 }
-
+/*
 void screen_settings::skinChange(int dir) {
-	skinActive->setText(profile->changeSkin(dir));
+	//skinActive->setText(profile->changeSkin(dir));
 	inputManager->addKey('r');
 }
+*/
 
 void screen_settings::keyPressEvent(QKeyEvent* event) {
 	QChar qchar((char)event->key()); // without casting to char, the program crash
@@ -109,4 +106,8 @@ void screen_settings::keyPressEvent(QKeyEvent* event) {
 		return;
 	}
 	inputManager->addKey(qchar.toLower().unicode());
+}
+
+void screen_settings::updateUI() {
+	settingsButtonList->updateUI();
 }

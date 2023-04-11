@@ -67,3 +67,7 @@ void screen_home::menuClicked(int selection) {
 	*/
 }
 
+void screen_home::updateUI() {
+	homeButtonList->updateUI();
+}
+

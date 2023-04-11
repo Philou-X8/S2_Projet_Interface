@@ -16,6 +16,7 @@ public:
 	~screen_settings();
 
 	void onKeyEvent(char key);
+	void updateUI();
 
 signals:
 	void SelectScreenSignal(int);
@@ -24,6 +25,7 @@ protected:
 	void keyPressEvent(QKeyEvent* event) override;
 
 private:
+	
 	UserProfile* profile;
 	InputManager* inputManager;
 	QGridLayout* settingsLayout;
@@ -33,8 +35,7 @@ private:
 	void sideToggle(int dir);
 
 	// skin settings
-	QLabel* skinActive;
-	void skinChange(int dir);
+	//void skinChange(int dir);
 
 };
 
