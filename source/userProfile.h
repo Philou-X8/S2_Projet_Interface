@@ -18,6 +18,7 @@ public:
 	void writeSaveState();
 
 	void loadSkinList(QStringList& returnList);
+	QString unlockNewSkin(int seed);
 
 	QPixmap getTex(QString tex);
 	int getUnlocked();

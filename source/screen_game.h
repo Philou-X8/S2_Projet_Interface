@@ -21,7 +21,7 @@ public:
 	bool loadLevel(int lvl);
 	void updateSkin();
 
-	void getOutputInfo(int& count);
+	void getOutputInfo(int& count, int& ply);
 
 
 private:

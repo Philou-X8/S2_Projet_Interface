@@ -55,6 +55,11 @@ void screen_game::onKeyEvent(char key) {
 		// do some stuff like a pop up of smt
 		currentLevel++;
 		if (profile->getUnlocked() < currentLevel) profile->setUnlocked(currentLevel);
+		
+		if ((currentLevel % 3) == 2) { // should unlock new skin
+			int seed = 883 * currentLevel;
+			profile->unlockNewSkin(seed); // generate seed
+		}
 
 		bool gameOver = !loadLevel(currentLevel);
 		if (gameOver) {
@@ -82,8 +87,9 @@ void screen_game::updateSkin() {
 	mapGrid->updateSkin();
 }
 
-void screen_game::getOutputInfo(int& count) {
+void screen_game::getOutputInfo(int& count, int& ply) {
 	count = moveCount;
+	ply = activePlayer;
 }
 
 int screen_game::inputPlayerAction(char input) {

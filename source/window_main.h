@@ -26,6 +26,7 @@ signals:
 
 public slots:
 	void readInput();
+	void writeOutput();
 	void setScreen(int);
 	void setScreenHome();
 	void setScreenLevels();
@@ -41,7 +42,8 @@ private:
 	screen_game* screenGame;
 	screen_settings* screenSettings;
 
-	QTimer* clock;
+	QTimer* inputClock;
+	QTimer* outputClock;
 	InputManager* inputManager;
 
 	void clearCentralWidget();

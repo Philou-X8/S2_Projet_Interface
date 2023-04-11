@@ -17,9 +17,12 @@ window_main::window_main(QWidget* parent) : QMainWindow(parent),
 
 	setScreenHome();
 
-	clock = new QTimer;
-	QObject::connect(clock, SIGNAL(timeout()), this, SLOT(readInput()));
-	clock->start(10);
+	inputClock = new QTimer;
+	QObject::connect(inputClock, SIGNAL(timeout()), this, SLOT(readInput()));
+	inputClock->start(10);
+	outputClock = new QTimer;
+	QObject::connect(inputClock, SIGNAL(timeout()), this, SLOT(writeOutput()));
+	outputClock->start(50);
 
 	//setCentralWidget(screenHome);
 	setMinimumSize(960, 540);
@@ -32,7 +35,7 @@ window_main::window_main(QWidget* parent) : QMainWindow(parent),
 }
 window_main::~window_main() 
 {
-	clock->stop();
+	inputClock->stop();
 	//inputManager->stopThreads();
 	delete inputManager;
 }
@@ -71,6 +74,15 @@ void window_main::readInput() {
 		else if (screenGame != nullptr) screenGame->onKeyEvent(input);
 
 	}
+}
+
+void window_main::writeOutput() {
+	int moveCount = 0;
+	int ledMode = 0;
+	if (screenGame != nullptr) {
+		screenGame->getOutputInfo(moveCount, ledMode);
+	}
+	inputManager->updateOutputInfo(moveCount, ledMode);
 }
 
 void window_main::keyPressEvent(QKeyEvent* event) {
