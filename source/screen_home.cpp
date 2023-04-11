@@ -37,9 +37,9 @@ screen_home::screen_home(UserProfile* p, QWidget* parent) : QWidget(parent),
 	homeLayout->setContentsMargins(0, 0, 0, 0);
 	// fill layout
 
-	homeLayout->addWidget(homeBgTex, 0, 0, 2, 1);
-	homeLayout->addWidget(homeTitle, 0, 0, 1, 1);
-	homeLayout->addWidget(homeButtonList, 1, 0);
+	homeLayout->addWidget(homeBgTex, 0, 0, 5, 1);
+	homeLayout->addWidget(homeTitle, 1, 0);
+	homeLayout->addWidget(homeButtonList, 3, 0);
 	//homeLayout->setAlignment(Qt::AlignCenter);
 
 	setLayout(homeLayout);

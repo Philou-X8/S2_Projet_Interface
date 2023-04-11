@@ -179,8 +179,11 @@ void screen_game::onKeyEvent(char key) {
 		// should unlock new skin
 		QString newSkin = "";
 		if ((currentLevel % 3) == 1) { // replace with randomizer
-			int seed = 883 * currentLevel; // generate seed
+			int seed = 867 * currentLevel; // generate seed
 			newSkin = profile->unlockNewSkin(seed); 
+			if (newSkin.size() > 0) {
+				updateSkin();
+			}
 		}
 		gameInfoR->updateSkin(newSkin);
 
@@ -216,6 +219,7 @@ bool screen_game::loadLevel(int lvl) {
 
 void screen_game::updateSkin() {
 	gameBgTex->setPixmap(profile->getTex("background"));
+	gameInfoL->updatePlayer(activePlayer);
 	mapGrid->updateSkin();
 }
 

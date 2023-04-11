@@ -87,14 +87,16 @@ void screen_settings::sideToggle(int dir) {
 
 		break;
 	case 5: // connect controller
-		inputManager->connectController();
+		if (dir == 0) inputManager->connectController();
 		break;
 	case 6: // return home
-		emit SelectScreenSignal(ID_HOME);
-		this->hide();
+		if (dir == 0) {
+			emit SelectScreenSignal(ID_HOME);
+			this->hide();
+		}
 		break;
 	case 7: // quit
-		emit SelectScreenSignal(ID_QUIT);
+		if (dir == 0) emit SelectScreenSignal(ID_QUIT);
 		break;
 	default:
 		break;
@@ -108,12 +110,21 @@ void screen_settings::skinChange(int dir) {
 */
 
 void screen_settings::keyPressEvent(QKeyEvent* event) {
-	QChar qchar((char)event->key()); // without casting to char, the program crash
-	if (event->key() == Qt::Key_Escape) {
+	switch (event->key()) {
+	case Qt::Key_Shift:
+		return;
+	case Qt::Key_Escape:
+	case Qt::Key_Tab:
 		inputManager->addKey('p');
 		return;
+	case Qt::Key_Enter:
+		inputManager->addKey(' ');
+		return;
+	default:
+		QChar qchar((char)event->key());
+		inputManager->addKey(qchar.toLower().unicode());
+		break;
 	}
-	inputManager->addKey(qchar.toLower().unicode());
 }
 
 void screen_settings::updateUI() {

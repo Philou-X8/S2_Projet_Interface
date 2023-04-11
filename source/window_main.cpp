@@ -86,15 +86,21 @@ void window_main::writeOutput() {
 }
 
 void window_main::keyPressEvent(QKeyEvent* event) {
-
-	QChar qchar((char)event->key()); // without casting to char, the program crash
-	//if (qchar.unicode() >= 'A' && qchar.unicode() <= 'Z') qchar = qchar.toLower();
-	if (event->key() == Qt::Key_Escape) {
+	switch (event->key()) {
+	case Qt::Key_Shift:
+		return;
+	case Qt::Key_Escape:
+	case Qt::Key_Tab:
 		inputManager->addKey('p');
 		return;
+	case Qt::Key_Enter:
+		inputManager->addKey(' ');
+		return;
+	default:
+		QChar qchar((char)event->key());
+		inputManager->addKey(qchar.toLower().unicode());
+		break;
 	}
-	inputManager->addKey(qchar.toLower().unicode());
-
 }
 void window_main::setScreen(int id) {
 	switch (id) {
