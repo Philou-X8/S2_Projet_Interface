@@ -23,6 +23,7 @@ window_main::window_main(QWidget* parent) : QMainWindow(parent),
 
 	//setCentralWidget(screenHome);
 	setMinimumSize(960, 540);
+	//setContentsMargins(0, 0, 0, 0);
 	//setMaximumSize(1920, 1080);
 	//setFixedSize(960, 540);
 	//this->setSizePolicy(QSizePolicy::Minimum, QSizePolicy::Minimum);

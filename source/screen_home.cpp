@@ -8,10 +8,17 @@ screen_home::screen_home(UserProfile* p, QWidget* parent) : QWidget(parent),
 	profile(p),
 	homeLayout(nullptr),
 	homeTitle(nullptr),
+	homeBgTex(nullptr),
 	homeButtonList(nullptr)
 {
 	//profile = p;
-	
+
+	homeBgTex = new QLabel(this);
+	homeBgTex->setAlignment(Qt::AlignCenter);
+	homeBgTex->setPixmap(profile->getTex("background"));
+	//homeBgTex->setScaledContents(true);
+	homeBgTex->setSizePolicy(QSizePolicy::Ignored, QSizePolicy::Ignored);
+
 	homeTitle = new QLabel(this);
 	homeTitle->setAlignment(Qt::AlignCenter);
 	//homeTitle->setPixmap(profile->getTex("home_title"));
@@ -28,7 +35,10 @@ screen_home::screen_home(UserProfile* p, QWidget* parent) : QWidget(parent),
 
 	// create layout
 	homeLayout = new QGridLayout(this);
+	homeLayout->setContentsMargins(0, 0, 0, 0);
 	// fill layout
+
+	homeLayout->addWidget(homeBgTex, 0, 0, 2, 1);
 	homeLayout->addWidget(homeTitle, 0, 0, 1, 1);
 	homeLayout->addWidget(homeButtonList, 1, 0);
 	//homeLayout->setAlignment(Qt::AlignCenter);

@@ -36,6 +36,7 @@ private:
 
 	QGridLayout* homeLayout;
 	QLabel* homeTitle;
+	QLabel* homeBgTex;
 	CustomMenu* homeButtonList;
 
 
