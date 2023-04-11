@@ -4,15 +4,17 @@
 // -----------------------------------------------------
 // GameInfoCompletion
 // -----------------------------------------------------
-GameInfoCompletion::GameInfoCompletion(int ply, QString skin, QWidget* parent) : QWidget(parent),
+GameInfoRight::GameInfoRight(QString skin, UserProfile* p, QWidget* parent) : QWidget(parent),
+	profile(p),
 	infoLayout(nullptr),
-	playerNotif(nullptr),
+	passNotif(nullptr),
 	skinNotif(nullptr)
 {
-	playerNotif = new QLabel(this);
-	playerNotif->setAlignment(Qt::AlignCenter);
-	playerNotif->setFont(QFont("Impact", 20));
-	this->updatePlayer(ply);
+
+	passNotif = new QLabel(this);
+	passNotif->setAlignment(Qt::AlignCenter);
+	passNotif->setFont(QFont("Impact", 20));
+	passNotif->setText("Welcome");
 
 	skinNotif = new QLabel(this); 
 	skinNotif->setAlignment(Qt::AlignCenter);
@@ -20,64 +22,85 @@ GameInfoCompletion::GameInfoCompletion(int ply, QString skin, QWidget* parent) :
 	this->updateSkin(skin);
 
 	infoLayout = new QGridLayout(this);
-	infoLayout->addWidget(playerNotif, 0, 0);
+	infoLayout->addWidget(passNotif, 0, 0);
 	infoLayout->addWidget(skinNotif, 1, 0);
+	setLayout(infoLayout);
 }
-GameInfoCompletion::~GameInfoCompletion()
+GameInfoRight::~GameInfoRight()
 {
 
 }
 
-void GameInfoCompletion::updatePlayer(int ply) {
-	if (ply == 1) {
-		playerNotif->setText("ACTIVE PLAYER:\nRED");
-	}
-	else {
-		playerNotif->setText("ACTIVE PLAYER:\nBLUE");
-	}
+void GameInfoRight::updateComment(QString str) {
+	passNotif->setText(str);
 }
-void GameInfoCompletion::updateSkin(QString str) {
+void GameInfoRight::updateSkin(QString str) {
 	if (str.size() > 0) {
 		skinNotif->setText("NEW SKIN UNLOCKED:\n" + str);
 	}
 	else {
-		skinNotif->setText("NO NEW SKIN\n");
+		skinNotif->setText("\n");
 	}
 }
 
 // -----------------------------------------------------
 // gameInfoProgress
 // -----------------------------------------------------
-GameInfoProgress::GameInfoProgress(int startLvl, int startMove, QWidget* parent) : QWidget(parent),
+GameInfoLeft::GameInfoLeft(int startLvl, int startMove, int ply, UserProfile* p, QWidget* parent) : QWidget(parent),
+	profile(p),
 	infoLayout(nullptr),
 	levelCounter(nullptr),
-	moveCounter(nullptr)
+	moveCounter(nullptr),
+	playerNotif(nullptr),
+	playerIcon(nullptr)
 {
 	levelCounter = new QLabel(this);
-	levelCounter->setText("LEVEL:\n" + QString::number(startLvl));
+	//levelCounter->setText("LEVEL:\n" + QString::number(startLvl));
 	levelCounter->setAlignment(Qt::AlignCenter);
 	levelCounter->setFont(QFont("Impact", 20));
+	updateLevel(startLvl);
 
 	moveCounter = new QLabel(this);
-	moveCounter->setText("MOVES LEFT:\n" + QString::number(startMove));
+	//moveCounter->setText("MOVES LEFT:\n" + QString::number(startMove));
 	moveCounter->setAlignment(Qt::AlignCenter);
 	moveCounter->setFont(QFont("Impact", 20));
+	updateMoves(startMove);
+
+	playerNotif = new QLabel(this);
+	playerNotif->setAlignment(Qt::AlignCenter);
+	playerNotif->setFont(QFont("Impact", 20));
+	playerNotif->setText("Active player:");
+
+	playerIcon = new QLabel(this);
+	playerIcon->setAlignment(Qt::AlignCenter);
+	updatePlayer(ply);
 
 	infoLayout = new QGridLayout(this);
 	infoLayout->addWidget(levelCounter, 0, 0);
 	infoLayout->addWidget(moveCounter, 1, 0);
+	infoLayout->addWidget(playerNotif, 2, 0);
+	infoLayout->addWidget(playerIcon, 3, 0);
+	setLayout(infoLayout);
 }
-GameInfoProgress::~GameInfoProgress()
+GameInfoLeft::~GameInfoLeft()
 {
 
 }
 
-void GameInfoProgress::updateLevel(int nb) {
+void GameInfoLeft::updateLevel(int nb) {
 	levelCounter->setText("LEVEL:\n" + QString::number(nb));
 }
-void GameInfoProgress::updateMoves(int nb) {
+void GameInfoLeft::updateMoves(int nb) {
 
 	moveCounter->setText("MOVES LEFT:\n" + QString::number(nb));
+}
+void GameInfoLeft::updatePlayer(int ply) {
+	if (ply == 1) {
+		playerIcon->setPixmap(profile->getTex("player1_u"));
+	}
+	else {
+		playerIcon->setPixmap(profile->getTex("player2_u"));
+	}
 }
 
 // -----------------------------------------------------
@@ -86,8 +109,8 @@ void GameInfoProgress::updateMoves(int nb) {
 screen_game::screen_game(UserProfile* p, QWidget* parent) : QWidget(parent),
 	profile(p),
 	gameLayout(nullptr),
-	infoProgress(nullptr),
-	infoCompletion(nullptr),
+	gameInfoL(nullptr),
+	gameInfoR(nullptr),
 	p1(nullptr),
 	p2(nullptr),
 	mapSize(nullptr),
@@ -107,16 +130,18 @@ screen_game::screen_game(UserProfile* p, QWidget* parent) : QWidget(parent),
 	mapGrid = new subscreen_game_grid(profile, p1, p2, this);
 	loadLevel(currentLevel);
 	// -------------------- Info Labels --------------------
-	infoProgress = new GameInfoProgress(currentLevel, moveCount, this);
-	infoCompletion = new GameInfoCompletion(activePlayer, "", this);
+	gameInfoL = new GameInfoLeft(currentLevel, moveCount, activePlayer, profile, this);
+	gameInfoR = new GameInfoRight("", profile, this);
 	// -------------------- Layout Filling --------------------
 	gameLayout = new QGridLayout(this);
 	
 	gameLayout->addWidget(mapGrid, 0, 1);
-	gameLayout->addWidget(infoProgress, 0, 0);
-	gameLayout->addWidget(infoCompletion, 0, 2);
+	gameLayout->addWidget(gameInfoL, 0, 0);
+	gameLayout->addWidget(gameInfoR, 0, 2);
 	
 	setLayout(gameLayout);
+
+	tempCounter = 0;
 }
 screen_game::~screen_game() {
 	delete mapGrid;
@@ -131,13 +156,15 @@ void screen_game::onKeyEvent(char key) {
 	mapGrid->movePlayers();
 	if (moveResult != BLOCKED_MOVE) {
 
-		moveCount++;
+		moveCount--;
+		tempCounter++;
 	}
 	if (mapGrid->mapSolved()) {
-		// map solved
-		// do some stuff like a pop up of smt
-		currentLevel++;
+		std::cout << "level " << currentLevel << ", " << tempCounter << " moves\n";
+		tempCounter = 0;
 
+		currentLevel++;
+		gameInfoR->updateComment("Level completed");
 		// save progress
 		if (profile->getUnlocked() < currentLevel) profile->setUnlocked(currentLevel);
 		
@@ -147,7 +174,7 @@ void screen_game::onKeyEvent(char key) {
 			int seed = 883 * currentLevel; // generate seed
 			newSkin = profile->unlockNewSkin(seed); 
 		}
-		infoCompletion->updateSkin(newSkin);
+		gameInfoR->updateSkin(newSkin);
 
 		bool gameOver = !loadLevel(currentLevel);
 		if (gameOver) {
@@ -156,9 +183,13 @@ void screen_game::onKeyEvent(char key) {
 			loadLevel(currentLevel); // return to lvl
 		}
 	}
-	infoProgress->updateMoves(moveCount);
-	infoProgress->updateLevel(currentLevel);
-	infoCompletion->updatePlayer(activePlayer);
+	gameInfoL->updateMoves(moveCount);
+	gameInfoL->updateLevel(currentLevel);
+	gameInfoL->updatePlayer(activePlayer);
+	if (moveCount <= 0) { // reset if out of move
+		loadLevel(currentLevel);
+		gameInfoR->updateComment("Level failed");
+	}
 }
 bool screen_game::levelState() {
 	return false;
@@ -166,10 +197,11 @@ bool screen_game::levelState() {
 
 bool screen_game::loadLevel(int lvl) {
 	int lvlToLoad = lvl;
-	if (lvlToLoad < 0) lvlToLoad = currentLevel;
-	moveCount = 0;
+	if (lvlToLoad <= 0) lvlToLoad = currentLevel;
+	moveCount = 99;
 	int map[20][20] = { 0 };
-	bool ret = mapLoader->loadMap(&map, p1, p2, mapSize, lvlToLoad);
+	bool ret = mapLoader->loadMap(&map, p1, p2, lvlToLoad);
+	mapLoader->loadMapInfo(mapSize, moveCount, lvlToLoad);
 	mapGrid->newGrid(&map, *mapSize);
 	return ret;
 }
@@ -211,6 +243,7 @@ int screen_game::inputPlayerAction(char input) {
 		// ------------------------------- menus
 	case 'r':
 		loadLevel(currentLevel);				// restart level
+		gameInfoR->updateComment("Reloaded level");
 		return BLOCKED_MOVE;
 	case 't': 
 		activePlayer = 1; // switch to ply 1

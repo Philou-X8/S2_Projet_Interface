@@ -1,5 +1,5 @@
-paper
-default paper
-1
+default
+default
+10
 1
 1

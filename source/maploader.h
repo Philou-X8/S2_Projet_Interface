@@ -22,7 +22,11 @@ public:
 		int(*arr)[20][20], 
 		Coords* p1, 
 		Coords* p2, 
+		int lvlNb
+	);
+	bool loadMapInfo(
 		Coords* mapSize, 
+		int& moveCount, 
 		int lvlNb
 	);
 

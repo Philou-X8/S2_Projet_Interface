@@ -111,7 +111,7 @@ void window_main::setScreen(int id) {
 		screenSettings->show();
 		break;
 	case ID_QUIT:
-
+		QApplication::quit();
 		break;
 	default:
 		break;

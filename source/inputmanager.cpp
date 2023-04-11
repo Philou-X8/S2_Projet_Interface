@@ -20,7 +20,7 @@ InputManager::InputManager() {
 }
 InputManager::~InputManager() {
     stopThreads();
-    arduino->closeSerial();
+    //arduino->closeSerial();
 }
 
 bool InputManager::connectController() {
@@ -115,11 +115,11 @@ void InputManager::startThreads() {
 bool InputManager::stopThreads() {
     if (isActiveKeyboard) {
         isActiveKeyboard = false;
-        keyboardComs.join();
+        if(keyboardComs.joinable()) keyboardComs.join();
     }
     if (isActiveController) {
         isActiveController = false;
-        controllerComs.join();
+        if (controllerComs.joinable()) controllerComs.join();
     }
     return true;
 

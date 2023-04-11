@@ -8,34 +8,40 @@
 #include "maploader.h"
 #include "subscreen_game_grid.h"
 
-class GameInfoCompletion : public QWidget
+class GameInfoRight : public QWidget
 {
 	Q_OBJECT
 public:
-	GameInfoCompletion(int ply, QString skin, QWidget* parent);
-	~GameInfoCompletion();
+	GameInfoRight(QString skin, UserProfile* p, QWidget* parent);
+	~GameInfoRight();
 
-	void updatePlayer(int ply);
+	void updateComment(QString text);
 	void updateSkin(QString skin);
 private:
+	UserProfile* profile;
 	QGridLayout* infoLayout;
-	QLabel* playerNotif;
+	QLabel* passNotif;
 	QLabel* skinNotif;
 
 };
-class GameInfoProgress : public QWidget
+class GameInfoLeft : public QWidget
 {
 	Q_OBJECT
 public:
-	GameInfoProgress(int startLvl, int startMove, QWidget* parent);
-	~GameInfoProgress();
+	GameInfoLeft(int startLvl, int startMove, int ply, UserProfile* p, QWidget* parent);
+	~GameInfoLeft();
 
 	void updateLevel(int nb);
 	void updateMoves(int nb);
+	void updatePlayer(int ply);
+
 private:
+	UserProfile* profile;
 	QGridLayout* infoLayout;
 	QLabel* levelCounter;
 	QLabel* moveCounter;
+	QLabel* playerNotif;
+	QLabel* playerIcon;
 
 };
 
@@ -58,8 +64,8 @@ public:
 private:
 	UserProfile* profile;
 	QGridLayout* gameLayout;
-	GameInfoProgress* infoProgress;
-	GameInfoCompletion* infoCompletion;
+	GameInfoLeft* gameInfoL;
+	GameInfoRight* gameInfoR;
 
 	Coords* p1; // player 1 coords
 	Coords* p2; // player 2 coords
@@ -71,5 +77,7 @@ private:
 	int activePlayer;
 
 	int inputPlayerAction(char input);
+
+	int tempCounter;
 
 };

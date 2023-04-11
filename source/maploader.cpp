@@ -8,17 +8,18 @@ MapLoader::MapLoader() {
 MapLoader::~MapLoader() {
 
 }
-
-bool MapLoader::loadMap(int (*arr)[20][20], Coords* p1, Coords* p2, Coords* mapSize, int lvlNb) {
-	//int leftEdge = 19;
-	//int rightEdge = 0;
-	//int lowEdge = 19;
-	//int topEdge = 0;
+bool MapLoader::loadMap(int (*arr)[20][20], Coords* p1, Coords* p2, int lvlNb) {
+	
 	// genereate the path to the file that must be loaded
 	std::string lvlToLoad = lvlPathName + std::to_string(lvlNb) + lvlExtension;
 	int buffer;
 	rFile.open(lvlToLoad); // open file
 	if (rFile.is_open()) {
+
+		rFile >> buffer; // read max move
+		rFile >> buffer; // read x size
+		rFile >> buffer; // read y size
+
 		for (int y(19); y >= 0; y--) { // read top of grid first
 			for (int x(0); x < 20; x++) {
 
@@ -34,41 +35,37 @@ bool MapLoader::loadMap(int (*arr)[20][20], Coords* p1, Coords* p2, Coords* mapS
 					(*arr)[x][y] = PATH; // replace spawn block by a path block
 					*p2 = Coords(x, y); // put ply2 on its spawn
 				}
-				/*
-				if (buffer != 1) {
-					if (x > rightEdge) rightEdge = x;
-					if (x < leftEdge) leftEdge = x;
-					if (y > topEdge) topEdge = y;
-					if (y < lowEdge) lowEdge = y;
-				}
-				*/
 			}
 		}
-		
-		if (!rFile.eof()) { // map size x
-			rFile >> buffer;
-			mapSize->x = buffer;
-		}
-		else {
-			mapSize->x = 19;
-		}
-		if (!rFile.eof()) { // map size y
-			rFile >> buffer;
-			mapSize->y = buffer;
-		}
-		else {
-			mapSize->y = 19;
-		}
-		
 		rFile.close();
 	}
 	else {
 		std::cout << "fuck you you cant code (loading level failed)\n";
 		return false;
 	}
-	
 	return true;
 	
+}
+bool MapLoader::loadMapInfo(Coords* mapSize, int& moveCount, int lvlNb) {
+	std::string lvlToLoad = lvlPathName + std::to_string(lvlNb) + lvlExtension;
+	int buffer;
+	rFile.open(lvlToLoad); // open file
+	if (rFile.is_open()) {
+
+		rFile >> buffer; // read max move
+		moveCount = buffer;
+		rFile >> buffer; // read x size
+		mapSize->x = buffer;
+		rFile >> buffer; // read y size
+		mapSize->y = buffer;
+
+		rFile.close();
+	}
+	else {
+		std::cout << "fuck you you cant code (loading level failed)\n";
+		return false;
+	}
+	return true;
 }
 
 void MapLoader::blankMap() {
