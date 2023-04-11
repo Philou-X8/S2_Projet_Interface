@@ -2,6 +2,8 @@ TEMPLATE     = vcapp
 TARGET       = PushPullEscape
 CONFIG      += warn_on qt debug windows console
 HEADERS     += \
+	include/serial/SerialPort.hpp \
+	include/json.hpp \
 	custom_button.h \
 	custom_menu.h \
 	screen_game.h \
@@ -15,6 +17,7 @@ HEADERS     += \
 	position.h \
 	userProfile.h
 SOURCES     += \
+	include/serial/SerialPort.cpp \
 	custom_button.cpp \
 	custom_menu.cpp \
 	screen_game.cpp \
