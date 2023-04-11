@@ -211,6 +211,7 @@ bool screen_game::loadLevel(int lvl) {
 	int lvlToLoad = lvl;
 	if (lvlToLoad <= 0) lvlToLoad = currentLevel;
 	moveCount = 99;
+	tempCounter = 0;
 	int map[20][20] = { 0 };
 	bool ret = mapLoader->loadMap(&map, p1, p2, lvlToLoad);
 	mapLoader->loadMapInfo(mapSize, moveCount, lvlToLoad);
