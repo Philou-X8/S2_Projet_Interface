@@ -168,7 +168,8 @@ void screen_game::onKeyEvent(char key) {
 		tempCounter++;
 	}
 	if (mapGrid->mapSolved()) {
-		std::cout << "level " << currentLevel << ", " << tempCounter << " moves\n";
+		std::cout << "level " << currentLevel << ": " 
+			<< tempCounter << " moves, move left: " << moveCount << "\n";
 		tempCounter = 0;
 
 		currentLevel++;

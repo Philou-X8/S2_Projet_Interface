@@ -1,5 +1,5 @@
 scifi
-default scifi beach
+default scifi beach minecraft
 5
 1
 1
