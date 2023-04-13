@@ -1,5 +1,5 @@
 /********
-* File: userProfile.h
+* File: window_main.h
 * Team: P-6
 * Creation Date: April 4th, 2023
 * Description: Main class of the application
@@ -57,7 +57,6 @@ private:
 
 	void clearCentralWidget();
 
-	int temp;
 };
 
 #endif

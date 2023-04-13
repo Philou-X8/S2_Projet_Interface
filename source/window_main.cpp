@@ -1,3 +1,14 @@
+/********
+* File: window_main.cpp
+* Team: P-6
+* Creation Date: April 4th, 2023
+* Description: Main class of the application
+*			   Responsible for the interaction between windows
+*			   Responsible for the game's clock
+*			   Responsible for the serial communication's clock
+*
+* Full project and latest version: https://github.com/Philou-X8/S2_Projet_Interface.git
+********/
 #include "window_main.h"
 #include <QApplication>
 
@@ -10,7 +21,7 @@ window_main::window_main(QWidget* parent) : QMainWindow(parent),
 {
 	profile = new UserProfile;
 	inputManager = new InputManager;
-	setFocusPolicy(Qt::StrongFocus); // needed for proper keyboard reading
+	setFocusPolicy(Qt::StrongFocus); // recommended for proper keyboard reading
 
 	screenSettings = new screen_settings(profile, inputManager); 
 	QObject::connect(screenSettings, SIGNAL(SelectScreenSignal(int)), this, SLOT(setScreen(int)));
@@ -32,7 +43,6 @@ window_main::window_main(QWidget* parent) : QMainWindow(parent),
 	//this->adjustSize();
 	setFocusPolicy(Qt::StrongFocus);
 
-	temp = 0;
 }
 window_main::~window_main() 
 {
@@ -40,11 +50,11 @@ window_main::~window_main()
 	delete inputManager;
 }
 
+// (clock function) read input from the queue
 void window_main::readInput() {
 
 	char input = inputManager->getInput();
-	if (input != 0) {
-		// do stuff when a key is pressed
+	if (input != 0) { // if the queue is not empty
 
 		if (input == 'p') { // toggle settings visibility
 			if (screenSettings->isHidden()) {
@@ -56,14 +66,14 @@ void window_main::readInput() {
 			profile->writeSaveState();
 		}
 
-		if (!screenSettings->isHidden()) { // if setting is shown
-			if (input == 'r') {
+		if (!screenSettings->isHidden()) { // if Settings is shown
+			if (input == 'r') { // update sprites
 				screenSettings->updateUI();
 				if (screenGame != nullptr) screenGame->updateSkin();
 				if (screenHome != nullptr) screenHome->updateUI();
 				if (screenLevels != nullptr) screenLevels->updateUI();
 			}
-			screenSettings->onKeyEvent(input);
+			screenSettings->onKeyEvent(input); // relay input to the setting window
 
 			return; // return so input doesn't reach other windows
 		}
@@ -80,41 +90,39 @@ void window_main::readInput() {
 	int randomNb = QRandomGenerator::global()->bounded( int(6000/30) ); //  6000/ferq (min)
 	if (randomNb == 0) {
 		inputManager->addKey('m');
-		//std::cout << "munon simulated\n";
 	}
 }
-
+// (clock function) collect game info and relay it to the input manager
 void window_main::writeOutput() {
-	//temp += 1;
-	//int moveCount = temp % 99;
 	int moveCount = 88;
 	int ledMode = 2;
 	if (screenGame != nullptr) {
 		screenGame->getOutputInfo(moveCount, ledMode);
-		//std::cout << "move count: " << moveCount << ", ledMode: " << ledMode << std::endl;
 	}
 	inputManager->updateOutputInfo(moveCount, ledMode);
 }
 
-// Function called whenever a key is pressed
+// called whenever a key is pressed
 void window_main::keyPressEvent(QKeyEvent* event) {
 	switch (event->key()) {
 	case Qt::Key_M: // discard [m] key (muon)
-	case Qt::Key_Shift:
+	case Qt::Key_Shift: // discard [shift] key
 		return;
 	case Qt::Key_Escape:
 	case Qt::Key_Tab:
-		inputManager->addKey('p');
+		inputManager->addKey('p'); // settings window
 		return;
 	case Qt::Key_Enter:
-		inputManager->addKey(' ');
+		inputManager->addKey(' '); // selection key
 		return;
-	default:
+	default: // add the input key to the queue
 		QChar qchar((char)event->key());
 		inputManager->addKey(qchar.toLower().unicode());
 		break;
 	}
 }
+
+// change between screens
 void window_main::setScreen(int id) {
 	switch (id) {
 	case ID_HOME:
@@ -137,42 +145,37 @@ void window_main::setScreen(int id) {
 	}
 }
 
+// set central widget to Home
 void window_main::setScreenHome() {
 	clearCentralWidget();
 	if (screenHome == nullptr) {
 		screenHome = new screen_home(profile, this);
-		// ---------- connect
 		QObject::connect(screenHome, SIGNAL(SelectScreenSignal(int)), this, SLOT(setScreen(int)));
-		// ----------
 	}
 	setCentralWidget(screenHome);
-	setWindowTitle("Home screen");
+	setWindowTitle("Push Pull Escape");
 }
+// set central widget to Level Selection
 void window_main::setScreenLevels() {
 	clearCentralWidget();
 	if (screenLevels == nullptr) {
 		screenLevels = new screen_select_level(profile, this);
-		// ---------- connect
 		QObject::connect(screenLevels, SIGNAL(SelectScreenSignal(int)), this, SLOT(setScreen(int)));
-		// ----------
 	}
 	setCentralWidget(screenLevels);
 	setWindowTitle("Level selection");
 }
-
+// set central widget to the game
 void window_main::setScreenGame() {
 	clearCentralWidget();
 	if (screenGame == nullptr) {
 		screenGame = new screen_game(profile, this);
-		// ---------- connect
-
-		// ----------
 	}
 	setCentralWidget(screenGame);
 	setWindowTitle("Game screen");
 }
 
-
+// remove current central widget
 void window_main::clearCentralWidget() {
 	if (screenHome != nullptr) {
 		delete screenHome;

@@ -30,6 +30,7 @@ CustomButton::CustomButton(UserProfile* p, QString text, bool hasArrow) : QGridL
 	buttonHi->setPixmap(profile->getTex("button_hi"));
 	buttonHi->hide();
 
+	// if arrows should be added beside the button
 	if (hasArrow) {
 		arrowR = new QLabel;
 		arrowR->setAlignment(Qt::AlignCenter);
@@ -54,18 +55,21 @@ CustomButton::~CustomButton()
 	if (arrowR != nullptr) delete arrowR;
 	if (arrowL != nullptr) delete arrowL;
 }
+// when button is hovered
 void CustomButton::onSelect() {
 	buttonHi->show();
 }
+// when button is not hovered
 void CustomButton::onRelease() {
 	buttonHi->hide();
 }
-
+// change button's text
 void CustomButton::updateText(QString text) {
 	if (buttonText != nullptr) {
 		buttonText->setText(text);
 	}
 }
+// update button's sprites
 void CustomButton::updateUI() {
 	buttonBase->setPixmap(profile->getTex("button_base"));
 	buttonHi->setPixmap(profile->getTex("button_hi"));

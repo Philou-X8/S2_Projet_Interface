@@ -18,7 +18,7 @@ CustomMenu::CustomMenu(UserProfile* p, QWidget* parent) : QWidget(parent),
 {
 	activeButton = 0;
 	buttonCount = 0;
-	buttonList = new QList<CustomButton*>();
+	buttonList = new QList<CustomButton*>(); // list of buttons in the menu
 	menuLayout = new QGridLayout(this);
 
 	setLayout(menuLayout);
@@ -29,6 +29,7 @@ CustomMenu::~CustomMenu() {
 	}
 	delete buttonList;
 }
+// add button to the menu
 void CustomMenu::addButton(QString text, bool hasArrow) {
 	CustomButton* newButton;
 	newButton = new CustomButton(profile, text, hasArrow);
@@ -37,15 +38,15 @@ void CustomMenu::addButton(QString text, bool hasArrow) {
 	buttonCount++;
 	buttonList->at(activeButton)->onSelect(); // show active button
 }
-
+// get index of hovered button
 int CustomMenu::getActiveIndex() {
 	return activeButton;
 }
-
+// should be called whenever a key is pressed
 void CustomMenu::onKeyEvent(char key) {
 	switch (key)
 	{
-	case 'w':
+	case 'w': // move up
 	case 'i':
 		if (activeButton > 0) {
 			buttonList->at(activeButton)->onRelease(); // hide last selection
@@ -53,15 +54,15 @@ void CustomMenu::onKeyEvent(char key) {
 			buttonList->at(activeButton)->onSelect(); // show new selection
 		}
 		break;
-	case 's':
+	case 's': // move down
 	case 'k':
 		if (activeButton < (buttonCount - 1)) {
-			buttonList->at(activeButton)->onRelease();
+			buttonList->at(activeButton)->onRelease(); // hide last selection
 			activeButton++;
-			buttonList->at(activeButton)->onSelect();
+			buttonList->at(activeButton)->onSelect(); // show new selection
 		}
 		break;
-	case 'f':
+	case 'f': // click
 	case 'h':
 	case ' ':
 		emit clickedButton(activeButton);
@@ -70,10 +71,11 @@ void CustomMenu::onKeyEvent(char key) {
 		break;
 	}
 }
-
+// change text of a given button
 void CustomMenu::updateText(int index, QString text) {
 	buttonList->at(index)->updateText(text);
 }
+// update sprites
 void CustomMenu::updateUI() {
 	for (CustomButton* button : *buttonList) {
 		button->updateUI();

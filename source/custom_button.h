@@ -14,7 +14,6 @@
 #include <QLabel>
 #include "userProfile.h"
 
-
 class CustomButton : public QGridLayout
 {
 	Q_OBJECT
