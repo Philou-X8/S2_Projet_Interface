@@ -24,7 +24,6 @@ screen_settings::screen_settings(UserProfile* p, InputManager* inManager) : QWid
 
 	settingsTitle = new QLabel(this);
 	settingsTitle->setAlignment(Qt::AlignCenter);
-	//settingsTitle->setPixmap(profile->getTex("home_title"));
 	settingsTitle->setFont(QFont("Impact", 36));
 	settingsTitle->setText("SETTINGS");
 
@@ -56,6 +55,7 @@ screen_settings::~screen_settings() {
 	delete settingsButtonList;
 }
 
+// should be called whenever a key is pressed
 void screen_settings::onKeyEvent(char key) {
 	switch (key) {
 	case 'a':
@@ -66,15 +66,20 @@ void screen_settings::onKeyEvent(char key) {
 	case 'l':
 		sideToggle(1);
 		break;
-	case' ':
+	case ' ':
 		sideToggle(0);
+		break;
+	case 'r':
+		updateUI();
 		break;
 	default:
 		settingsButtonList->onKeyEvent(key);
 		break;
 	}
 }
+// called when moving left or right in the menu
 void screen_settings::sideToggle(int dir) {
+	// switch depending on which button is highlited 
 	switch (settingsButtonList->getActiveIndex()) {
 	case 0: // resume
 		if (dir == 0) this->hide();
@@ -110,12 +115,6 @@ void screen_settings::sideToggle(int dir) {
 		break;
 	}
 }
-/*
-void screen_settings::skinChange(int dir) {
-	//skinActive->setText(profile->changeSkin(dir));
-	inputManager->addKey('r');
-}
-*/
 
 void screen_settings::keyPressEvent(QKeyEvent* event) {
 	switch (event->key()) {

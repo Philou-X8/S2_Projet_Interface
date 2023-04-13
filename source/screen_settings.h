@@ -30,6 +30,7 @@ signals:
 	void SelectScreenSignal(int);
 
 protected:
+	// since this window can be on focus instead, the kb listener is needed
 	void keyPressEvent(QKeyEvent* event) override;
 
 private:
@@ -42,9 +43,6 @@ private:
 	CustomMenu* settingsButtonList;
 
 	void sideToggle(int dir);
-
-	// skin settings
-	//void skinChange(int dir);
 
 };
 
