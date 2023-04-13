@@ -1,5 +1,5 @@
-scifi
-default scifi beach minecraft
-5
+paper
+default synthwave scifi minesweeper minecraft paper
+6
 1
 1

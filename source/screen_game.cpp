@@ -124,8 +124,10 @@ screen_game::screen_game(UserProfile* p, QWidget* parent) : QWidget(parent),
 	gameBgTex->setSizePolicy(QSizePolicy::Ignored, QSizePolicy::Ignored);
 	// -------------------- Game State --------------------
 	currentLevel = profile->getStart();
-	moveCount = 0;
 	activePlayer = 1;
+	moveCount = 0;
+	ascendingMoves = 0;
+	muonCount = 0;
 	// -------------------- Grid Setup --------------------
 	p1 = new Coords;
 	p2 = new Coords;
@@ -149,9 +151,10 @@ screen_game::screen_game(UserProfile* p, QWidget* parent) : QWidget(parent),
 	
 	setLayout(gameLayout);
 
-	tempCounter = 0;
 }
 screen_game::~screen_game() {
+	delete gameInfoR;
+	delete gameInfoL;
 	delete mapGrid;
 	delete mapLoader;
 	delete mapSize;
@@ -159,29 +162,31 @@ screen_game::~screen_game() {
 	delete p2;
 }
 void screen_game::onKeyEvent(char key) {
+	if (key == 'm') {
+		muonCount++;
+		return;
+	}
 
 	int moveResult = inputPlayerAction(key);
 	mapGrid->movePlayers();
 	if (moveResult != BLOCKED_MOVE) {
 
 		moveCount--;
-		tempCounter++;
+		ascendingMoves++;
 	}
 	if (mapGrid->mapSolved()) {
 		std::cout << "level " << currentLevel << ": " 
-			<< tempCounter << " moves, move left: " << moveCount << "\n";
-		tempCounter = 0;
+			<< ascendingMoves << " moves, move left: " << moveCount << "\n";
+		ascendingMoves = 0;
 
 		currentLevel++;
 		gameInfoR->updateComment("Level completed");
-		// save progress
-		if (profile->getUnlocked() < currentLevel) profile->setUnlocked(currentLevel);
 		
 		// should unlock new skin
 		QString newSkin = "";
-		if ((currentLevel % 3) == 1) { // replace with randomizer
-			int seed = 867 * currentLevel; // generate seed
-			newSkin = profile->unlockNewSkin(seed); 
+		if ( (muonCount % 3) == 1) { // 1/3 chance to unlock skin after finishing a level
+			//int seed = QRandomGenerator::global()->bounded(1024); // generate seed
+			newSkin = profile->unlockNewSkin(muonCount); // muonCount as seed
 			if (newSkin.size() > 0) {
 				updateSkin();
 			}
@@ -191,9 +196,13 @@ void screen_game::onKeyEvent(char key) {
 		bool gameOver = !loadLevel(currentLevel);
 		if (gameOver) {
 			// there are no more level
+			gameInfoR->updateComment("GAME OVER");
 			currentLevel = 1;
 			loadLevel(currentLevel); // return to lvl
 		}
+
+		// save progress
+		if (profile->getUnlocked() < currentLevel) profile->setUnlocked(currentLevel);
 	}
 	gameInfoL->updateMoves(moveCount);
 	gameInfoL->updateLevel(currentLevel);
@@ -211,7 +220,7 @@ bool screen_game::loadLevel(int lvl) {
 	int lvlToLoad = lvl;
 	if (lvlToLoad <= 0) lvlToLoad = currentLevel;
 	moveCount = 99;
-	tempCounter = 0;
+	ascendingMoves = 0;
 	int map[20][20] = { 0 };
 	bool ret = mapLoader->loadMap(&map, p1, p2, lvlToLoad);
 	mapLoader->loadMapInfo(mapSize, moveCount, lvlToLoad);

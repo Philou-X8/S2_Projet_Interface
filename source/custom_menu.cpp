@@ -20,22 +20,6 @@ CustomMenu::~CustomMenu() {
 	}
 	delete buttonList;
 }
-void CustomMenu::addButton(QString baseTex, QString hiTex) {
-	CustomButton* newButton;
-	newButton = new CustomButton(profile->getTex(baseTex), profile->getTex(hiTex));
-	buttonList->append(newButton);
-	menuLayout->addLayout(newButton, buttonCount, 0);
-	buttonCount++;
-	buttonList->at(activeButton)->onSelect(); // show active button
-}
-void CustomMenu::addButton(QString text, QString baseTex, QString hiTex) {
-	CustomButton* newButton;
-	newButton = new CustomButton(text, profile->getTex(baseTex), profile->getTex(hiTex));
-	buttonList->append(newButton);
-	menuLayout->addLayout(newButton, buttonCount, 0);
-	buttonCount++;
-	buttonList->at(activeButton)->onSelect(); // show active button
-}
 void CustomMenu::addButton(QString text, bool hasArrow) {
 	CustomButton* newButton;
 	newButton = new CustomButton(profile, text, hasArrow);
@@ -68,6 +52,8 @@ void CustomMenu::onKeyEvent(char key) {
 			buttonList->at(activeButton)->onSelect();
 		}
 		break;
+	case 'f':
+	case 'h':
 	case ' ':
 		emit clickedButton(activeButton);
 		break;

@@ -4,7 +4,6 @@
 #include <QWidget>
 #include <QGridLayout>
 #include <QLabel>
-#include <QPushButton>
 #include <QList>
 #include "userProfile.h"
 #include "custom_button.h"
@@ -23,10 +22,10 @@ public:
 
 signals:
 	void SelectScreenSignal(int);
-	void SelectContinueSignal();
-	void SelectLevelSignal();
-	void SelectSettingsSignal();
-	void SelectQuitSignal();
+	//void SelectContinueSignal();
+	//void SelectLevelSignal();
+	//void SelectSettingsSignal();
+	//void SelectQuitSignal();
 
 protected slots:
 	void menuClicked(int selection);

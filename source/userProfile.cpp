@@ -10,7 +10,7 @@ UserProfile::UserProfile() :
 	readSaveState();
 }
 UserProfile::~UserProfile() {
-
+	writeSaveState();
 }
 void UserProfile::writeSaveState() {
 	QFile file("../configs/save_state.txt");

@@ -4,6 +4,7 @@
 #include <QWidget>
 #include <QGridLayout>
 #include <QLabel>
+#include <QRandomGenerator>
 #include "userProfile.h"
 #include "maploader.h"
 #include "subscreen_game_grid.h"
@@ -74,11 +75,12 @@ private:
 	subscreen_game_grid* mapGrid;
 	MapLoader* mapLoader;
 	int currentLevel;
-	int moveCount;
 	int activePlayer;
+	int moveCount;
+	int ascendingMoves;
+	int muonCount;
 
 	int inputPlayerAction(char input);
 
-	int tempCounter;
 
 };

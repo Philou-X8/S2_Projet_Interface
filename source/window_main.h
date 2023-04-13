@@ -4,11 +4,9 @@
 
 #include <QMainWindow>
 #include <QObject>
-//#include <QWidget>
-//#include <QMenu>
-//#include <QAction>
 #include <QkeyEvent>
 #include <QTimer>
+#include <QRandomGenerator>
 #include "screen_home.h"
 #include "screen_select_level.h"
 #include "screen_game.h"
@@ -25,8 +23,8 @@ public:
 signals:
 
 public slots:
-	void readInput();
-	void writeOutput();
+	void readInput(); // clock function
+	void writeOutput(); // clock function
 	void setScreen(int);
 	void setScreenHome();
 	void setScreenLevels();
@@ -47,6 +45,8 @@ private:
 	InputManager* inputManager;
 
 	void clearCentralWidget();
+
+	int temp;
 };
 
 #endif
