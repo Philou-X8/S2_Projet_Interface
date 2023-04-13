@@ -1,3 +1,12 @@
+/********
+* File: screen_game.h
+* Team: P-6
+* Creation Date: April 4th, 2023
+* Description: Manages the interactions between the game and the 
+*			   rest of the application
+*
+* Full project and latest version: https://github.com/Philou-X8/S2_Projet_Interface.git
+********/
 #pragma once
 
 #include <QObject>

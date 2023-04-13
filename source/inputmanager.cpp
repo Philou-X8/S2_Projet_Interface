@@ -1,3 +1,12 @@
+/********
+* File: inputmanager.cpp
+* Team: P-6
+* Creation Date: April 4th, 2023
+* Description: Manage serial communication with the remote controller
+*			   Syncronize keyboard and controller inputs
+*
+* Full project and latest version: https://github.com/Philou-X8/S2_Projet_Interface.git
+********/
 #include "inputmanager.h"
 
 SerialPort* arduino; //doit etre un objet global!

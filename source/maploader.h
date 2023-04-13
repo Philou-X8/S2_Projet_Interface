@@ -1,9 +1,13 @@
-/*
+/********
+* File: maploader.h
+* Team: P-6
+* Creation Date: April 4th, 2023
+* Description: Read formated level files
 *
-*   MAKING A GAME PROTOTYPE FOR SCHOOL
-*
-*/
+* Full project and latest version: https://github.com/Philou-X8/S2_Projet_Interface.git
+********/
 #pragma once
+
 #include <iostream>
 #include <fstream>
 #include <string>

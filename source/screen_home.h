@@ -1,3 +1,11 @@
+/********
+* File: screen_home.h
+* Team: P-6
+* Creation Date: April 4th, 2023
+* Description: UI class used to display the title screen
+* 
+* Full project and latest version: https://github.com/Philou-X8/S2_Projet_Interface.git
+********/
 #pragma once
 
 #include <QObject>

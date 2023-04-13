@@ -1,3 +1,14 @@
+/********
+* File: userProfile.h
+* Team: P-6
+* Creation Date: April 4th, 2023
+* Description: Main class of the application
+*			   Responsible for the interaction between windows
+*			   Responsible for the game's clock
+*			   Responsible for the serial communication's clock
+*
+* Full project and latest version: https://github.com/Philou-X8/S2_Projet_Interface.git
+********/
 #ifndef WINDOWMAIN_H
 #define WINDOWMAIN_H
 

@@ -1,3 +1,11 @@
+/********
+* File: subscreen_game_grid.h
+* Team: P-6
+* Creation Date: April 4th, 2023
+* Description: reponsible for the game's internal logic and its display
+*
+* Full project and latest version: https://github.com/Philou-X8/S2_Projet_Interface.git
+********/
 #pragma once
 
 #include <QObject>

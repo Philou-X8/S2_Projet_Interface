@@ -1,3 +1,12 @@
+/********
+* File: userProfile.cpp
+* Team: P-6
+* Creation Date: April 4th, 2023
+* Description: Manage the loading and saving of in-game settings
+*			   Manage the loading of sprites
+*
+* Full project and latest version: https://github.com/Philou-X8/S2_Projet_Interface.git
+********/
 #include "userProfile.h"
 
 UserProfile::UserProfile() :

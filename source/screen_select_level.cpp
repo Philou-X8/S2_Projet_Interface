@@ -1,3 +1,11 @@
+/********
+* File: screen_select_level.cpp
+* Team: P-6
+* Creation Date: April 4th, 2023
+* Description: UI class used to display the selection of a level
+*
+* Full project and latest version: https://github.com/Philou-X8/S2_Projet_Interface.git
+********/
 #include "screen_select_level.h"
 
 screen_select_level::screen_select_level(UserProfile* p, QWidget* parent) : QWidget(parent),

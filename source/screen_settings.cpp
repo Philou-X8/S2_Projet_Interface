@@ -1,3 +1,11 @@
+/********
+* File: screen_settings.cpp
+* Team: P-6
+* Creation Date: April 4th, 2023
+* Description: UI class used to display the settings page
+*
+* Full project and latest version: https://github.com/Philou-X8/S2_Projet_Interface.git
+********/
 #include "screen_settings.h"
 
 screen_settings::screen_settings(UserProfile* p, InputManager* inManager) : QWidget(),

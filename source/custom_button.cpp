@@ -1,3 +1,12 @@
+/********
+* File: custom_button.cpp
+* Team: P-6
+* Creation Date: April 4th, 2023
+* Description: UI element used to display a button in CustomMenu
+*
+* Full project and latest version: https://github.com/Philou-X8/S2_Projet_Interface.git
+********/
+
 #include "custom_button.h"
 
 CustomButton::CustomButton(UserProfile* p, QString text, bool hasArrow) : QGridLayout(),

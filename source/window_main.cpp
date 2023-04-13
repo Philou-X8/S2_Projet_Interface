@@ -96,6 +96,7 @@ void window_main::writeOutput() {
 	inputManager->updateOutputInfo(moveCount, ledMode);
 }
 
+// Function called whenever a key is pressed
 void window_main::keyPressEvent(QKeyEvent* event) {
 	switch (event->key()) {
 	case Qt::Key_M: // discard [m] key (muon)

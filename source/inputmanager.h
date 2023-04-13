@@ -1,3 +1,12 @@
+/********
+* File: inputmanager.h
+* Team: P-6
+* Creation Date: April 4th, 2023
+* Description: Manage serial communication with the remote controller
+*			   Syncronize keyboard and controller inputs
+*
+* Full project and latest version: https://github.com/Philou-X8/S2_Projet_Interface.git
+********/
 #pragma once
 
 #include <iostream>	// std::cout
@@ -6,7 +15,7 @@
 #include <mutex>
 #include <list>
 #include <queue>
-#include <conio.h>
+#include <conio.h>  // old
 #include "include/serial/SerialPort.hpp"
 #include "include/json.hpp"
 
