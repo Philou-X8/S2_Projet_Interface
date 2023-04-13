@@ -51,7 +51,7 @@ private:
 	QLabel* levelCounter;
 	QLabel* moveCounter;
 	QLabel* playerNotif;
-	QLabel* playerIcon;
+	QLabel* playerIcon; // icon of the player binded to the controller
 
 };
 
@@ -64,7 +64,6 @@ public:
 
 	void onKeyEvent(char key);
 
-	bool levelState(); // check if level is finished
 	bool loadLevel(int lvl);
 	void updateSkin();
 

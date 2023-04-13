@@ -31,7 +31,8 @@ protected slots:
 	void menuClicked(int index);
 
 private:
-	int levelCount = 12; // number of existing levels
+	int levelCount = 10; // number of existing levels
+	int lvlSelection; // currently selected level
 	UserProfile* profile;
 
 	QGridLayout* levelsLayout;
@@ -41,5 +42,4 @@ private:
 	QLabel* levelsSelectionText;
 	CustomMenu* levelsButtonList;
 
-	int lvlSelection;
 };

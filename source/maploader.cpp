@@ -1,7 +1,7 @@
 /********
 * File: maploader.cpp
 * Team: P-6
-* Creation Date: April 4th, 2023
+* Creation Date: 
 * Description: Read formated level files
 *
 * Full project and latest version: https://github.com/Philou-X8/S2_Projet_Interface.git

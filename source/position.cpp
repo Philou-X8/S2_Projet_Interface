@@ -1,7 +1,7 @@
 /********
 * File: position.cpp
 * Team: P-6
-* Creation Date: April 4th, 2023
+* Creation Date: 
 * Description: Utility file mostly used for coordiate and movement in the game
 *
 * Full project and latest version: https://github.com/Philou-X8/S2_Projet_Interface.git

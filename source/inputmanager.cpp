@@ -1,7 +1,7 @@
 /********
 * File: inputmanager.cpp
 * Team: P-6
-* Creation Date: April 4th, 2023
+* Creation Date: 
 * Description: Manage serial communication with the remote controller
 *			   Syncronize keyboard and controller inputs
 *
@@ -14,7 +14,7 @@ SerialPort* arduino; //doit etre un objet global!
 InputManager::InputManager() {
     //arduino = nullptr;
     isActiveController = false;
-    isActiveKeyboard = true;
+    isActiveKeyboard = true; // should only be false is there is no other keyboard listener 
 
     newStr.clear();
     //jsonOut.lock();
@@ -31,7 +31,7 @@ InputManager::~InputManager() {
     stopThreads();
     //arduino->closeSerial();
 }
-
+// establish connection with the serial port
 bool InputManager::connectController() {
     if (arduino != nullptr) {
         if (arduino->isConnected()) {
@@ -40,11 +40,12 @@ bool InputManager::connectController() {
         }
     }
     
+    // try COM ports until the right one is found
     std::string comPort = "COM1";
     for (int i = '1'; i <= '9'; i++) {
         comPort[3] = i;
         std::cout << "attemping port " << comPort << std::endl;
-        arduino = new SerialPort(comPort.c_str(), BAUD);
+        arduino = new SerialPort(comPort.c_str(), BAUD); // try to connect
         if (arduino->isConnected()) {
             controllerConnected = true;
             std::cout << "controller connnected on port " << comPort << std::endl;
@@ -58,7 +59,7 @@ bool InputManager::connectController() {
     controllerConnected = false;
     return controllerConnected;
 }
-
+// format information for sending
 void InputManager::updateOutputInfo(int nbDisplay, int ledMode) {
     //jsonOut.lock();
     comsOut.clear(); 
@@ -97,7 +98,7 @@ void InputManager::updateOutputInfo(int nbDisplay, int ledMode) {
 
     sendComs();
 }
-
+// get oldest input from the queue
 char InputManager::getInput() {
 
     char returnVal = 0;
@@ -109,7 +110,7 @@ char InputManager::getInput() {
     threadLock.unlock();
     return returnVal;
 }
-
+// add input to the queue
 void InputManager::addKey(char key) {
 
     threadLock.lock();
@@ -118,36 +119,37 @@ void InputManager::addKey(char key) {
     }
     threadLock.unlock();
 }
-
+// start the listeners threads
 void InputManager::startThreads() {
-    if (!isActiveKeyboard) {
+    if (!isActiveKeyboard) { // if there is no keyboard thread 
         isActiveKeyboard = true;
-        keyboardComs = std::thread(&InputManager::readKeyboard, this);
+        keyboardComs = std::thread(&InputManager::readKeyboard, this); // create thread
     }
-    if (!isActiveController) {
+    if (!isActiveController) { // if there is no controller thread 
         isActiveController = true;
-        controllerComs = std::thread(&InputManager::readController, this);
+        controllerComs = std::thread(&InputManager::readController, this); // create thread
     }
     std::cout << "\nThreads ready\n";
 }
-
+// stop threads
 bool InputManager::stopThreads() {
     if (isActiveKeyboard) {
-        isActiveKeyboard = false;
-        if(keyboardComs.joinable()) keyboardComs.join();
+        isActiveKeyboard = false; // stop the thread's loop
+        if(keyboardComs.joinable()) keyboardComs.join(); // stop the thread
     }
     if (isActiveController) {
-        isActiveController = false;
-        if (controllerComs.joinable()) controllerComs.join();
+        isActiveController = false; // stop the thread's loop
+        if (controllerComs.joinable()) controllerComs.join(); // stop the thread
     }
     return true;
 
 }
 
+// weak keyboard lister. Better listener should be used along with this.addKey(key);
 void InputManager::readKeyboard() {
 	char inputchar = 0;
-	while (isActiveKeyboard) {
-		inputchar = _getch();
+	while (isActiveKeyboard) { // keep the thread running
+		inputchar = _getch(); // read keyboard
 
 		threadLock.lock();
 		if (pendingInput.size() < 5) {
@@ -170,7 +172,7 @@ void flushSerial() {
 void InputManager::readController() {
     char inputchar = 0;
     flushSerial();
-    while (isActiveController) {
+    while (isActiveController) { // keep the thread running
         //Sleep(10);
         if (!controllerConnected) {
             //std::cout << "Notice: no controller connected\n";
@@ -178,18 +180,18 @@ void InputManager::readController() {
             continue;
         }
         // skip loop if serial port is empty
-        if (!recieveComs()) {
+        if (!recieveComs()) { // read serial port
             continue;
         }
         
         //std::cout << comsIn.dump() << std::endl;
-        std::list<char> newInput(decodeController());
+        std::list<char> newInput(decodeController()); // decode serial
 
         threadLock.lock();
         for (char c : newInput) {
             //cout << c << endl;
             if (c != 0) {
-                pendingInput.push(c);
+                pendingInput.push(c); // add inputs to queue
             }
         }
         threadLock.unlock();
@@ -267,7 +269,7 @@ std::list<char> InputManager::decodeController() {
     return inputList;
 }
 
-
+// generate an input only on toggle down
 char InputManager::buttonPress(int recivedState, bool& buttonState, char map) {
     
     if (recivedState == 1 && buttonState == ARMED) {

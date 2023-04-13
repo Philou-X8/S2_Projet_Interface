@@ -1,7 +1,7 @@
 /********
 * File: inputmanager.h
 * Team: P-6
-* Creation Date: April 4th, 2023
+* Creation Date: 
 * Description: Manage serial communication with the remote controller
 *			   Syncronize keyboard and controller inputs
 *
@@ -53,7 +53,7 @@ public:
 
 	void updateOutputInfo(int nbDisplay, int ledMode); // send to controller
 	char getInput(); // recieve from controller
-	void addKey(char key);
+	void addKey(char key); // add key to the queue
 
 	void startThreads();
 	bool stopThreads();

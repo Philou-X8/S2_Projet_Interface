@@ -19,44 +19,45 @@ screen_select_level::screen_select_level(UserProfile* p, QWidget* parent) : QWid
 {
 	levelCount = 10; // max number of level
 
+	// cap the level selection wheel to the number of unlocked level
 	lvlSelection = profile->getUnlocked();
 	if (lvlSelection <= levelCount) {
 		levelCount = lvlSelection;
 	}
 
-	levelsBgTex = new QLabel(this);
+	levelsBgTex = new QLabel(this); // background
 	levelsBgTex->setAlignment(Qt::AlignCenter);
 	levelsBgTex->setPixmap(profile->getTex("background"));
 	levelsBgTex->setSizePolicy(QSizePolicy::Ignored, QSizePolicy::Ignored);
 
-	levelsTitle = new QLabel(this);
+	levelsTitle = new QLabel(this); // title
 	levelsTitle->setAlignment(Qt::AlignCenter);
 	levelsTitle->setFont(QFont("Impact", 36));
 	levelsTitle->setText("LEVEL SELECTION");
 
-	levelsSelectionTexture = new QLabel(this);
+	levelsSelectionTexture = new QLabel(this); // pannel of currently selected
 	levelsSelectionTexture->setAlignment(Qt::AlignCenter);
 	levelsSelectionTexture->setPixmap(profile->getTex("button_base"));
 
-	levelsSelectionText = new QLabel(this);
+	levelsSelectionText = new QLabel(this); // text display of currently selected
 	levelsSelectionText->setAlignment(Qt::AlignCenter);
 	levelsSelectionText->setFont(QFont("Impact", 20));
 	levelsSelectionText->setText("LEVEL: " + QString::number(lvlSelection));
 
-	levelsButtonList = new CustomMenu(profile, this);
+	levelsButtonList = new CustomMenu(profile, this); 
 	QObject::connect(levelsButtonList, SIGNAL(clickedButton(int)), this, SLOT(menuClicked(int)));
 	levelsButtonList->addButton("SELECT LEVEL", true);
 	levelsButtonList->addButton("CANCEL", false);
 
+	// layout
 	levelsLayout = new QGridLayout(this);
 	levelsLayout->setContentsMargins(0, 0, 0, 0);
-	// fill layout
+
 	levelsLayout->addWidget(levelsBgTex, 0, 0, 3, 3);
 	levelsLayout->addWidget(levelsTitle, 0, 0, 1, 3);
 	levelsLayout->addWidget(levelsSelectionTexture, 1, 1);
 	levelsLayout->addWidget(levelsSelectionText, 1, 1);
 	levelsLayout->addWidget(levelsButtonList, 2, 1);
-	//homeLayout->setAlignment(Qt::AlignCenter);
 
 	setLayout(levelsLayout);
 }
@@ -64,26 +65,24 @@ screen_select_level::screen_select_level(UserProfile* p, QWidget* parent) : QWid
 screen_select_level::~screen_select_level() {
 	delete levelsButtonList;
 }
-
+// should be called whenever a key is pressed
 void screen_select_level::onKeyEvent(char key) {
 	switch (key) {
-	case 'a':
+	case 'a': // move left
 	case 'j':
 		lvlSelection--;
 		if (lvlSelection > levelCount) lvlSelection = 1;
 		if (lvlSelection < 1) lvlSelection = levelCount;
-
 		break;
-	case 'd':
+	case 'd': // move right 
 	case 'l':
 		lvlSelection++;
 		if (lvlSelection > levelCount) lvlSelection = 1;
 		if (lvlSelection < 1) lvlSelection = levelCount;
-
 		break;
-	default:
+	default:  // click
 		levelsButtonList->onKeyEvent(key);
-		return; // return
+		return; // must return here because levelsSelectionText gets deleted
 	}
 	levelsSelectionText->setText("LEVEL: " + QString::number(lvlSelection));
 
@@ -91,11 +90,11 @@ void screen_select_level::onKeyEvent(char key) {
 
 void screen_select_level::menuClicked(int index) {
 	switch (index) {
-	case 0:
+	case 0: // start game 
 		profile->setStart(lvlSelection);
 		emit SelectScreenSignal(ID_GAME);
 		break;
-	case 1:
+	case 1: // return to menu
 		emit SelectScreenSignal(ID_HOME);
 		break;
 	default:

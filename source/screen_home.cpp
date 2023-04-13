@@ -19,8 +19,6 @@ screen_home::screen_home(UserProfile* p, QWidget* parent) : QWidget(parent),
 	homeBgTex(nullptr),
 	homeButtonList(nullptr)
 {
-	//profile = p;
-
 	homeBgTex = new QLabel(this);
 	homeBgTex->setAlignment(Qt::AlignCenter);
 	homeBgTex->setPixmap(profile->getTex("background"));
@@ -28,7 +26,6 @@ screen_home::screen_home(UserProfile* p, QWidget* parent) : QWidget(parent),
 
 	homeTitle = new QLabel(this);
 	homeTitle->setAlignment(Qt::AlignCenter);
-	//homeTitle->setPixmap(profile->getTex("home_title"));
 	homeTitle->setFont(QFont("Impact", 64));
 	homeTitle->setText("PUSH PULL ESCAPE");
 
@@ -43,23 +40,24 @@ screen_home::screen_home(UserProfile* p, QWidget* parent) : QWidget(parent),
 	// create layout
 	homeLayout = new QGridLayout(this);
 	homeLayout->setContentsMargins(0, 0, 0, 0);
-	// fill layout
 
+	// fill layout
 	homeLayout->addWidget(homeBgTex, 0, 0, 5, 1);
 	homeLayout->addWidget(homeTitle, 1, 0);
 	homeLayout->addWidget(homeButtonList, 3, 0);
 	//homeLayout->setAlignment(Qt::AlignCenter);
 
 	setLayout(homeLayout);
-	setWindowTitle("test title");
 }
 screen_home::~screen_home() {
 	delete homeButtonList;
 }
 
+// should be called whenever a key is pressed
 void screen_home::onKeyEvent(char key) {
 	homeButtonList->onKeyEvent(key);
 }
+// pass menu selection to parent 
 void screen_home::menuClicked(int selection) {
 	if(selection == 0) profile->setStart(1);
 	emit SelectScreenSignal(selection+1);
@@ -83,7 +81,7 @@ void screen_home::menuClicked(int selection) {
 	}
 	*/
 }
-
+// update sprites
 void screen_home::updateUI() {
 	homeBgTex->setPixmap(profile->getTex("background"));
 	homeButtonList->updateUI();
