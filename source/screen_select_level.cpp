@@ -77,7 +77,6 @@ void screen_select_level::onKeyEvent(char key) {
 		levelsButtonList->onKeyEvent(key);
 		return; // return
 	}
-	//QString levelText("bruh Level: " + QString::number(lvlSelection));
 	levelsSelectionText->setText("LEVEL: " + QString::number(lvlSelection));
 
 }

@@ -53,7 +53,6 @@ bool InputManager::connectController() {
 void InputManager::updateOutputInfo(int nbDisplay, int ledMode) {
     //jsonOut.lock();
     comsOut.clear(); 
-    int oddLvl = nbDisplay % 2;
     comsOut["nb"] = nbDisplay;
     switch (ledMode)
     {
@@ -73,8 +72,19 @@ void InputManager::updateOutputInfo(int nbDisplay, int ledMode) {
         comsOut["b"] = 0;
         break;
     }
-    //cout << "Updated coms: " << comsOut.dump() << endl;
+    //std::cout << "Updated coms: " << comsOut.dump() << std::endl;
     //jsonOut.unlock();
+    /*
+    std::string str = "{00a00}";
+    str.replace(1, 2, std::to_string(nbDisplay));
+    str.replace(4, 5, std::to_string(ledMode));
+    std::cout << "Updated coms: " << str << std::endl;
+
+    bool success = arduino->writeSerialPort(
+        str.c_str(),
+        str.length()
+    );
+    */
 
     sendComs();
 }
@@ -151,24 +161,19 @@ void flushSerial() {
 void InputManager::readController() {
     char inputchar = 0;
     flushSerial();
-    //Sleep(200);
     while (isActiveController) {
-        //Sleep(20);
+        //Sleep(10);
         if (!controllerConnected) {
-            Sleep(1000);
+            //std::cout << "Notice: no controller connected\n";
+            Sleep(5000);
             continue;
         }
-        /*
-        if (!sendComs()) {
-            std::cout << "couldn't send to arduino\n";
-        }
-        */
         // skip loop if serial port is empty
         if (!recieveComs()) {
             continue;
         }
         
-        //std::cout << comsIn.dump() << endl;
+        //std::cout << comsIn.dump() << std::endl;
         std::list<char> newInput(decodeController());
 
         threadLock.lock();
@@ -270,22 +275,24 @@ char InputManager::buttonPress(int recivedState, bool& buttonState, char map) {
 bool InputManager::recieveComs() {
     std::string str_buffer;
     char char_buffer[MSG_MAX_SIZE];
-    //Sleep(10);
+    //Sleep(50);
     int buffer_size = arduino->readSerialPort(char_buffer, MSG_MAX_SIZE);
     if (buffer_size <= 0) {
         return false;
     }
     bool returnVal = false;
     str_buffer.assign(char_buffer, buffer_size);
-    //cout << str_buffer << endl;
+    //std::cout << "Serial read: " << str_buffer << std::endl;
+    //Sleep(20);
 
     size_t startChar = str_buffer.find_first_of('{');
     size_t endChar = str_buffer.find_first_of('}');
+    //std::cout << "start char pos: " << startChar << std::endl;
     if ((endChar != std::string::npos) && (newStr.size() > 40)) { // json completed
         newStr.append(str_buffer, 0, endChar);
         newStr += '}';
         comsIn.clear();
-        //cout << "completed string: " << newStr << endl;
+        //std::cout << "completed string: " << newStr << std::endl;
         
         comsIn = json::parse(newStr);
         newStr.clear();

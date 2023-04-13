@@ -11,9 +11,6 @@ class CustomButton : public QGridLayout
 {
 	Q_OBJECT
 public:
-	//CustomButton();
-	CustomButton(QPixmap base, QPixmap hi);
-	CustomButton(QString text, QPixmap base, QPixmap hi);
 	CustomButton(UserProfile* p, QString text, bool hasArrow);
 	~CustomButton();
 

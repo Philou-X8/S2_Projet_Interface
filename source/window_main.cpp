@@ -17,14 +17,13 @@ window_main::window_main(QWidget* parent) : QMainWindow(parent),
 
 	setScreenHome();
 
+	outputClock = new QTimer;
+	QObject::connect(outputClock, SIGNAL(timeout()), this, SLOT(writeOutput()));
+	outputClock->start(50);
 	inputClock = new QTimer;
 	QObject::connect(inputClock, SIGNAL(timeout()), this, SLOT(readInput()));
 	inputClock->start(10);
-	outputClock = new QTimer;
-	QObject::connect(inputClock, SIGNAL(timeout()), this, SLOT(writeOutput()));
-	outputClock->start(50);
 
-	//setCentralWidget(screenHome);
 	setMinimumSize(960, 540);
 	//setContentsMargins(0, 0, 0, 0);
 	//setMaximumSize(1920, 1080);
@@ -32,15 +31,17 @@ window_main::window_main(QWidget* parent) : QMainWindow(parent),
 	//this->setSizePolicy(QSizePolicy::Minimum, QSizePolicy::Minimum);
 	//this->adjustSize();
 	setFocusPolicy(Qt::StrongFocus);
+
+	temp = 0;
 }
 window_main::~window_main() 
 {
 	inputClock->stop();
-	//inputManager->stopThreads();
 	delete inputManager;
 }
 
 void window_main::readInput() {
+
 	char input = inputManager->getInput();
 	if (input != 0) {
 		// do stuff when a key is pressed
@@ -74,19 +75,30 @@ void window_main::readInput() {
 		else if (screenGame != nullptr) screenGame->onKeyEvent(input);
 
 	}
+
+	// Simulate Muons detection
+	int randomNb = QRandomGenerator::global()->bounded( int(6000/30) ); //  6000/ferq (min)
+	if (randomNb == 0) {
+		inputManager->addKey('m');
+		//std::cout << "munon simulated\n";
+	}
 }
 
 void window_main::writeOutput() {
-	int moveCount = 0;
-	int ledMode = 0;
+	//temp += 1;
+	//int moveCount = temp % 99;
+	int moveCount = 88;
+	int ledMode = 2;
 	if (screenGame != nullptr) {
 		screenGame->getOutputInfo(moveCount, ledMode);
+		//std::cout << "move count: " << moveCount << ", ledMode: " << ledMode << std::endl;
 	}
 	inputManager->updateOutputInfo(moveCount, ledMode);
 }
 
 void window_main::keyPressEvent(QKeyEvent* event) {
 	switch (event->key()) {
+	case Qt::Key_M: // discard [m] key (muon)
 	case Qt::Key_Shift:
 		return;
 	case Qt::Key_Escape:

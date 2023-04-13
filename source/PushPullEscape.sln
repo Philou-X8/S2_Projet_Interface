@@ -1,9 +1,9 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
-VisualStudioVersion = 16.0.31205.134
+VisualStudioVersion = 16.0.30503.244
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "PushPullEscape", "PushPullEscape.vcxproj", "{7256D300-E94F-368D-BE67-5CFAFDE7E45D}"
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "PushPullEscape", "PushPullEscape.vcxproj", "{DBD026EB-3467-3D09-BFA4-E3EAD2004DF9}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -11,15 +11,15 @@ Global
 		Release|x64 = Release|x64
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{7256D300-E94F-368D-BE67-5CFAFDE7E45D}.Debug|x64.ActiveCfg = Debug|x64
-		{7256D300-E94F-368D-BE67-5CFAFDE7E45D}.Debug|x64.Build.0 = Debug|x64
-		{7256D300-E94F-368D-BE67-5CFAFDE7E45D}.Release|x64.ActiveCfg = Release|x64
-		{7256D300-E94F-368D-BE67-5CFAFDE7E45D}.Release|x64.Build.0 = Release|x64
+		{DBD026EB-3467-3D09-BFA4-E3EAD2004DF9}.Debug|x64.ActiveCfg = Debug|x64
+		{DBD026EB-3467-3D09-BFA4-E3EAD2004DF9}.Debug|x64.Build.0 = Debug|x64
+		{DBD026EB-3467-3D09-BFA4-E3EAD2004DF9}.Release|x64.ActiveCfg = Release|x64
+		{DBD026EB-3467-3D09-BFA4-E3EAD2004DF9}.Release|x64.Build.0 = Release|x64
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
-		SolutionGuid = {B2119CBB-F49E-41C2-BE00-FACE300979CB}
+		SolutionGuid = {84E89D55-6E2B-4507-B986-964845B9308E}
 	EndGlobalSection
 EndGlobal

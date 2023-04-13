@@ -111,6 +111,7 @@ void screen_settings::skinChange(int dir) {
 
 void screen_settings::keyPressEvent(QKeyEvent* event) {
 	switch (event->key()) {
+	case Qt::Key_M: // discard [m] key (muon)
 	case Qt::Key_Shift:
 		return;
 	case Qt::Key_Escape:
