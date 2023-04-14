@@ -16,6 +16,8 @@ InputManager::InputManager() {
     isActiveController = false;
     isActiveKeyboard = true; // should only be false is there is no other keyboard listener 
 
+    joystickHold = 0;
+
     newStr.clear();
     //jsonOut.lock();
     comsOut["nb"] = 0;
@@ -39,7 +41,6 @@ bool InputManager::connectController() {
             return controllerConnected;
         }
     }
-    
     // try COM ports until the right one is found
     std::string comPort = "COM1";
     for (int i = '1'; i <= '9'; i++) {
@@ -49,6 +50,7 @@ bool InputManager::connectController() {
         if (arduino->isConnected()) {
             controllerConnected = true;
             std::cout << "controller connnected on port " << comPort << std::endl;
+            //flushSerial();
             return controllerConnected;
         }
         else {
@@ -123,7 +125,7 @@ void InputManager::addKey(char key) {
 void InputManager::startThreads() {
     if (!isActiveKeyboard) { // if there is no keyboard thread 
         isActiveKeyboard = true;
-        keyboardComs = std::thread(&InputManager::readKeyboard, this); // create thread
+        //keyboardComs = std::thread(&InputManager::readKeyboard, this); // create thread
     }
     if (!isActiveController) { // if there is no controller thread 
         isActiveController = true;
@@ -135,7 +137,7 @@ void InputManager::startThreads() {
 bool InputManager::stopThreads() {
     if (isActiveKeyboard) {
         isActiveKeyboard = false; // stop the thread's loop
-        if(keyboardComs.joinable()) keyboardComs.join(); // stop the thread
+        //if(keyboardComs.joinable()) keyboardComs.join(); // stop the thread
     }
     if (isActiveController) {
         isActiveController = false; // stop the thread's loop
@@ -159,7 +161,7 @@ void InputManager::readKeyboard() {
 	}
 }
 
-void flushSerial() {
+void InputManager::flushSerial() {
 
     char char_buffer[MSG_MAX_SIZE];
     int buffer_size = MSG_MAX_SIZE;
@@ -172,6 +174,7 @@ void flushSerial() {
 void InputManager::readController() {
     char inputchar = 0;
     flushSerial();
+    newStr.clear();
     while (isActiveController) { // keep the thread running
         //Sleep(10);
         if (!controllerConnected) {
@@ -205,6 +208,7 @@ std::list<char> InputManager::decodeController() {
     std::list<char> inputList;
     int activePlayer;
     activePlayer = comsIn["act"];
+    //std::cout << "activePlayer: " << activePlayer << std::endl;
     
     if (activePlayer == 2 && controllerState.ply == PLY1) {
         controllerState.ply = PLY2;
@@ -215,58 +219,61 @@ std::list<char> InputManager::decodeController() {
         inputList.push_back(controllerState.ply);
     }
     
-    
-    if (activePlayer == 2) {
-        inputList.push_back(buttonPress(comsIn["rst"], controllerState.reload, 'r'));
-        inputList.push_back(buttonPress(
-            int(comsIn["dir"]) == 1,
-            controllerState.up,
-            'i'
-        ));
-        inputList.push_back(buttonPress(
-            int(comsIn["dir"]) == 2,
-            controllerState.down,
-            'k'
-        ));
-        inputList.push_back(buttonPress(
-            int(comsIn["dir"]) == 3,
-            controllerState.right,
-            'l'
-        ));
-        inputList.push_back(buttonPress(
-            int(comsIn["dir"]) == 4,
-            controllerState.left,
-            'j'
-        ));
-        inputList.push_back(buttonPress(comsIn["a1"], controllerState.action, 'h'));
 
+    inputList.push_back(buttonPress(comsIn["rst"], controllerState.reload, 'r'));
+    inputList.push_back(buttonPress(comsIn["m1"], controllerState.reload, 'r'));
+    inputList.push_back(buttonPress(comsIn["m2"], controllerState.menu, 'p'));
+    inputList.push_back(buttonPress(comsIn["a2"], controllerState.enter, ' '));
+    if (activePlayer == 2) {
+        inputList.push_back(buttonPress(comsIn["a1"], controllerState.action, 'h'));
+        char cntInput = joystickMove(comsIn["dir"], activePlayer);
+        if (cntInput != 0) inputList.push_back(cntInput);
     }
     else {
-        inputList.push_back(buttonPress(comsIn["rst"], controllerState.reload, 'r'));
-        inputList.push_back(buttonPress(
-            int(comsIn["dir"]) == 1,
-            controllerState.up,
-            'w'
-        ));
-        inputList.push_back(buttonPress(
-            int(comsIn["dir"]) == 2,
-            controllerState.down,
-            's'
-        ));
-        inputList.push_back(buttonPress(
-            int(comsIn["dir"]) == 3,
-            controllerState.right,
-            'd'
-        ));
-        inputList.push_back(buttonPress(
-            int(comsIn["dir"]) == 4,
-            controllerState.left,
-            'a'
-        ));
         inputList.push_back(buttonPress(comsIn["a1"], controllerState.action, 'f'));
-
+        char cntInput = joystickMove(comsIn["dir"], activePlayer);
+        if (cntInput != 0) inputList.push_back(cntInput);
     }
     return inputList;
+}
+
+
+char InputManager::joystickMove(int recivedState, int ply) {
+    if (recivedState == controllerState.dir) {
+        joystickHold++;
+        if (joystickHold > 10) {
+            joystickHold = 0;
+            controllerState.dir = 0;
+        }
+        return 0;
+    }
+
+    controllerState.dir = recivedState;
+    if (ply == 1) {
+        switch (recivedState) {
+        case 1:
+            return 'w'; // up
+        case 2:
+            return 's'; // down
+        case 3:
+            return 'd'; // right
+        case 4:
+            return 'a'; // left
+        }
+    }
+    else if (ply == 2) {
+        switch (recivedState) {
+        case 1:
+            return 'i'; // up
+        case 2:
+            return 'k'; // down
+        case 3:
+            return 'l'; // right
+        case 4:
+            return 'j'; // left
+        }
+    }
+    
 }
 
 // generate an input only on toggle down
@@ -304,7 +311,7 @@ bool InputManager::recieveComs() {
         newStr += '}';
         comsIn.clear();
         //std::cout << "completed string: " << newStr << std::endl;
-        
+        newStr = newStr.substr(0, 53);
         comsIn = json::parse(newStr);
         newStr.clear();
         returnVal = true;

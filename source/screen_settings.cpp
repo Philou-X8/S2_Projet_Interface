@@ -100,7 +100,13 @@ void screen_settings::sideToggle(int dir) {
 
 		break;
 	case 5: // connect controller
-		if (dir == 0) inputManager->connectController();
+		if (dir == 0) {
+			inputManager->stopThreads();
+			inputManager->connectController();
+			inputManager->startThreads();
+
+		}
+		//if (dir == 0) inputManager->connectController();
 		break;
 	case 6: // return home
 		if (dir == 0) {

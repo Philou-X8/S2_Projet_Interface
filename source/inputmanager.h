@@ -39,7 +39,8 @@ struct buttonstates {
 	bool action = ARMED;
 	bool reload = ARMED;
 	bool menu = ARMED;
-	int dir = 0;
+	bool enter = ARMED;
+	int dir = 0; // up, down, right, left
 	char ply = PLY1;
 };
 
@@ -77,16 +78,19 @@ private:
 
 	buttonstates keyboardState; // unused
 	buttonstates controllerState;
+	int joystickHold;
 
 	/********** Used by readController() **********/
 	std::string newStr;
 	std::list<char> decodeController();
+	char joystickMove(int recivedState, int ply);
 	char buttonPress(int recivedState, bool& buttonState, char map);
 
 
 	/********** Serial ports **********/
 	bool sendComs(); // serial port communication
 	bool recieveComs(); // serial port communication
+	void flushSerial();
 
 };
 

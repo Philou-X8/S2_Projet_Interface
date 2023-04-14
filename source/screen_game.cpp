@@ -135,7 +135,7 @@ screen_game::screen_game(UserProfile* p, QWidget* parent) : QWidget(parent),
 	gameBgTex->setSizePolicy(QSizePolicy::Ignored, QSizePolicy::Ignored);
 	// -------------------- Game State --------------------
 	currentLevel = profile->getStart();
-	activePlayer = 1;
+	activePlayer = 2;
 	moveCount = 0;
 	ascendingMoves = 0;
 	muonCount = 0;
