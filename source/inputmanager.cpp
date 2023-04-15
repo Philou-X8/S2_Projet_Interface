@@ -193,6 +193,13 @@ void InputManager::readController() {
         threadLock.lock();
         for (char c : newInput) {
             //cout << c << endl;
+
+
+            // temp
+            if (c == 'm') std::cout << "muon detected" << std::endl;
+            // temp
+
+
             if (c != 0) {
                 pendingInput.push(c); // add inputs to queue
             }
@@ -224,6 +231,9 @@ std::list<char> InputManager::decodeController() {
     inputList.push_back(buttonPress(comsIn["m1"], controllerState.reload, 'r'));
     inputList.push_back(buttonPress(comsIn["m2"], controllerState.menu, 'p'));
     inputList.push_back(buttonPress(comsIn["a2"], controllerState.enter, ' '));
+    inputList.push_back(buttonPress(comsIn["mu"], controllerState.muon, 'm'));
+
+    //std::cout << "muon state: " << controllerState.muon << std::endl;
     if (activePlayer == 2) {
         inputList.push_back(buttonPress(comsIn["a1"], controllerState.action, 'h'));
         char cntInput = joystickMove(comsIn["dir"], activePlayer);
@@ -311,7 +321,7 @@ bool InputManager::recieveComs() {
         newStr += '}';
         comsIn.clear();
         //std::cout << "completed string: " << newStr << std::endl;
-        newStr = newStr.substr(0, 53);
+        newStr = newStr.substr(0, 60); // size of json = 60
         comsIn = json::parse(newStr);
         newStr.clear();
         returnVal = true;
@@ -320,7 +330,7 @@ bool InputManager::recieveComs() {
     if (startChar != std::string::npos) { // start new json
         newStr.assign(str_buffer, startChar, std::string::npos);
     }
-    else if (endChar == std::string::npos) { // json ongoing
+    else if (endChar == std::string::npos && newStr.size() > 0) { // json ongoing
         newStr.append(str_buffer);
     }
 

@@ -40,6 +40,7 @@ struct buttonstates {
 	bool reload = ARMED;
 	bool menu = ARMED;
 	bool enter = ARMED;
+	bool muon = ARMED;
 	int dir = 0; // up, down, right, left
 	char ply = PLY1;
 };
