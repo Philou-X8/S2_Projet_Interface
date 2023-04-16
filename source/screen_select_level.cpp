@@ -17,7 +17,7 @@ screen_select_level::screen_select_level(UserProfile* p, QWidget* parent) : QWid
 	levelsSelectionText(nullptr),
 	levelsButtonList(nullptr)
 {
-	levelCount = 10; // max number of level
+	levelCount = 17; // max number of level
 
 	// cap the level selection wheel to the number of unlocked level
 	lvlSelection = profile->getUnlocked();

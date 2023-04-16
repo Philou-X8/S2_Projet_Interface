@@ -31,7 +31,7 @@ protected slots:
 	void menuClicked(int index);
 
 private:
-	int levelCount = 10; // number of existing levels
+	int levelCount; // number of existing levels
 	int lvlSelection; // currently selected level
 	UserProfile* profile;
 
