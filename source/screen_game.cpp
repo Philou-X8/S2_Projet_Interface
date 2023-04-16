@@ -199,7 +199,7 @@ void screen_game::onKeyEvent(char key) {
 		
 		// should unlock new skin
 		QString newSkin = "";
-		if ( (muonCount % 3) == 1) { // 1/3 chance to unlock skin after finishing a level
+		if ( (muonCount % 3) == 0) { // 1/3 chance to unlock skin after finishing a level
 			
 			newSkin = profile->unlockNewSkin(muonCount); // muonCount as seed
 			if (newSkin.size() > 0) {

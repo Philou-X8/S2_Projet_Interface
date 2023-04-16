@@ -66,7 +66,7 @@ void window_main::readInput() {
 			profile->writeSaveState();
 		}
 
-		if (!screenSettings->isHidden()) { // if Settings is shown
+		if (screenSettings->isVisible()) {
 			if (input == 'r') { // update sprites
 				screenSettings->updateUI();
 				if (screenGame != nullptr) screenGame->updateSkin();
