@@ -63,6 +63,33 @@ void UserProfile::readSaveState() {
 	file.close();
 }
 
+void UserProfile::readSaveStateNew() {
+	QFile file("../configs/save_state_default.txt");
+	if (!file.open(QIODevice::ReadOnly | QIODevice::Text)) {
+		return;
+	}
+
+	QTextStream in(&file);
+	QString line;
+	// -------------------- active skin
+	line = in.readLine();
+	skin = line;
+	// -------------------- skin list
+	line = in.readLine();
+	unlockedSkins = line.split(' ');
+	// -------------------- number of unlocked levels
+	line = in.readLine();
+	unlockedLvlNb = line.toInt();
+	// -------------------- push mode
+	line = in.readLine();
+	pushMode = (bool)line.toInt();
+	// -------------------- pull mode
+	line = in.readLine();
+	pullMode = (bool)line.toInt();
+
+	file.close();
+}
+
 void UserProfile::loadSkinList(QStringList& returnList) {
 	QFile file("../configs/skin_list.txt");
 	if (!file.open(QIODevice::ReadOnly | QIODevice::Text)) {

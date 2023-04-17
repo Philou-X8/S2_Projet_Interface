@@ -25,6 +25,7 @@ public:
 	~UserProfile();
 
 	void writeSaveState();
+	void readSaveStateNew();
 
 	void loadSkinList(QStringList& returnList);
 	QString unlockNewSkin(int seed);

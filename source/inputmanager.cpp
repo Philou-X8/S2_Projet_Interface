@@ -65,7 +65,7 @@ bool InputManager::connectController() {
 void InputManager::updateOutputInfo(int nbDisplay, int ledMode) {
     //jsonOut.lock();
     comsOut.clear(); 
-    comsOut["nb"] = nbDisplay;
+    comsOut["nb"] = nbDisplay % 100;
     switch (ledMode)
     {
     case 1:
@@ -251,11 +251,14 @@ std::list<char> InputManager::decodeController() {
 char InputManager::joystickMove(int recivedState, int ply) {
     if (recivedState == controllerState.dir) {
         joystickHold++;
-        if (joystickHold > 10) {
+        if (joystickHold > 3) {
             joystickHold = 0;
             controllerState.dir = 0;
         }
         return 0;
+    }
+    else {
+        joystickHold = 0;
     }
 
     controllerState.dir = recivedState;

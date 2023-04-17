@@ -33,7 +33,7 @@ screen_settings::screen_settings(UserProfile* p, InputManager* inManager) : QWid
 	settingsButtonList->addButton("SKIN: " + profile->changeSkin(0), true);
 	settingsButtonList->addButton("AUTO PUSH: " + QString::number(profile->autoPush()), true);
 	settingsButtonList->addButton("AUTO PULL: " + QString::number(profile->autoPull()), true);
-	settingsButtonList->addButton("VOLUME: ", true);
+	settingsButtonList->addButton("RESET", false);
 	settingsButtonList->addButton("RECONNECT CNT", false);
 	settingsButtonList->addButton("RETURN TO HOME", false);
 	settingsButtonList->addButton("QUIT", false);
@@ -97,7 +97,8 @@ void screen_settings::sideToggle(int dir) {
 		settingsButtonList->updateText(3, "AUTO PULL: " + QString::number(profile->autoPull()));
 		break;
 	case 4: // volume
-
+		if (dir == 0) profile->readSaveStateNew();
+		if (dir == 0) profile->writeSaveState();
 		break;
 	case 5: // connect controller
 		if (dir == 0) {
